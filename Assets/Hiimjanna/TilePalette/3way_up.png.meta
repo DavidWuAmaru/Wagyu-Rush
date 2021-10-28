@@ -1,0 +1,1656 @@
+fileFormatVersion: 2
+guid: 72ebd1e2bfaf583449974d5a3507f71c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4465957419938136896
+    second: 3way_up_0
+  - first:
+      213: 1739697617484395757
+    second: 3way_up_1
+  - first:
+      213: -8347417885237543424
+    second: 3way_up_2
+  - first:
+      213: -1647328004515542832
+    second: 3way_up_3
+  - first:
+      213: -7898179932823323761
+    second: 3way_up_4
+  - first:
+      213: -3803500551695495079
+    second: 3way_up_5
+  - first:
+      213: -2461972672932786978
+    second: 3way_up_6
+  - first:
+      213: -8234503948289578274
+    second: 3way_up_7
+  - first:
+      213: -5649896072354529333
+    second: 3way_up_8
+  - first:
+      213: 2967840476597483790
+    second: 3way_up_9
+  - first:
+      213: 8672766478448656289
+    second: 3way_up_10
+  - first:
+      213: 8142845057051617291
+    second: 3way_up_11
+  - first:
+      213: -3580859979693207027
+    second: 3way_up_12
+  - first:
+      213: 6977684794403950630
+    second: 3way_up_13
+  - first:
+      213: -1727943612263052063
+    second: 3way_up_14
+  - first:
+      213: -208129089340837941
+    second: 3way_up_15
+  - first:
+      213: 4727035710784015384
+    second: 3way_up_16
+  - first:
+      213: -1770012186321880468
+    second: 3way_up_17
+  - first:
+      213: 7904245225387879560
+    second: 3way_up_18
+  - first:
+      213: -8247209671309276124
+    second: 3way_up_19
+  - first:
+      213: -5756936689095250985
+    second: 3way_up_20
+  - first:
+      213: 3447761293986473124
+    second: 3way_up_21
+  - first:
+      213: 2977631820781160915
+    second: 3way_up_22
+  - first:
+      213: 4331611846871471379
+    second: 3way_up_23
+  - first:
+      213: 5572019778111696057
+    second: 3way_up_24
+  - first:
+      213: 4747909611704663876
+    second: 3way_up_25
+  - first:
+      213: 2339643871077757429
+    second: 3way_up_26
+  - first:
+      213: -4612921398887822444
+    second: 3way_up_27
+  - first:
+      213: 5448836481292390487
+    second: 3way_up_28
+  - first:
+      213: -2043206793104704034
+    second: 3way_up_29
+  - first:
+      213: -4176753048523971636
+    second: 3way_up_30
+  - first:
+      213: -8879676145374871325
+    second: 3way_up_31
+  - first:
+      213: -3446150985703326306
+    second: 3way_up_32
+  - first:
+      213: -9044752536301297206
+    second: 3way_up_33
+  - first:
+      213: -8392206153391719470
+    second: 3way_up_34
+  - first:
+      213: 155823821198407446
+    second: 3way_up_35
+  - first:
+      213: 726637787448895613
+    second: 3way_up_36
+  - first:
+      213: -3558982380129884874
+    second: 3way_up_37
+  - first:
+      213: 4199014347177796693
+    second: 3way_up_38
+  - first:
+      213: 6006281216998885165
+    second: 3way_up_39
+  - first:
+      213: -3605333862172026753
+    second: 3way_up_40
+  - first:
+      213: 3664397447434890355
+    second: 3way_up_41
+  - first:
+      213: -8907521252016259928
+    second: 3way_up_42
+  - first:
+      213: -5625818327873238841
+    second: 3way_up_43
+  - first:
+      213: -3389447541167804077
+    second: 3way_up_44
+  - first:
+      213: -8413296805885469649
+    second: 3way_up_45
+  - first:
+      213: 4818014878399296324
+    second: 3way_up_46
+  - first:
+      213: -4650053136613450633
+    second: 3way_up_47
+  - first:
+      213: 8402307916046931071
+    second: 3way_up_48
+  - first:
+      213: -4617891800461711727
+    second: 3way_up_49
+  - first:
+      213: 881933683688949187
+    second: 3way_up_50
+  - first:
+      213: 9152817619303724544
+    second: 3way_up_51
+  - first:
+      213: -783604451080294471
+    second: 3way_up_52
+  - first:
+      213: 3883669802696171993
+    second: 3way_up_53
+  - first:
+      213: 8904901915851858135
+    second: 3way_up_54
+  - first:
+      213: 1602534867130859048
+    second: 3way_up_55
+  - first:
+      213: 7855653427922083433
+    second: 3way_up_56
+  - first:
+      213: 6630752242441819988
+    second: 3way_up_57
+  - first:
+      213: -7196740380669842365
+    second: 3way_up_58
+  - first:
+      213: -33467071123451950
+    second: 3way_up_59
+  - first:
+      213: 4267657307984304918
+    second: 3way_up_60
+  - first:
+      213: -5516992336437388643
+    second: 3way_up_61
+  - first:
+      213: -8226828751565100458
+    second: 3way_up_62
+  - first:
+      213: -122428615913426436
+    second: 3way_up_63
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 3way_up_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 043ce6d9c944afd30800000000000000
+      internalID: 4465957419938136896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_1
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de430ca04c5a42810800000000000000
+      internalID: 1739697617484395757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_2
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e7caee8a3082c80800000000000000
+      internalID: -8347417885237543424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_3
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d84c4668e38329e0800000000000000
+      internalID: -1647328004515542832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_4
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8b72fb8237046290800000000000000
+      internalID: -7898179932823323761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_5
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95010396660473bc0800000000000000
+      internalID: -3803500551695495079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_6
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edc4f17e5e055ddd0800000000000000
+      internalID: -2461972672932786978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_7
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edae5ac894a29bd80800000000000000
+      internalID: -8234503948289578274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcffe65e4798791b0800000000000000
+      internalID: -5649896072354529333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_9
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e097e9d6033ef2920800000000000000
+      internalID: 2967840476597483790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_10
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aff8df692bdb5870800000000000000
+      internalID: 8672766478448656289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_11
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b086b9ecf62310170800000000000000
+      internalID: 8142845057051617291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_12
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0259f712da3e4ec0800000000000000
+      internalID: -3580859979693207027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_13
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6209715e957b5d060800000000000000
+      internalID: 6977684794403950630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_14
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ecc72f807c1508e0800000000000000
+      internalID: -1727943612263052063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_15
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcfe96a22b39c1df0800000000000000
+      internalID: -208129089340837941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81c0edd1fedc99140800000000000000
+      internalID: 4727035710784015384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_17
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6afb226b47af67e0800000000000000
+      internalID: -1770012186321880468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_18
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c62dc672581bd60800000000000000
+      internalID: 7904245225387879560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_19
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42cc171ef760c8d80800000000000000
+      internalID: -8247209671309276124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_20
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7db601435904b10b0800000000000000
+      internalID: -5756936689095250985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_21
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a4a76e31a8e8df20800000000000000
+      internalID: 3447761293986473124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_22
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d98f856d5ca25920800000000000000
+      internalID: 2977631820781160915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_23
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 315d5ad560afc1c30800000000000000
+      internalID: 4331611846871471379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bc6cc3677ac35d40800000000000000
+      internalID: 5572019778111696057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_25
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44fb157e2a6f3e140800000000000000
+      internalID: 4747909611704663876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_26
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1728c64b5187020800000000000000
+      internalID: 2339643871077757429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_27
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b4e729d6c9bffb0800000000000000
+      internalID: -4612921398887822444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_28
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7505f9a19e72e9b40800000000000000
+      internalID: 5448836481292390487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_29
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edd345e3f3215a3e0800000000000000
+      internalID: -2043206793104704034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_30
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc3e2345b313906c0800000000000000
+      internalID: -4176753048523971636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_31
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e0cb62a79d05c480800000000000000
+      internalID: -8879676145374871325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9d7acedfefcc20d0800000000000000
+      internalID: -3446150985703326306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_33
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac1a2784d759a7280800000000000000
+      internalID: -9044752536301297206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_34
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2db3d31a7f4e88b80800000000000000
+      internalID: -8392206153391719470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_35
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 617331690f8992200800000000000000
+      internalID: 155823821198407446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_36
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d786441c739851a00800000000000000
+      internalID: 726637787448895613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_37
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 635eb7ea164fb9ec0800000000000000
+      internalID: -3558982380129884874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_38
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5542d4a2d45e54a30800000000000000
+      internalID: 4199014347177796693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_39
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d27c158b1f89a5350800000000000000
+      internalID: 6006281216998885165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f789c8844f747fdc0800000000000000
+      internalID: -3605333862172026753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_41
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c643a401e8ad230800000000000000
+      internalID: 3664397447434890355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_42
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8acf3588d90226480800000000000000
+      internalID: -8907521252016259928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_43
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c8cb34a9041de1b0800000000000000
+      internalID: -5625818327873238841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_44
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3513fdb5b6346f0d0800000000000000
+      internalID: -3389447541167804077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_45
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2c944f6127fd3b80800000000000000
+      internalID: -8413296805885469649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_46
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 443798541070dd240800000000000000
+      internalID: 4818014878399296324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_47
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77cd67d2f41b77fb0800000000000000
+      internalID: -4650053136613450633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f741e65488efa9470800000000000000
+      internalID: 8402307916046931071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_49
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1966a46cfd3f9efb0800000000000000
+      internalID: -4617891800461711727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_50
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c54bbb33024d3c00800000000000000
+      internalID: 881933683688949187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_51
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 006f88c8127550f70800000000000000
+      internalID: 9152817619303724544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_52
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bfa1f847e31025f0800000000000000
+      internalID: -783604451080294471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_53
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d1ed96eb1195e530800000000000000
+      internalID: 3883669802696171993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_54
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0ab0ebc11949b70800000000000000
+      internalID: 8904901915851858135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_55
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82e338798f85d3610800000000000000
+      internalID: 1602534867130859048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96e10e1fb23e40d60800000000000000
+      internalID: 7855653427922083433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_57
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4579e54880a250c50800000000000000
+      internalID: 6630752242441819988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_58
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ce675f0ca002c90800000000000000
+      internalID: -7196740380669842365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_59
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2df830a40e9198ff0800000000000000
+      internalID: -33467071123451950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_60
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b1189e5b3c93b30800000000000000
+      internalID: 4267657307984304918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_61
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9ad81643b4bf63b0800000000000000
+      internalID: -5516992336437388643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_62
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65aedfa86de64dd80800000000000000
+      internalID: -8226828751565100458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3way_up_63
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf1332e82db0d4ef0800000000000000
+      internalID: -122428615913426436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

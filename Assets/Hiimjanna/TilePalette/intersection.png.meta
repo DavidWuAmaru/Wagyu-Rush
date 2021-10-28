@@ -1,0 +1,1656 @@
+fileFormatVersion: 2
+guid: 848eb275adecb6741b80bd0df379c89d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5888182811768018689
+    second: intersection_0
+  - first:
+      213: 4923297088427156960
+    second: intersection_1
+  - first:
+      213: -9223137027108819766
+    second: intersection_2
+  - first:
+      213: -4395434645467511670
+    second: intersection_3
+  - first:
+      213: -4908945840981284086
+    second: intersection_4
+  - first:
+      213: -8051418277071435402
+    second: intersection_5
+  - first:
+      213: 29829741115171811
+    second: intersection_6
+  - first:
+      213: 7238856740050655349
+    second: intersection_7
+  - first:
+      213: 118078052132236316
+    second: intersection_8
+  - first:
+      213: 5825829978941331706
+    second: intersection_9
+  - first:
+      213: 52195188819652099
+    second: intersection_10
+  - first:
+      213: -5870051327718404200
+    second: intersection_11
+  - first:
+      213: -5179541010834390352
+    second: intersection_12
+  - first:
+      213: 7790542995431131521
+    second: intersection_13
+  - first:
+      213: 3499626049342864140
+    second: intersection_14
+  - first:
+      213: 881586099343671397
+    second: intersection_15
+  - first:
+      213: -7068194142979158469
+    second: intersection_16
+  - first:
+      213: -8888324832993312867
+    second: intersection_17
+  - first:
+      213: 4707254767902674016
+    second: intersection_18
+  - first:
+      213: 5541027379808303271
+    second: intersection_19
+  - first:
+      213: -6680451927195761286
+    second: intersection_20
+  - first:
+      213: 5735449674439293838
+    second: intersection_21
+  - first:
+      213: 1443005660370020988
+    second: intersection_22
+  - first:
+      213: 6138145446011364693
+    second: intersection_23
+  - first:
+      213: -6886429109519969709
+    second: intersection_24
+  - first:
+      213: -349237352232350768
+    second: intersection_25
+  - first:
+      213: 4144585638856885978
+    second: intersection_26
+  - first:
+      213: -1371684794195922378
+    second: intersection_27
+  - first:
+      213: -4965402847515258432
+    second: intersection_28
+  - first:
+      213: -2375847195088757142
+    second: intersection_29
+  - first:
+      213: -5791389602106184052
+    second: intersection_30
+  - first:
+      213: 9052577250570049350
+    second: intersection_31
+  - first:
+      213: -4212875476252141516
+    second: intersection_32
+  - first:
+      213: -3966354909522570019
+    second: intersection_33
+  - first:
+      213: 7106619062890407643
+    second: intersection_34
+  - first:
+      213: 8817563993618193651
+    second: intersection_35
+  - first:
+      213: -8213273717610240896
+    second: intersection_36
+  - first:
+      213: -1426836672132664348
+    second: intersection_37
+  - first:
+      213: -3154615275355146422
+    second: intersection_38
+  - first:
+      213: -7974496068821008783
+    second: intersection_39
+  - first:
+      213: -2636895994930201581
+    second: intersection_40
+  - first:
+      213: -7359195123572133784
+    second: intersection_41
+  - first:
+      213: 6068240106050178166
+    second: intersection_42
+  - first:
+      213: 5462895283205955437
+    second: intersection_43
+  - first:
+      213: -2366224921169519433
+    second: intersection_44
+  - first:
+      213: -5621744086865043537
+    second: intersection_45
+  - first:
+      213: 8731520465542402632
+    second: intersection_46
+  - first:
+      213: 3408396763319492596
+    second: intersection_47
+  - first:
+      213: -3780690981534957502
+    second: intersection_48
+  - first:
+      213: -2530374865588634905
+    second: intersection_49
+  - first:
+      213: 8657261119179412894
+    second: intersection_50
+  - first:
+      213: 3447408295283472685
+    second: intersection_51
+  - first:
+      213: -4557446755564744834
+    second: intersection_52
+  - first:
+      213: -1391133755255047013
+    second: intersection_53
+  - first:
+      213: 2695619806986790209
+    second: intersection_54
+  - first:
+      213: -1302874668377939693
+    second: intersection_55
+  - first:
+      213: -9157242830827833033
+    second: intersection_56
+  - first:
+      213: -1903296127385755640
+    second: intersection_57
+  - first:
+      213: -4544737080539977826
+    second: intersection_58
+  - first:
+      213: 4216976353498405010
+    second: intersection_59
+  - first:
+      213: -4795002091881052107
+    second: intersection_60
+  - first:
+      213: -2703720242575474834
+    second: intersection_61
+  - first:
+      213: -8954261356203061197
+    second: intersection_62
+  - first:
+      213: -3759891751772133360
+    second: intersection_63
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: intersection_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff8a10cfde8f84ea0800000000000000
+      internalID: -5888182811768018689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_1
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e56a6ffd90135440800000000000000
+      internalID: 4923297088427156960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_2
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc2d687db5d00080800000000000000
+      internalID: -9223137027108819766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_3
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a84c67b5a774003c0800000000000000
+      internalID: -4395434645467511670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_4
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0bedae24cbefdbb0800000000000000
+      internalID: -4908945840981284086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_5
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 679c1193cbd934090800000000000000
+      internalID: -8051418277071435402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_6
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e369e2ddf9f96000800000000000000
+      internalID: 29829741115171811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_7
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 805.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57859aa1ad5957460800000000000000
+      internalID: 7238856740050655349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1cac11ec5f73a100800000000000000
+      internalID: 118078052132236316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_9
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af89e90df7189d050800000000000000
+      internalID: 5825829978941331706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_10
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e64986f3f69b000800000000000000
+      internalID: 52195188819652099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_11
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89fc8061b63698ea0800000000000000
+      internalID: -5870051327718404200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_12
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b206ad94e29e18b0800000000000000
+      internalID: -5179541010834390352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_13
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 189841a04919d1c60800000000000000
+      internalID: 7790542995431131521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_14
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0bf8cd995b219030800000000000000
+      internalID: 3499626049342864140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_15
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 690.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5604d42f2e50c3c00800000000000000
+      internalID: 881586099343671397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3e0b3830eab8ed90800000000000000
+      internalID: -7068194142979158469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_17
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f762128a356a480800000000000000
+      internalID: -8888324832993312867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_18
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06c4a147547835140800000000000000
+      internalID: 4707254767902674016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_19
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a8ff285b0fa5ec40800000000000000
+      internalID: 5541027379808303271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_20
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a754c64ed544a43a0800000000000000
+      internalID: -6680451927195761286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_21
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8b75185719689f40800000000000000
+      internalID: 5735449674439293838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_22
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7aab33b006960410800000000000000
+      internalID: 1443005660370020988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_23
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 575.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555603903c21f2550800000000000000
+      internalID: 6138145446011364693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3521724f53d7e60a0800000000000000
+      internalID: -6886429109519969709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_25
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0db84ed7a72472bf0800000000000000
+      internalID: -349237352232350768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_26
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad60049fda6848930800000000000000
+      internalID: 4144585638856885978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_27
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 632b52a72fbc6fce0800000000000000
+      internalID: -1371684794195922378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_28
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c1d3230b68571bb0800000000000000
+      internalID: -4965402847515258432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_29
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6e5028509b470fd0800000000000000
+      internalID: -2375847195088757142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_30
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8ee19a47d9d0afa0800000000000000
+      internalID: -5791389602106184052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_31
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 460.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 647920afb0731ad70800000000000000
+      internalID: 9052577250570049350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438590b331cd885c0800000000000000
+      internalID: -4212875476252141516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_33
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd4d7c4793da4f8c0800000000000000
+      internalID: -3966354909522570019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_34
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd62a9d9268cf9260800000000000000
+      internalID: 7106619062890407643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_35
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fc13e71cb74e5a70800000000000000
+      internalID: 8817563993618193651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_36
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0842ac2d117940e80800000000000000
+      internalID: -8213273717610240896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_37
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e3380d3b9bd23ce0800000000000000
+      internalID: -1426836672132664348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_38
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a477f65fe1e8834d0800000000000000
+      internalID: -3154615275355146422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_39
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 345.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17ebc2b7316e45190800000000000000
+      internalID: -7974496068821008783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31cf880401dd76bd0800000000000000
+      internalID: -2636895994930201581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_41
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86032ba9603eed990800000000000000
+      internalID: -7359195123572133784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_42
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c46ecb938b63450800000000000000
+      internalID: 6068240106050178166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_43
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6fd5a0015a10db40800000000000000
+      internalID: 5462895283205955437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_44
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc930398fa792fd0800000000000000
+      internalID: -2366224921169519433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_45
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf914cc98d8bf1b0800000000000000
+      internalID: -5621744086865043537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_46
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84255b11a979c2970800000000000000
+      internalID: 8731520465542402632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_47
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 230.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ffdf3b3cce0d4f20800000000000000
+      internalID: 3408396763319492596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24006105599488bc0800000000000000
+      internalID: -3780690981534957502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_49
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea330c577d42ecd0800000000000000
+      internalID: -2530374865588634905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_50
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e955d78ae15c42870800000000000000
+      internalID: 8657261119179412894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_51
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d293b145497a7df20800000000000000
+      internalID: 3447408295283472685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_52
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7f8ecb7252b0c0c0800000000000000
+      internalID: -4557446755564744834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_53
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9cb7fa5833b1bce0800000000000000
+      internalID: -1391133755255047013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_54
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14564f4bee3c86520800000000000000
+      internalID: 2695619806986790209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_55
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 115.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3116a7c54624bede0800000000000000
+      internalID: -1302874668377939693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 739b38a9920fae080800000000000000
+      internalID: -9157242830827833033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_57
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 800abc891422695e0800000000000000
+      internalID: -1903296127385755640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_58
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e976edc44b9dde0c0800000000000000
+      internalID: -4544737080539977826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_59
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2989e78a6a5b58a30800000000000000
+      internalID: 4216976353498405010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_60
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 538cc20a00bb47db0800000000000000
+      internalID: -4795002091881052107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_61
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6f7149a3c47a7ad0800000000000000
+      internalID: -2703720242575474834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_62
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 330528dfcb21cb380800000000000000
+      internalID: -8954261356203061197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: intersection_63
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 0.875
+        width: 115.125
+        height: 115.125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01863bd5f5e22dbc0800000000000000
+      internalID: -3759891751772133360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

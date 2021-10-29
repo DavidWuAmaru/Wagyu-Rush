@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +12,10 @@ public class GameManager : MonoBehaviour
     private int[] movementY = new int[4] { 1, -1, 0, 0 };
 
     //class definition
-    public enum BlockType { Block1, Block2, Block3, Block4, Obstacle };
+    public enum BlockType { Block1, Block2, Block3, Block4, Obstacle, RotateBlock };
     private class Block
     {
-        public enum Type { NormalBlock, Obstacle };
+        public enum Type { NormalBlock, Obstacle, RotateBlock };
         public Type type;
         public Vector2Int position;
         public GameObject entity;
@@ -23,7 +24,15 @@ public class GameManager : MonoBehaviour
     }
     private class Character
     {
-        public enum Type {Wagyu, Van };
+        public enum Type { Wagyu };
+        public Type type;
+        public Vector2Int position;
+        public Vector3 destination;
+        public GameObject entity;
+    }
+    private class Item
+    {
+        public enum Type { Van, Key, HayStack};
         public Type type;
         public Vector2Int position;
         public Vector3 destination;
@@ -32,11 +41,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<GameObject> blockTypes;
+    [SerializeField] private List<GameObject> characterTypes;
+    [SerializeField] private List<GameObject> itemTypes;
     [SerializeField] private Vector2Int mapSize;
+    [SerializeField] private float blockMoveSpeed = 0.1f;  //needed to be less than 1
+    [SerializeField] private float characterMoveSpeed = 15.0f; //cow moving speed
     private List<bool[]> oriBlockAccessible;
     private float mapEdgeLength = 8.0f;
     private bool enable = true;
     private List<Block> blocks;
+    private List<Character> characters;
+    private List<Item> items;
     private int[,] assistMap;
 
     // Start is called before the first frame update
@@ -44,48 +59,152 @@ public class GameManager : MonoBehaviour
     {
         //initialization
         blocks = new List<Block>();
+        characters = new List<Character>();
+        items = new List<Item>();
         oriBlockAccessible = new List<bool[]>();
         oriBlockAccessible.Add(new bool[4] { true, true, true, true });
         oriBlockAccessible.Add(new bool[4] { true, false, false, true });
         oriBlockAccessible.Add(new bool[4] { false, false, true, true });
         oriBlockAccessible.Add(new bool[4] { true, false, true, true });
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
-        assistMap = new int[mapSize.x, mapSize.y];
+        oriBlockAccessible.Add(new bool[4] { false, false, false, false });
 
+        bool LoadMap = true;
+        string mapPath = "Assets/Tom/Resources/map.txt";
+        if (File.Exists(mapPath) && LoadMap)
+        {
+            StreamReader reader = new StreamReader(mapPath);
+            //read in the map
+            string input = reader.ReadLine();
+            string[] strs = input.Split(' ');
+            mapSize = new Vector2Int(int.Parse(strs[0]), int.Parse(strs[1]));
+            assistMap = new int[mapSize.x, mapSize.y];
+            mainCamera.transform.position = new Vector3(mapSize.x * mapEdgeLength / 2, mapSize.y * mapEdgeLength / 2 - 5, -10);
+
+            //loading blocks info
+            for (int y = 0;y < mapSize.y; ++y)
+            {
+                input = reader.ReadLine();
+                string[] inputs = input.Split(',');
+                strs = inputs[0].Split(' ');
+                string[] strs2 = inputs[1].Split(' ');
+                for (int x = 0; x < mapSize.x; ++x)
+                {
+                    assistMap[x, y] = int.Parse(strs[x]);
+                    int rotation = int.Parse(strs2[x]);
+                    if (assistMap[x, y] == -1) continue;
+
+                    Block newBlock = new Block();
+                    newBlock.entity = Instantiate(blockTypes[assistMap[x, y]], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
+                    if (assistMap[x, y] < 4) newBlock.type = Block.Type.NormalBlock;
+                    else if (assistMap[x, y] < 5) newBlock.type = Block.Type.Obstacle;
+                    else if (assistMap[x, y] < 6) newBlock.type = Block.Type.RotateBlock;
+                    newBlock.position = new Vector2Int(x, y);
+                    newBlock.destination = newBlock.entity.transform.position;
+                    for (int i = 0; i < 4; ++i) newBlock.accessible[i] = oriBlockAccessible[assistMap[x, y]][i];
+                    for (int i = 0; i < rotation; ++i) blockRotateLeft(ref newBlock);
+                    blocks.Add(newBlock);
+                }
+            }
+            
+            //loading character info
+            input = reader.ReadLine();
+            strs = input.Split(' ');
+            int px = int.Parse(strs[0]), py = int.Parse(strs[1]);
+            Character newC = new Character();
+            newC.type = Character.Type.Wagyu;
+            newC.position = new Vector2Int(px, py);
+            newC.entity = Instantiate(characterTypes[(int)Character.Type.Wagyu], new Vector3(newC.position.x * mapEdgeLength, newC.position.y * mapEdgeLength, 0), Quaternion.identity);
+            newC.destination = newC.entity.transform.position;
+            characters.Add(newC);
+
+            //loading item info
+            input = reader.ReadLine();
+            strs = input.Split(' ');
+            px = int.Parse(strs[0]); py = int.Parse(strs[1]);
+            Item newItem = new Item();
+            newItem.type = Item.Type.Van;
+            newItem.position = new Vector2Int(px, py);
+            newItem.entity = Instantiate(itemTypes[(int)Item.Type.Van], new Vector3(newItem.position.x * mapEdgeLength, newItem.position.y * mapEdgeLength, 0), Quaternion.identity);
+            newItem.destination = newItem.entity.transform.position;
+            items.Add(newItem);
+            
+            reader.Close();
+            return;
+        }
+
+        assistMap = new int[mapSize.x, mapSize.y];
         //adjusting camera position
         mainCamera.transform.position = new Vector3(mapSize.x * mapEdgeLength / 2, mapSize.y * mapEdgeLength / 2 - 5, -10);
 
         //randomly create the map
-        for(int y = 0;y < mapSize.y; ++y)
+        int landNum = 0;
+        while(landNum < 2)
         {
-            for(int x = 0; x < mapSize.x; ++x)
+            //reset asset
+            for (int i = 0; i < blocks.Count; ++i) Destroy(blocks[i].entity);
+            blocks.Clear();
+
+            landNum = 0;
+            for (int y = 0; y < mapSize.y; ++y)
             {
-                int sel = Random.Range(0, 8);
-                if(sel < 4)  //normal block
+                for (int x = 0; x < mapSize.x; ++x)
                 {
-                    Block newBlock = new Block();
-                    newBlock.entity = Instantiate(blockTypes[sel], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
-                    newBlock.type = Block.Type.NormalBlock;
-                    newBlock.position = new Vector2Int(x, y);
-                    newBlock.destination = newBlock.entity.transform.position;
-                    for (int i = 0; i < 4; ++i) newBlock.accessible[i] = oriBlockAccessible[sel][i];
-                    for (int i = Random.Range(0, 4); i > 0; --i) blockRotateRight(newBlock);
-                    blocks.Add(newBlock);
-                }
-                else if(sel < 5)  //obstacle
-                {
-                    Block newBlock = new Block();
-                    newBlock.entity = Instantiate(blockTypes[(int)BlockType.Obstacle], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
-                    newBlock.type = Block.Type.Obstacle;
-                    newBlock.position = new Vector2Int(x, y);
-                    newBlock.destination = newBlock.entity.transform.position;
-                    blocks.Add(newBlock);
+                    int sel = Random.Range(0, 8);
+                    if (sel < 4)  //normal block
+                    {
+                        Block newBlock = new Block();
+                        newBlock.entity = Instantiate(blockTypes[sel], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
+                        newBlock.type = Block.Type.NormalBlock;
+                        newBlock.position = new Vector2Int(x, y);
+                        newBlock.destination = newBlock.entity.transform.position;
+                        for (int i = 0; i < 4; ++i) newBlock.accessible[i] = oriBlockAccessible[sel][i];
+                        //rotate the block
+                        for (int i = Random.Range(0, 4); i > 0; --i) blockRotateRight(ref newBlock);
+                        blocks.Add(newBlock);
+                        landNum++;
+                    }
+                    else if (sel < 5)  //obstacle
+                    {
+                        Block newBlock = new Block();
+                        newBlock.entity = Instantiate(blockTypes[(int)BlockType.Obstacle], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
+                        newBlock.type = Block.Type.Obstacle;
+                        newBlock.position = new Vector2Int(x, y);
+                        newBlock.destination = newBlock.entity.transform.position;
+                        blocks.Add(newBlock);
+                    }
+                    else if(sel < 6)  //rotate
+                    {
+                        Block newBlock = new Block();
+                        newBlock.entity = Instantiate(blockTypes[(int)BlockType.RotateBlock], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
+                        newBlock.type = Block.Type.RotateBlock;
+                        newBlock.position = new Vector2Int(x, y);
+                        newBlock.destination = newBlock.entity.transform.position;
+                        blocks.Add(newBlock);
+                    }
                 }
             }
         }
         
-
-
+        //Spawning extra components
+        int idxCow = Random.Range(0, blocks.Count);
+        //Spawn cow
+        while(blocks[idxCow].type != Block.Type.NormalBlock) idxCow = Random.Range(0, blocks.Count);
+        Character cow = new Character();
+        cow.type = Character.Type.Wagyu;
+        cow.position = blocks[idxCow].position;
+        cow.entity = Instantiate(characterTypes[(int)Character.Type.Wagyu], new Vector3(cow.position.x * mapEdgeLength, cow.position.y * mapEdgeLength, 0), Quaternion.identity);
+        cow.destination = cow.entity.transform.position;
+        characters.Add(cow);
+        //Spawn van
+        int idxVan = Random.Range(0, blocks.Count);
+        while (blocks[idxVan].type != Block.Type.NormalBlock || idxVan == idxCow) idxVan = Random.Range(0, blocks.Count);
+        Item van = new Item();
+        van.type = Item.Type.Van;
+        van.position = blocks[idxVan].position;
+        van.entity = Instantiate(itemTypes[(int)Item.Type.Van], new Vector3(van.position.x * mapEdgeLength, van.position.y * mapEdgeLength, 0), Quaternion.identity);
+        van.destination = van.entity.transform.position;
+        items.Add(van);
     }
 
     // Update is called once per frame
@@ -94,39 +213,134 @@ public class GameManager : MonoBehaviour
         if (!enable) return;
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
-            moveMap(Direction.Up);
+            StartCoroutine(IE_move(Direction.Up));
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
-            moveMap(Direction.Down);
+            StartCoroutine(IE_move(Direction.Down));
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            moveMap(Direction.Left);
+            StartCoroutine(IE_move(Direction.Left));
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            moveMap(Direction.Right);
+            StartCoroutine(IE_move(Direction.Right));
         }
     }
 
-    void blockRotateRight(Block target)
+    //helping functions declaration
+    #region aid functions
+    void blockRotateRight(int idx)
+    {
+        blocks[idx].entity.transform.eulerAngles += new Vector3(0, 0, 270);
+        Swap(ref blocks[idx].accessible[0], ref blocks[idx].accessible[2]);
+        Swap(ref blocks[idx].accessible[2], ref blocks[idx].accessible[1]);
+        Swap(ref blocks[idx].accessible[1], ref blocks[idx].accessible[3]);
+    }
+    void blockRotateRight(ref Block target)
+    {
+        target.entity.transform.eulerAngles += new Vector3(0, 0, 270);
+        Swap(ref target.accessible[0], ref target.accessible[2]);
+        Swap(ref target.accessible[2], ref target.accessible[1]);
+        Swap(ref target.accessible[1], ref target.accessible[3]);
+    }
+    void blockRotateLeft(int idx)
+    {
+        blocks[idx].entity.transform.eulerAngles += new Vector3(0, 0, 90);
+        Swap(ref blocks[idx].accessible[0], ref blocks[idx].accessible[3]);
+        Swap(ref blocks[idx].accessible[3], ref blocks[idx].accessible[1]);
+        Swap(ref blocks[idx].accessible[1], ref blocks[idx].accessible[2]);
+    }
+    void blockRotateLeft(ref Block target)
     {
         target.entity.transform.eulerAngles += new Vector3(0, 0, 90);
-        bool tmp = target.accessible[0];
-        target.accessible[0] = target.accessible[2];
-        target.accessible[1] = target.accessible[3];
-        target.accessible[2] = target.accessible[1];
-        target.accessible[3] = tmp;
+        Swap(ref target.accessible[0], ref target.accessible[3]);
+        Swap(ref target.accessible[3], ref target.accessible[1]);
+        Swap(ref target.accessible[1], ref target.accessible[2]);
     }
-    void blockRotateLeft(Block target)
+    private bool outOfRange(Vector2Int pos)
     {
-        target.entity.transform.eulerAngles += new Vector3(0, 0, -90);
-        bool tmp = target.accessible[0];
-        target.accessible[0] = target.accessible[3];
-        target.accessible[1] = target.accessible[2];
-        target.accessible[2] = tmp;
-        target.accessible[3] = target.accessible[1];
+        return pos.x < 0 || pos.y < 0 || pos.x >= mapSize.x || pos.y >= mapSize.y;
+    }
+    private bool outOfRange(int x, int y)
+    {
+        return x < 0 || y < 0 || x >= mapSize.x || y >= mapSize.y;
+    }
+    #endregion
+    public static void Swap<T>(ref T lhs, ref T rhs)
+    {
+        T temp = lhs;
+        lhs = rhs;
+        rhs = temp;
+    }
+    IEnumerator IE_move(Direction dir)
+    {
+        enable = false;
+        bool finished = false;
+        //move blocks
+        moveMap(dir);
+        finished = false;
+        while (!finished)
+        {
+            finished = true;
+            //check for blocks
+            for (int i = 0; i < blocks.Count; ++i)
+            {
+                if (Vector3.Distance(blocks[i].entity.transform.position, blocks[i].destination) > 0.1f)
+                {
+                    blocks[i].entity.transform.position = Vector3.Lerp(blocks[i].entity.transform.position, blocks[i].destination, blockMoveSpeed);
+                    finished = false;
+                }
+                else blocks[i].entity.transform.position = blocks[i].destination;
+            }
+            //check for characters
+            for (int i = 0; i < characters.Count; ++i)
+            {
+                if (Vector3.Distance(characters[i].entity.transform.position, characters[i].destination) > 0.1f)
+                {
+                    characters[i].entity.transform.position = Vector3.Lerp(characters[i].entity.transform.position, characters[i].destination, blockMoveSpeed);
+                    finished = false;
+                }
+                else characters[i].entity.transform.position = characters[i].destination;
+            }
+            //check for items
+            for (int i = 0; i < items.Count; ++i)
+            {
+                if (Vector3.Distance(items[i].entity.transform.position, items[i].destination) > 0.1f)
+                {
+                    items[i].entity.transform.position = Vector3.Lerp(items[i].entity.transform.position, items[i].destination, blockMoveSpeed);
+                    finished = false;
+                }
+                else items[i].entity.transform.position = items[i].destination;
+            }
+            if (!finished) yield return null;
+        }
+
+        //rotate blocks
+
+
+
+        yield return new WaitForSeconds(0.1f);
+        //move characters
+        moveCharacter(dir);
+        finished = false;
+        while (!finished)
+        {
+            finished = true;
+            for (int i = 0; i < characters.Count; ++i)
+            {
+                if (Vector3.Distance(characters[i].entity.transform.position, characters[i].destination) > 0.1f)
+                {
+                    characters[i].entity.transform.position = Vector3.Lerp(characters[i].entity.transform.position, characters[i].destination, characterMoveSpeed * Time.deltaTime); //
+                    finished = false;
+                }
+                else characters[i].entity.transform.position = characters[i].destination;
+            }
+            if (!finished) yield return null;
+        }
+
+        enable = true;
     }
 
     private void setUpAssistMap()
@@ -138,17 +352,11 @@ public class GameManager : MonoBehaviour
             int val = -1;
             if (blocks[i].type == Block.Type.NormalBlock) val = i;
             else if (blocks[i].type == Block.Type.Obstacle) val = -2;
+            else if (blocks[i].type == Block.Type.RotateBlock) val = -3;
             assistMap[blocks[i].position.x, blocks[i].position.y] = val;
         }
     }
-    private bool outOfRange(Vector2Int pos)
-    {
-        return pos.x < 0 || pos.y < 0 || pos.x >= mapSize.x || pos.y >= mapSize.y;
-    }
-    private bool outOfRange(int x, int y)
-    {
-        return x < 0 || y < 0 || x >= mapSize.x || y >= mapSize.y;
-    }
+    
     private void moveMap(Direction dir)
     {
         int mx = movementX[(int)dir], my = movementY[(int)dir];
@@ -163,6 +371,19 @@ public class GameManager : MonoBehaviour
                     blocks[assistMap[x, y]].position += movement[(int)dir];
                     blocks[assistMap[x, y]].destination = new Vector3(blocks[assistMap[x, y]].position.x * 8, blocks[assistMap[x, y]].position.y * 8, 0);
                     assistMap[x, y] = -1;
+
+                    //move characters that's on the block
+                    for (int i = 0; i < characters.Count; ++i) if (characters[i].position.x == x && characters[i].position.y == y)
+                        {
+                            characters[i].position += movement[(int)dir];
+                            characters[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                        }
+                    //move items that's on the block
+                    for (int i = 0; i < items.Count; ++i) if (items[i].position.x == x && items[i].position.y == y)
+                        {
+                            items[i].position += movement[(int)dir];
+                            items[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                        }
                 }
             }
         }
@@ -174,33 +395,73 @@ public class GameManager : MonoBehaviour
                 {
                     if (assistMap[x, y] < 0 || outOfRange(x + mx, y + my) || assistMap[x + mx, y + my] != -1) continue;
                     blocks[assistMap[x, y]].position += movement[(int)dir];
-                    blocks[assistMap[x, y]].destination = new Vector3(blocks[assistMap[x, y]].position.x * 8, blocks[assistMap[x, y]].position.y * 8, 0);
+                    blocks[assistMap[x, y]].destination = new Vector3(blocks[assistMap[x, y]].position.x * mapEdgeLength, blocks[assistMap[x, y]].position.y * mapEdgeLength, 0);
                     assistMap[x, y] = -1;
+
+                    //move characters that's on the block
+                    for(int i = 0;i < characters.Count;++i) if(characters[i].position.x == x && characters[i].position.y == y)
+                        {
+                            characters[i].position += movement[(int)dir];
+                            characters[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                        }
+                    //move items that's on the block
+                    for (int i = 0; i < items.Count; ++i) if (items[i].position.x == x && items[i].position.y == y)
+                        {
+                            items[i].position += movement[(int)dir];
+                            items[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                        }
                 }
             }
         }
-
-        enable = false;
-        StartCoroutine(moveToDest());
     }
 
-    IEnumerator moveToDest()
+    private void moveCharacter(Direction dir)
     {
-        while (!enable)
+        setUpAssistMap();
+        if (dir == Direction.Up)
         {
-            bool arrived = true;
-            for(int i = 0;i < blocks.Count; ++i)
+            for (int i = 0; i < characters.Count; ++i)
             {
-                if (Vector3.Distance(blocks[i].entity.transform.position, blocks[i].destination) > 0.1f)
-                {
-                    blocks[i].entity.transform.position = Vector3.Lerp(blocks[i].entity.transform.position, blocks[i].destination, 0.1f);
-                    arrived = false;
-                }
-                else blocks[i].entity.transform.position = blocks[i].destination;
+                //characters[i].entity.transform.eulerAngles = new Vector3(0, 0, 180);
+                int x = characters[i].position.x, y = characters[i].position.y;
+                while (y < mapSize.y - 1 && blocks[assistMap[x, y]].accessible[0] && assistMap[x, y + 1] >= 0 && blocks[assistMap[x, y + 1]].accessible[1]) y++;
+                characters[i].position = new Vector2Int(x, y);
+                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
             }
-
-            if (arrived) enable = true;
-            else yield return null;
+        }
+        if (dir == Direction.Down)
+        {
+            for (int i = 0; i < characters.Count; ++i)
+            {
+                //characters[i].entity.transform.eulerAngles = new Vector3(0, 0, 0);
+                int x = characters[i].position.x, y = characters[i].position.y;
+                while (y > 0 && blocks[assistMap[x, y]].accessible[1] && assistMap[x, y - 1] >= 0 && blocks[assistMap[x, y - 1]].accessible[0]) y--;
+                characters[i].position = new Vector2Int(x, y);
+                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+            }
+        }
+        if (dir == Direction.Left)
+        {
+            for (int i = 0; i < characters.Count; ++i)
+            {
+                //characters[i].entity.transform.eulerAngles = new Vector3(0, 0, 270);
+                int x = characters[i].position.x, y = characters[i].position.y;
+                while (x > 0 && blocks[assistMap[x, y]].accessible[2] && assistMap[x - 1, y] >= 0 && blocks[assistMap[x - 1, y]].accessible[3]) x--;
+                characters[i].position = new Vector2Int(x, y);
+                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+            }
+        }
+        if (dir == Direction.Right)
+        {
+            for (int i = 0; i < characters.Count; ++i)
+            {
+                //characters[i].entity.transform.eulerAngles = new Vector3(0, 0, 90);
+                int x = characters[i].position.x, y = characters[i].position.y;
+                while (x < mapSize.x - 1 && blocks[assistMap[x, y]].accessible[3] && assistMap[x + 1, y] >= 0 && blocks[assistMap[x + 1, y]].accessible[2]) x++;
+                characters[i].position = new Vector2Int(x, y);
+                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+            }
         }
     }
+    
 }

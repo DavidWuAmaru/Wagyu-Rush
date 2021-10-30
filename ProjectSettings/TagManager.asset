@@ -48,6 +48,15 @@ TagManager:
   - name: main
     uniqueID: 2190840395
     locked: 0
+  - name: midground
+    uniqueID: 2615072451
+    locked: 0
+  - name: item
+    uniqueID: 2125556833
+    locked: 0
+  - name: character
+    uniqueID: 3136768217
+    locked: 0
   - name: frontground
     uniqueID: 1124191681
     locked: 0

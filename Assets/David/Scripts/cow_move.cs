@@ -7,16 +7,17 @@ public class cow_move : MonoBehaviour
     public int satiety;
     public int cow_freeze;
     private Vector3 target;
+    private bool is_portal;
     public bool is_tagged;
     private GameObject[] all_portal;
-    public bool is_portal;
     List<Sprite> sprites;
     public Animator playerAnimator;
     private int direction;
     private Collider2D portal_coll;
     public float step;
-    private bool dance_stop;
+    private bool dancing;
     private bool transferring;
+    private bool is_arrive_target;
 
     void Start()
     {
@@ -34,15 +35,14 @@ public class cow_move : MonoBehaviour
         sprites.Add(Resources.Load<Sprite>("cow_right"));
         direction = 3;
         step = 1f;
-        dance_stop = true;
+        dancing = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(playerAnimator.enabled);
         //move
-        if (this.gameObject.transform.position == target && cow_freeze == 0 && !transferring)
+        if (is_arrive_target && cow_freeze == 0 && !transferring)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -66,41 +66,8 @@ public class cow_move : MonoBehaviour
             }
         }
         MoveToTarget();
-        //¬O§_³Q¦B­á¡B¦©¹¡­¹«×
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-        {
-            satiety -= 1;
-            if (cow_freeze > 0)
-            {
-                cow_freeze -= 1;
-            }
-            else if(cow_freeze == 0 && !dance_stop)
-            {
-                playerAnimator.enabled = false;
-                dance_stop = true;
-            }
-        }
-        if (transferring)
-        {
-            /*TransferToAnotherPortal();
-            transferring = false;
-            is_portal = true;*/
-            if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("portal_in"))
-            {
-                playerAnimator.Play("idle");
-                playerAnimator.enabled = false;
-                TransferToAnotherPortal();
-                playerAnimator.enabled = true;
-                playerAnimator.Play("portal_out");
-            }
-            if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("portal_out"))
-            {
-                playerAnimator.Play("idle");
-                playerAnimator.enabled = false;
-                transferring = false;
-                is_portal = true;
-            }
-        }
+        CowState();
+        Transferring();
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -115,8 +82,7 @@ public class cow_move : MonoBehaviour
         if (coll.gameObject.tag == "earphone")
         {
             cow_freeze = 5;
-            dance_stop = false;
-            Earphone();
+            dancing = true;
         }
         if (coll.gameObject.tag == "tag")
         {
@@ -132,17 +98,17 @@ public class cow_move : MonoBehaviour
     {
         if (this.gameObject.transform.position != target)
         {
+            is_arrive_target = false;
             this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, target, 0.1f);
         }
         if (gameObject.GetComponent<SpriteRenderer>().sprite != sprites[direction])
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = sprites[direction];
         }
-    }
-    void Earphone()
-    {
-        playerAnimator.enabled = true;
-        playerAnimator.Play("dance_ani");
+        if (this.gameObject.transform.position == target)
+        {
+            is_arrive_target = true;
+        }
     }
     void Portal()
     {
@@ -152,10 +118,15 @@ public class cow_move : MonoBehaviour
         }
         else
         {
+            is_portal = true;
             playerAnimator.enabled = true;
             playerAnimator.Play("portal_in");
-            transferring = true;
+            Invoke("wait", 1f);
         }
+    }
+    void wait()
+    {
+        transferring = true;
     }
     void TransferToAnotherPortal()
     {
@@ -167,9 +138,47 @@ public class cow_move : MonoBehaviour
             {
                 this.gameObject.transform.position = all_portal[i].transform.position;
                 target = all_portal[i].transform.position;
-                is_portal = true;
                 break;
             }
+        }
+    }
+    void Transferring()
+    {
+        if (transferring)
+        {
+            if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("portal_in"))
+            {
+                playerAnimator.enabled = false;
+                TransferToAnotherPortal();
+                playerAnimator.enabled = true;
+                playerAnimator.Play("portal_out");
+            }
+            if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("portal_out"))
+            {
+                playerAnimator.enabled = false;
+                transferring = false;
+            }
+        }
+    }
+    void CowState()
+    {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        {
+            satiety -= 1;
+            if (cow_freeze > 0)
+            {
+                cow_freeze -= 1;
+            }
+            else if (cow_freeze == 0 && dancing)
+            {
+                playerAnimator.enabled = false;
+                dancing = false;
+            }
+        }
+        if (dancing && is_arrive_target)
+        {
+            playerAnimator.enabled = true;
+            playerAnimator.Play("dance_ani");
         }
     }
 }

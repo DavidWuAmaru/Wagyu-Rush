@@ -1,0 +1,158 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class cow_move : MonoBehaviour
+{
+    public int satiety;
+    public int cow_freeze;
+    private Vector3 target;
+    public bool is_tagged;
+    private GameObject[] all_portal;
+    private bool is_portal;
+    List<Sprite> sprites;
+    public Animator playerAnimator;
+    private int direction;
+    private bool trigger_earphone;
+    private bool trigger_portal;
+    private Collider2D portal_coll;
+
+    void Start()
+    {
+        satiety = 10;
+        cow_freeze = 0;
+        target = this.gameObject.transform.position;
+        is_tagged = false;
+        is_portal = false;
+
+        sprites = new List<Sprite>();
+        playerAnimator.enabled = false;
+        sprites.Add(Resources.Load<Sprite>("cow_up"));
+        sprites.Add(Resources.Load<Sprite>("cow_down"));
+        sprites.Add(Resources.Load<Sprite>("cow_left"));
+        sprites.Add(Resources.Load<Sprite>("cow_right"));
+        direction = 3;
+        trigger_earphone = false;
+        trigger_portal = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(this.gameObject.transform.position == target)
+        {
+            if (cow_freeze == 0)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    target = this.gameObject.transform.position + new Vector3(0, 1f, 0);
+                    direction = 0;
+                    satiety -= 1;
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    target = this.gameObject.transform.position + new Vector3(0, - 1f, 0);
+                    direction = 1;
+                    satiety -= 1;
+                }
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    target = this.gameObject.transform.position + new Vector3(-1f, 0, 0);
+                    direction = 2;
+                    satiety -= 1;
+                }
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    target = this.gameObject.transform.position + new Vector3(1f, 0, 0);
+                    direction = 3;
+                    satiety -= 1;
+                }
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    print("haha");
+                    if (playerAnimator.enabled == true)
+                    {
+                        playerAnimator.enabled = false;
+                    }
+                    else
+                    {
+                        playerAnimator.enabled = true;
+                        playerAnimator.SetInteger("state", 1);
+                    }
+                }
+                if (gameObject.GetComponent<SpriteRenderer>().sprite != sprites[direction])
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = sprites[direction];
+                }
+                playerAnimator.enabled = false;
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.W))
+                {
+                    satiety -= 1;
+                    cow_freeze -= 1;
+                }
+            }
+            if (trigger_earphone)
+            {
+                playerAnimator.enabled = true;
+                playerAnimator.SetInteger("state",0);
+                trigger_earphone = false;
+            }
+            if (trigger_portal)
+            {
+                if (is_portal)
+                {
+                    is_portal = false;
+                }
+                else
+                {
+                    int portal_id = portal_coll.GetComponent<portal>().portal_id;
+                    all_portal = GameObject.FindGameObjectsWithTag("portal");
+                    for (int i = 0; i < all_portal.Length; i++)
+                    {
+                        if (all_portal[i].GetComponent<portal>().portal_id == portal_id && all_portal[i].gameObject.name != portal_coll.gameObject.name)
+                        {
+                            this.gameObject.transform.position = all_portal[i].transform.position;
+                            target = all_portal[i].transform.position;
+                            is_portal = true;
+                            break;
+                        }
+                    }
+                }
+                trigger_portal = false;
+            }
+        }
+
+        if (this.gameObject.transform.position != target)
+        {
+            this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, target, 0.1f);
+        }
+    }
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if(coll.gameObject.tag == "grass")
+        {
+            satiety += 5;
+        }
+        if (coll.gameObject.tag == "trap")
+        {
+            satiety -= 5;
+        }
+        if (coll.gameObject.tag == "earphone")
+        {
+            cow_freeze = 5;
+            trigger_earphone = true;
+        }
+        if (coll.gameObject.tag == "tag")
+        {
+            is_tagged = true;
+        }
+        if (coll.gameObject.tag == "portal")
+        {
+            portal_coll = coll;
+            trigger_portal = true;
+        }
+    }
+}

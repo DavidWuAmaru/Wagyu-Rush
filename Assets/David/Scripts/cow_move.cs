@@ -16,7 +16,7 @@ public class cow_move : MonoBehaviour
     private Collider2D portal_coll;
     public float step;
     private bool dancing;
-    private bool transferring;
+    private int transferring;
     private bool is_arrive_target;
 
     void Start()
@@ -36,13 +36,14 @@ public class cow_move : MonoBehaviour
         direction = 3;
         step = 1f;
         dancing = false;
+        transferring = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         //move
-        if (is_arrive_target && cow_freeze == 0 && !transferring)
+        if (is_arrive_target && cow_freeze == 0 && transferring == 0)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -118,15 +119,12 @@ public class cow_move : MonoBehaviour
         }
         else
         {
+            transferring = 1;
             is_portal = true;
             playerAnimator.enabled = true;
             playerAnimator.Play("portal_in");
-            Invoke("wait", 1f);
+            //Invoke("wait", 1f);
         }
-    }
-    void wait()
-    {
-        transferring = true;
     }
     void TransferToAnotherPortal()
     {
@@ -144,19 +142,24 @@ public class cow_move : MonoBehaviour
     }
     void Transferring()
     {
-        if (transferring)
+        if (transferring == 1)
         {
             if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("portal_in"))
             {
+                transferring = 2;
                 playerAnimator.enabled = false;
                 TransferToAnotherPortal();
                 playerAnimator.enabled = true;
                 playerAnimator.Play("portal_out");
+                print("haha");
             }
+        }
+        if (transferring == 2)
+        {
             if (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("portal_out"))
             {
                 playerAnimator.enabled = false;
-                transferring = false;
+                transferring = 0;
             }
         }
     }

@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Hiimjanna/Scene/UI.unity
+    guid: 8bf0ae0d02ccbc544a936673e76fbf86
+  - enabled: 1
+    path: Assets/Scenes/MapEditor.unity
+    guid: ec8c8d94fa7e6364f94bd14042db0a2e
   m_configObjects: {}

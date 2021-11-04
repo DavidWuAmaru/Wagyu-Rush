@@ -415,13 +415,13 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < characters.Count; ++i) if (characters[i].position.x == x && characters[i].position.y == y)
                         {
                             characters[i].position += movement[(int)dir];
-                            characters[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
+                            characters[i].destination += new Vector3(mx, my, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
                         }
                     //move items that's on the block
                     for (int i = 0; i < items.Count; ++i) if (items[i].position.x == x && items[i].position.y == y)
                         {
                             items[i].position += movement[(int)dir];
-                            items[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
+                            items[i].destination += new Vector3(mx, my, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
                         }
                 }
             }
@@ -441,13 +441,13 @@ public class GameManager : MonoBehaviour
                     for(int i = 0;i < characters.Count;++i) if(characters[i].position.x == x && characters[i].position.y == y)
                         {
                             characters[i].position += movement[(int)dir];
-                            characters[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
+                            characters[i].destination += new Vector3(mx, my, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
                         }
                     //move items that's on the block
                     for (int i = 0; i < items.Count; ++i) if (items[i].position.x == x && items[i].position.y == y)
                         {
                             items[i].position += movement[(int)dir];
-                            items[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
+                            items[i].destination += new Vector3(mx, my, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
                         }
                 }
             }
@@ -470,7 +470,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
             }
         }
         if (dir == Direction.Down)
@@ -486,7 +486,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
             }
         }
         if (dir == Direction.Left)
@@ -502,7 +502,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
             }
         }
         if (dir == Direction.Right)
@@ -518,7 +518,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
             }
         }
     }

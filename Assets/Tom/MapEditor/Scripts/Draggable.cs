@@ -4,30 +4,41 @@ using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
+    public delegate void DragEndedDelegate(Vector2 position, int type);
+    public DragEndedDelegate dragEndedCallback;
+
+    [SerializeField] private int type;
+    [SerializeField] private float scaler = 0.9f;
+    [SerializeField] private GameObject grabber;
+
     private bool isDragged = false;
     private Vector3 mouseDragStartPosition;
     private Vector3 spriteDragStartPosition;
+    
 
     private void OnMouseDown()
     {
-        Debug.Log("test");
         isDragged = true;
         mouseDragStartPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        spriteDragStartPosition = transform.localPosition;
+        grabber.transform.position = transform.position;
+        spriteDragStartPosition = grabber.transform.position;
+        grabber.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+        grabber.transform.localScale = new Vector3(scaler, scaler, 1);
+        grabber.SetActive(true);
     }
     private void OnMouseDrag()
     {
         if (isDragged)
         {
-            transform.localPosition = spriteDragStartPosition + (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mouseDragStartPosition);
-            Debug.Log(transform.localPosition);
+            grabber.transform.localPosition = spriteDragStartPosition + (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mouseDragStartPosition);
         }
     }
 
     private void OnMouseUp()
     {
         isDragged = false;
-        transform.localPosition = new Vector3((transform.localPosition.x + 4.0f) / 8.0f, (transform.localPosition.y + 4.0f) / 8.0f, (transform.localPosition.z + 4.0f) / 8.0f);
+        grabber.SetActive(false);
+        dragEndedCallback(new Vector2(grabber.transform.localPosition.x, grabber.transform.localPosition.y), type);
     }
 
 }

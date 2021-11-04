@@ -15,13 +15,13 @@ public class GameManager : MonoBehaviour
     private int moveCount = 0;
 
     //class definition
-    public enum BlockType { Block_U, Block_UD, Block_UR, Block_UDL, Block_UDRL, Obstacle, RotateBlock };
     
     #region SerializeField
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<GameObject> blockTypes;
     [SerializeField] private List<GameObject> characterTypes;
     [SerializeField] private List<GameObject> itemTypes;
+    [SerializeField] private List<GameObject> destinationTypes;
     [SerializeField] private Vector2Int mapSize;
     [SerializeField] private float blockMoveSpeed = 30.0f;   //block moving speed (exp)
     [SerializeField] private float characterMoveSpeed = 100.0f; //cow moving speed (linear)
@@ -29,18 +29,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreBoard;
     [SerializeField] private TMP_Text levelBoard;
     //test
-    [SerializeField] private GameObject background;
     [SerializeField] private bool usingCustomMap = true;
     [SerializeField] private List<string> mapAddress;
     private int currentLevel = 0;
     #endregion
 
     private List<bool[]> oriBlockAccessible;
-    private float mapEdgeLength = 8.0f;
+    private float mainMapLength = 48.0f;
+    private float blockEdgeLength = 8.0f;
+    private float mapOffsetX = 0.5f, mapOffsetY = 0.5f;
     private bool enable = true;
     private List<Block> blocks;
     private List<Character> characters;
     private List<Item> items;
+    private List<Destination> destinations;
     private int[,] assistMap;
 
     // Start is called before the first frame update
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
         blocks = new List<Block>();
         characters = new List<Character>();
         items = new List<Item>();
+        destinations = new List<Destination>();
         oriBlockAccessible = new List<bool[]>();
         oriBlockAccessible.Add(new bool[4] { true, false, false, false });
         oriBlockAccessible.Add(new bool[4] { true, true, false, false });
@@ -117,112 +120,27 @@ public class GameManager : MonoBehaviour
         blocks.Clear();
         characters.Clear();
         items.Clear();
+        
         enable = true;
         setMoveCount(0);
-    }
-    private void normalizeString(ref string input)
-    {
-        input.Trim();
-        while (input.IndexOf("  ") != -1) input = input.Replace("  ", " ");
     }
     private void LoadExistingMap(string filename)
     {
         ClearAllObjs();
 
-        //load in
-        if (!File.Exists(filename))
-        {
-            Debug.LogError("Can't find the map file with the filename : " + filename);
-            return;
-        }
-        StreamReader reader = new StreamReader(filename);
-        //read in the map
-        string input = reader.ReadLine();
-        normalizeString(ref input);
-        string[] strs = input.Split(' ');
-        mapSize = new Vector2Int(int.Parse(strs[0]), int.Parse(strs[1]));
-        assistMap = new int[mapSize.x, mapSize.y];
-        mainCamera.transform.position = new Vector3(mapSize.x * mapEdgeLength / 2, mapSize.y * mapEdgeLength / 2 - 5, -10);
-        Camera.main.orthographicSize = mapSize.y * 5.0f;
-        background.transform.localScale = new Vector3(mapSize.x * mapEdgeLength + 2, mapSize.y * mapEdgeLength + 2, 1);
-        background.transform.position = new Vector3((mapSize.x * mapEdgeLength + 2) / 2 - 5, (mapSize.y * mapEdgeLength + 2) / 2 - 5, 1);
-
-        //loading blocks info
-        for (int y = 0; y < mapSize.y; ++y)
-        {
-            input = reader.ReadLine();
-            normalizeString(ref input);
-            strs = input.Split(' ');
-            for (int x = 0; x < mapSize.x; ++x)
-            {
-                if (int.Parse(strs[x]) == -1) continue;
-                int blockIdx = int.Parse(strs[x]) / 4, blockRot = int.Parse(strs[x]) % 4;
-                assistMap[x, y] = blockIdx;
-
-                Block newBlock = new Block();
-                newBlock.entity = Instantiate(blockTypes[blockIdx], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
-                if (blockIdx <= (int)BlockType.Block_UDRL) newBlock.type = Block.Type.NormalBlock;
-                else if (blockIdx <= (int)BlockType.Obstacle) newBlock.type = Block.Type.Obstacle;
-                else if (blockIdx <= (int)BlockType.RotateBlock) newBlock.type = Block.Type.RotateBlock;
-                newBlock.position = new Vector2Int(x, y);
-                newBlock.destination = newBlock.entity.transform.position;
-                for (int i = 0; i < 4; ++i) newBlock.accessible[i] = oriBlockAccessible[blockIdx][i];
-                for (int i = 0; i < blockRot; ++i) blockRotateLeft(ref newBlock);
-                blocks.Add(newBlock);
-            }
-        }
-
-        //loading character info
-        input = reader.ReadLine();
-        normalizeString(ref input);
-        strs = input.Split(' ');
-        int num = int.Parse(strs[0]);
-        for(int t = 0;t < num; ++t)
-        {
-            input = reader.ReadLine();
-            normalizeString(ref input);
-            strs = input.Split(' ');
-
-            int charType = int.Parse(strs[0]), px = int.Parse(strs[1]), py = int.Parse(strs[2]);
-            Character newC = new Character();
-            newC.type = (Character.Type)charType;
-            newC.position = new Vector2Int(px, py);
-            newC.entity = Instantiate(characterTypes[(int)newC.type], new Vector3(newC.position.x * mapEdgeLength, newC.position.y * mapEdgeLength, 0), Quaternion.identity);
-            newC.destination = newC.entity.transform.position;
-            characters.Add(newC);
-        }
-
-
-        //loading item info
-        input = reader.ReadLine();
-        normalizeString(ref input);
-        strs = input.Split(' ');
-        num = int.Parse(strs[0]);
-        for (int t = 0; t < num; ++t)
-        {
-            input = reader.ReadLine();
-            strs = input.Split(' ');
-            int itType = int.Parse(strs[0]), px = int.Parse(strs[1]), py = int.Parse(strs[2]);
-            Item newItem = new Item();
-            newItem.type = (Item.Type)itType;
-            newItem.position = new Vector2Int(px, py);
-            newItem.entity = Instantiate(itemTypes[(int)newItem.type], new Vector3(newItem.position.x * mapEdgeLength, newItem.position.y * mapEdgeLength, 0), Quaternion.identity);
-            newItem.destination = newItem.entity.transform.position;
-            items.Add(newItem);
-        }
-        reader.Close();
+        
     }
     private void LoadRandomMap()
     {
         ClearAllObjs();
-
         assistMap = new int[mapSize.x, mapSize.y];
-        //adjusting camera position
-        mainCamera.transform.position = new Vector3(mapSize.x * mapEdgeLength / 2, mapSize.y * mapEdgeLength / 2 - 5, -10);
-        Camera.main.orthographicSize = mapSize.y * 5.0f;
-        background.transform.localScale = new Vector3(mapSize.x * mapEdgeLength + 2, mapSize.y * mapEdgeLength + 2, 1);
-        background.transform.position = new Vector3((mapSize.x * mapEdgeLength + 2) / 2 - 5, (mapSize.y * mapEdgeLength + 2) / 2 - 5, 1);
-
+        //update edge length
+        blockEdgeLength = mainMapLength / Mathf.Max(mapSize.x, mapSize.y);
+        mapOffsetX = blockEdgeLength * 0.5f + 0.5f;
+        mapOffsetY = blockEdgeLength * 0.5f + 0.5f;
+        if (mapSize.x > mapSize.y) mapOffsetY += blockEdgeLength * 0.5f * (mapSize.x - mapSize.y);
+        else mapOffsetX += blockEdgeLength * 0.5f * (mapSize.y - mapSize.x);
+        
         //randomly create the map
         int landNum = 0;
         while (landNum < 2)
@@ -240,8 +158,9 @@ public class GameManager : MonoBehaviour
                     if (sel < 30)  //normal block
                     {
                         Block newBlock = new Block();
-                        newBlock.entity = Instantiate(blockTypes[(int)(sel / 6)], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
-                        newBlock.type = Block.Type.NormalBlock;
+                        newBlock.entity = Instantiate(blockTypes[(int)(sel / 6)], new Vector3(x * blockEdgeLength + mapOffsetX, y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
+                        newBlock.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
+                        newBlock.type = (Block.Type)(int)(sel / 6);
                         newBlock.position = new Vector2Int(x, y);
                         newBlock.destination = newBlock.entity.transform.position;
                         for (int i = 0; i < 4; ++i) newBlock.accessible[i] = oriBlockAccessible[(int)(sel / 6)][i];
@@ -253,7 +172,8 @@ public class GameManager : MonoBehaviour
                     else if (sel < 40)  //obstacle
                     {
                         Block newBlock = new Block();
-                        newBlock.entity = Instantiate(blockTypes[(int)BlockType.Obstacle], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
+                        newBlock.entity = Instantiate(blockTypes[(int)Block.Type.Obstacle], new Vector3(x * blockEdgeLength + mapOffsetX, y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
+                        newBlock.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
                         newBlock.type = Block.Type.Obstacle;
                         newBlock.position = new Vector2Int(x, y);
                         newBlock.destination = newBlock.entity.transform.position;
@@ -262,7 +182,8 @@ public class GameManager : MonoBehaviour
                     else if (sel < 45)  //rotate
                     {
                         Block newBlock = new Block();
-                        newBlock.entity = Instantiate(blockTypes[(int)BlockType.RotateBlock], new Vector3(x * mapEdgeLength, y * mapEdgeLength, 0), Quaternion.identity);
+                        newBlock.entity = Instantiate(blockTypes[(int)Block.Type.RotateBlock], new Vector3(x * blockEdgeLength + mapOffsetX, y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
+                        newBlock.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
                         newBlock.type = Block.Type.RotateBlock;
                         newBlock.position = new Vector2Int(x, y);
                         newBlock.destination = newBlock.entity.transform.position;
@@ -275,22 +196,24 @@ public class GameManager : MonoBehaviour
         //Spawning extra components
         int idxCow = Random.Range(0, blocks.Count);
         //Spawn cow
-        while (blocks[idxCow].type != Block.Type.NormalBlock) idxCow = Random.Range(0, blocks.Count);
+        while (blocks[idxCow].type <Block.Type.Block_U || blocks[idxCow].type > Block.Type.Block_UDRL) idxCow = Random.Range(0, blocks.Count);
         Character cow = new Character();
-        cow.type = Character.Type.Wagyu;
+        cow.type = Character.Type.Cow;
         cow.position = blocks[idxCow].position;
-        cow.entity = Instantiate(characterTypes[(int)Character.Type.Wagyu], new Vector3(cow.position.x * mapEdgeLength, cow.position.y * mapEdgeLength, 0), Quaternion.identity);
+        cow.entity = Instantiate(characterTypes[(int)Character.Type.Cow], new Vector3(cow.position.x * blockEdgeLength + mapOffsetX, cow.position.y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
+        cow.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
         cow.destination = cow.entity.transform.position;
         characters.Add(cow);
         //Spawn van
         int idxVan = Random.Range(0, blocks.Count);
-        while (blocks[idxVan].type != Block.Type.NormalBlock || idxVan == idxCow) idxVan = Random.Range(0, blocks.Count);
-        Item van = new Item();
-        van.type = Item.Type.Van;
+        while (blocks[idxVan].type < Block.Type.Block_U || blocks[idxVan].type > Block.Type.Block_UDRL || idxVan == idxCow) idxVan = Random.Range(0, blocks.Count);
+        Destination van = new Destination();
+        van.type = Destination.Type.Van;
         van.position = blocks[idxVan].position;
-        van.entity = Instantiate(itemTypes[(int)Item.Type.Van], new Vector3(van.position.x * mapEdgeLength, van.position.y * mapEdgeLength, 0), Quaternion.identity);
+        van.entity = Instantiate(destinationTypes[(int)Destination.Type.Van], new Vector3(van.position.x * blockEdgeLength + mapOffsetX, van.position.y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
+        van.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
         van.destination = van.entity.transform.position;
-        items.Add(van);
+        destinations.Add(van);
     }
 
     //helping functions declaration
@@ -466,7 +389,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < blocks.Count; ++i)
         {
             int val = -1;
-            if (blocks[i].type == Block.Type.NormalBlock) val = i;
+            if (blocks[i].type>=Block.Type.Block_U && blocks[i].type <= Block.Type.Block_UDRL) val = i;
             else if (blocks[i].type == Block.Type.Obstacle) val = -2;
             else if (blocks[i].type == Block.Type.RotateBlock) val = -3;
             assistMap[blocks[i].position.x, blocks[i].position.y] = val;
@@ -492,13 +415,13 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < characters.Count; ++i) if (characters[i].position.x == x && characters[i].position.y == y)
                         {
                             characters[i].position += movement[(int)dir];
-                            characters[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                            characters[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
                         }
                     //move items that's on the block
                     for (int i = 0; i < items.Count; ++i) if (items[i].position.x == x && items[i].position.y == y)
                         {
                             items[i].position += movement[(int)dir];
-                            items[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                            items[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
                         }
                 }
             }
@@ -511,20 +434,20 @@ public class GameManager : MonoBehaviour
                 {
                     if (assistMap[x, y] < 0 || outOfRange(x + mx, y + my) || assistMap[x + mx, y + my] != -1) continue;
                     blocks[assistMap[x, y]].position += movement[(int)dir];
-                    blocks[assistMap[x, y]].destination = new Vector3(blocks[assistMap[x, y]].position.x * mapEdgeLength, blocks[assistMap[x, y]].position.y * mapEdgeLength, 0);
+                    blocks[assistMap[x, y]].destination = new Vector3(blocks[assistMap[x, y]].position.x * blockEdgeLength + mapOffsetX, blocks[assistMap[x, y]].position.y * blockEdgeLength + mapOffsetY, 0);
                     assistMap[x, y] = -1;
                     validMove = true;
                     //move characters that's on the block
                     for(int i = 0;i < characters.Count;++i) if(characters[i].position.x == x && characters[i].position.y == y)
                         {
                             characters[i].position += movement[(int)dir];
-                            characters[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                            characters[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
                         }
                     //move items that's on the block
                     for (int i = 0; i < items.Count; ++i) if (items[i].position.x == x && items[i].position.y == y)
                         {
                             items[i].position += movement[(int)dir];
-                            items[i].destination += new Vector3(mx, my, 0) * mapEdgeLength;
+                            items[i].destination += new Vector3(mx, my, 0) * blockEdgeLength;
                         }
                 }
             }
@@ -547,7 +470,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
             }
         }
         if (dir == Direction.Down)
@@ -563,7 +486,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
             }
         }
         if (dir == Direction.Left)
@@ -579,7 +502,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
             }
         }
         if (dir == Direction.Right)
@@ -595,7 +518,7 @@ public class GameManager : MonoBehaviour
                     if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
-                characters[i].destination = new Vector3(x, y, 0) * mapEdgeLength;
+                characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength;
             }
         }
     }
@@ -606,11 +529,7 @@ public class GameManager : MonoBehaviour
         {
             if(items[i].position == new Vector2Int(x, y))
             {
-                if(items[i].type == Item.Type.Van)
-                {
-                    win = true;
-                    return true;
-                }
+               
             }
         }
         return false;

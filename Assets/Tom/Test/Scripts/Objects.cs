@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Block
-{
-    public enum Type { NormalBlock, Obstacle, RotateBlock };
+{ 
+    public enum Type { Block_U, Block_UD, Block_UR, Block_UDL, Block_UDRL, Obstacle, RotateBlock };
     public Type type;
     public Vector2Int position;
     public GameObject entity;
@@ -14,7 +14,7 @@ public class Block
 }
 public class Character
 {
-    public enum Type { Wagyu };
+    public enum Type { Cow };
     public Type type;
     public Vector2Int position;
     public Vector3 destination;
@@ -22,7 +22,16 @@ public class Character
 }
 public class Item
 {
-    public enum Type { Van, Key, HayStack };
+    public enum Type { Key, HayStack, Trap, HeadPhone, Portal };
+    public Type type;
+    public Vector2Int position;
+    public Vector3 destination;
+    public GameObject entity;
+}
+
+public class Destination
+{
+    public enum Type { Van };
     public Type type;
     public Vector2Int position;
     public Vector3 destination;

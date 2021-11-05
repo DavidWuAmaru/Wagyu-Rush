@@ -1377,7 +1377,7 @@ MonoBehaviour:
   - Assets/Tom/Test/Maps/Level1.map
   - Assets/Tom/Test/Maps/Level2.map
   satietySlider: {fileID: 1339423163}
-  stepAllowed: 20
+  stepAllowed: 40
 --- !u!4 &1387280361
 Transform:
   m_ObjectHideFlags: 0

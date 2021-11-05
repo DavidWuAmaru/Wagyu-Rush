@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     //satiety
     [SerializeField] private Slider satietySlider;
-    [SerializeField] private int stepAllowed = 20;
+    [SerializeField] private int stepAllowed = 40;
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
 
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
             }
         }
         //Satiety update
-        AddSatiety(-0.005f);
+        //AddSatiety(-0.005f);
         satiety = Mathf.Lerp(satiety, satietyTar, 0.05f);
         satietySlider.value = satiety;
     }
@@ -323,7 +323,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(items[i].type == Item.Type.Key)
                     {
-                        Debug.Log("Collect key");
+                        Debug.Log("Collect a key");
                     }
                     else if (items[i].type == Item.Type.HayStack)
                     {
@@ -344,15 +344,19 @@ public class GameManager : MonoBehaviour
                     }
                     else if (items[i].type == Item.Type.Portal)
                     {
-                        //for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject)
-                        //    {
-                        //        if (!characters[j].transferred)
-                        //        {
-                        //            characters[j].destination = items[i].entity.transform.position;
-                        //            StartCoroutine(IE_swap(characters[j], items[i].position));
-                        //            characters[j].transferred = true;
-                        //        }
-                        //    }
+                        for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject)
+                            {
+                                for(int k = 0;k < items.Count; ++k)
+                                {
+                                    if(items[k].type == Item.Type.Portal && items[k].entity != tarGameObject)
+                                    {
+                                        items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
+                                        items[k].entity.GetComponent<BoxCollider2D>().enabled = false;
+                                        characters[j].destination = items[i].entity.transform.position;
+                                        StartCoroutine(IE_swap(characters[j], items[k].position));
+                                    }
+                                }
+                            }
                     }
                     if (!itemReusability[(int)items[i].type])
                     {
@@ -379,8 +383,14 @@ public class GameManager : MonoBehaviour
                         }
                         if (!existKey)  //pass the map
                         {
-                            Debug.Log("Win");
-                            LevelUp();
+                            for(int j = 0;j < characters.Count; ++j)
+                            {
+                                if(characters[j].entity == srcGameObject)
+                                {
+                                    Destroy(characters[j].entity);
+                                    characters.RemoveAt(j);
+                                }
+                            }
                         }
                     }
                     break;
@@ -389,29 +399,30 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator IE_swap(Character ch, Vector2Int destPos)
     {
-        float scalar = 1.0f, step = 0.001f;
+        float scalar = 1.0f, step = 0.002f;
         float rotator = 0.0f, rstep = 360.0f / (scalar / step);
         while(scalar > 0)
         {
             enable = false;
             scalar -= step;
             rotator += rstep;
-            ch.entity.transform.localScale = new Vector3(scalar, scalar, 1);
+            ch.entity.transform.localScale = new Vector3(scalar, scalar, 1) * blockEdgeLength;
             ch.entity.transform.eulerAngles = new Vector3(0, 0, rotator);
             yield return null;
         }
         ch.position = destPos;
         ch.entity.transform.position = new Vector3(ch.position.x, ch.position.y, 0) * blockEdgeLength + mapOffset;
+        ch.destination = ch.entity.transform.position;
         while(scalar < 1.0f)
         {
             enable = false;
             scalar += step;
             rotator -= rstep;
-            ch.entity.transform.localScale = new Vector3(scalar, scalar, 1);
+            ch.entity.transform.localScale = new Vector3(scalar, scalar, 1) * blockEdgeLength;
             ch.entity.transform.eulerAngles = new Vector3(0, 0, rotator);
             yield return null;
         }
-        ch.entity.transform.localScale = new Vector3(1, 1, 1);
+        ch.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
         ch.entity.transform.eulerAngles = new Vector3(0, 0, 0);
         enable = true;
     }
@@ -588,9 +599,31 @@ public class GameManager : MonoBehaviour
             if (!finished) yield return null;
         }
 
+        moveEndEvent();
+    }
+    
+    private void moveEndEvent()
+    {
+        //reset properties
+        for (int i = 0; i < items.Count; ++i) items[i].entity.GetComponent<BoxCollider2D>().enabled = true;
+        for(int i = 0;i < characters.Count; ++i)
+        {
+            Collider2D[] cs = Physics2D.OverlapCircleAll(characters[i].position, 1.0f);
+            for(int j = 0;j < cs.Length; ++j)
+            {
+                cs[j].gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            }
+        }
+
+        //see if all cows are on the car
+        if(characters.Count == 0)  //win
+        {
+            Debug.Log("Win!!!");
+            LevelUp();
+        }
+
         enable = true;
     }
-
     private void setUpAssistMap()
     {
         //setup the map

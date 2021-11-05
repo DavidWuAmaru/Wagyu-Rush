@@ -21,7 +21,6 @@ public class Character : Identity
     public Type type;
     //extra function
     public int freeze = 0;
-    public bool transferred = false;
 }
 public class Item : Identity
 {

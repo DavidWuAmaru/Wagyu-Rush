@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
     private int[] movementX = new int[4] { 0, 0, -1, 1 };
     private int[] movementY = new int[4] { 1, -1, 0, 0 };
-    private int moveCount = 0;
 
     //class definition
     
@@ -29,8 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float blockMoveSpeed = 30.0f;   //block moving speed (exp)
     [SerializeField] private float characterMoveSpeed = 100.0f; //cow moving speed (linear)
     [SerializeField] private float blockRotateSpeed = 15.0f;  //block rotating speed (exp)
-    [SerializeField] private TMP_Text scoreBoard;
     [SerializeField] private TMP_Text levelBoard;
+    [SerializeField] private Canvas initialUI, ResultUI;
     //test
     [SerializeField] private bool usingCustomMap = true;
     [SerializeField] private List<string> mapAddress;
@@ -77,8 +76,8 @@ public class GameManager : MonoBehaviour
         if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
 
-        scoreBoard.text = "Move : " + moveCount.ToString();
-        levelBoard.text = "Level : " + (currentLevel + 1).ToString();
+
+        levelBoard.text = "Level : " + MenuButtonFunction.levelInfoFromUItoMainGame;
 
         //load cow sprites
         cowSprites = new List<Sprite>();
@@ -98,7 +97,6 @@ public class GameManager : MonoBehaviour
             if (validMove)
             {
                 AddSatiety(-1 * satietyMax / stepAllowed);
-                addMoveCount(1);
             }
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
@@ -107,7 +105,6 @@ public class GameManager : MonoBehaviour
             if (validMove)
             {
                 AddSatiety(-1 * satietyMax / stepAllowed);
-                addMoveCount(1);
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
@@ -116,7 +113,6 @@ public class GameManager : MonoBehaviour
             if (validMove)
             {
                 AddSatiety(-1 * satietyMax / stepAllowed);
-                addMoveCount(1);
             }
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -125,7 +121,6 @@ public class GameManager : MonoBehaviour
             if (validMove)
             {
                 AddSatiety(-1 * satietyMax / stepAllowed);
-                addMoveCount(1);
             }
         }
         //Satiety update
@@ -134,16 +129,6 @@ public class GameManager : MonoBehaviour
         satietySlider.value = satiety;
     }
 
-    private void addMoveCount(int increment)
-    {
-        moveCount += increment;
-        scoreBoard.text = "Move : " + moveCount.ToString();
-    }
-    private void setMoveCount(int val)
-    {
-        moveCount = val;
-        scoreBoard.text = "Move : " + moveCount.ToString();
-    }
     private void ClearAllObjs()
     {
         //Clear objects
@@ -157,7 +142,6 @@ public class GameManager : MonoBehaviour
         items.Clear();
         destinations.Clear();
         enable = true;
-        setMoveCount(0);
         SetSatiety(satietyMax);
     }
     private void LoadExistingMap(string filename)
@@ -635,7 +619,11 @@ public class GameManager : MonoBehaviour
         if (characters.Count == 0)  //win
         {
             Debug.Log("Win!!!");
-            LevelUp();
+            enable = false;
+            initialUI.gameObject.SetActive(false);
+            ResultUI.gameObject.SetActive(true);
+
+            return;
         }
 
         enable = true;
@@ -852,8 +840,11 @@ public class GameManager : MonoBehaviour
 
     public void ReloadMap()
     {
+        initialUI.gameObject.SetActive(true);
+        ResultUI.gameObject.SetActive(false);
         if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
+        enable = true;
     }
     public void LevelUp()
     {
@@ -868,6 +859,10 @@ public class GameManager : MonoBehaviour
         currentLevel--;
         levelBoard.text = "Level : " + (currentLevel + 1).ToString();
         ReloadMap();
+    }
+    public void BackToStartMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void SetSatiety(float val)

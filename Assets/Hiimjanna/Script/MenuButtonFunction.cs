@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuButtonFunction: MonoBehaviour
+public class MenuButtonFunction : MonoBehaviour
 {
+    static string levelInfoFromUItoMainGame = "1-1";
+
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 
@@ -32,8 +34,9 @@ public class MenuButtonFunction: MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void callMainMap()
+    public void callMainMap(string s)
     {
+        levelInfoFromUItoMainGame = s;
         SceneManager.LoadScene(2);
     }
 }

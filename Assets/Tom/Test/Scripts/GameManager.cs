@@ -340,7 +340,7 @@ public class GameManager : MonoBehaviour
                             {
                                 srcGameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
                                 characters[j].destination = items[i].entity.transform.position;
-                                characters[j].freeze += 5;
+                                characters[j].freeze += 3;
                             }
                     }
                     else if (items[i].type == Item.Type.Portal)
@@ -349,7 +349,7 @@ public class GameManager : MonoBehaviour
                             {
                                 for(int k = 0;k < items.Count; ++k)
                                 {
-                                    if(items[k].type == Item.Type.Portal && items[k].entity != tarGameObject)
+                                    if(items[k].type == Item.Type.Portal && i != k)
                                     {
                                         items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
                                         items[k].entity.GetComponent<BoxCollider2D>().enabled = false;
@@ -423,8 +423,10 @@ public class GameManager : MonoBehaviour
             ch.entity.transform.eulerAngles = new Vector3(0, 0, rotator);
             yield return null;
         }
+
         ch.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
         ch.entity.transform.eulerAngles = new Vector3(0, 0, 0);
+
         enable = true;
     }
 
@@ -605,19 +607,30 @@ public class GameManager : MonoBehaviour
     
     private void moveEndEvent()
     {
-        //reset properties
-        for (int i = 0; i < items.Count; ++i) items[i].entity.GetComponent<BoxCollider2D>().enabled = true;
         for(int i = 0;i < characters.Count; ++i)
         {
-            Collider2D[] cs = Physics2D.OverlapCircleAll(characters[i].position, 1.0f);
-            for(int j = 0;j < cs.Length; ++j)
+            bool OnPortal = false;
+            for(int j = 0;j < items.Count; ++j)
             {
-                cs[j].gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                if(items[j].type == Item.Type.Portal && items[j].position == characters[i].position)
+                {
+                    OnPortal = true;
+                    for(int k = 0;k < items.Count; ++k)
+                    {
+                        if(j != k && items[k].type == Item.Type.Portal) items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
+                    }
+                    break;
+                }
             }
+            if (!OnPortal) for (int j = 0; j < items.Count; ++j)
+                {
+                    items[j].entity.GetComponent<BoxCollider2D>().enabled = true;
+                }
         }
 
+
         //see if all cows are on the car
-        if(characters.Count == 0)  //win
+        if (characters.Count == 0)  //win
         {
             Debug.Log("Win!!!");
             LevelUp();
@@ -732,7 +745,6 @@ public class GameManager : MonoBehaviour
                     y++;
                     validMove = true;
                     characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[0];
-                    if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
@@ -758,7 +770,6 @@ public class GameManager : MonoBehaviour
                     y--;
                     validMove = true;
                     characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[1];
-                    if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
@@ -784,7 +795,6 @@ public class GameManager : MonoBehaviour
                     x--;
                     validMove = true;
                     characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[2];
-                    if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
@@ -810,24 +820,11 @@ public class GameManager : MonoBehaviour
                     x++;
                     validMove = true;
                     characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[3];
-                    if (checkOnItem(x, y)) break;
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
             }
         }
-    }
-
-    private bool checkOnItem(int x, int y)
-    {
-        for(int i = 0;i < items.Count; ++i)
-        {
-            if(items[i].position == new Vector2Int(x, y))
-            {
-               
-            }
-        }
-        return false;
     }
 
     private void rotateBlockFunc()

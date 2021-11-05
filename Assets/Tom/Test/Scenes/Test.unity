@@ -1376,6 +1376,7 @@ MonoBehaviour:
   - Assets/Tom/Test/Maps/Level0.map
   - Assets/Tom/Test/Maps/Level1.map
   - Assets/Tom/Test/Maps/Level2.map
+  - Assets/Tom/Test/Maps/Level4.map
   satietySlider: {fileID: 1339423163}
   stepAllowed: 40
 --- !u!4 &1387280361
@@ -1386,7 +1387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387280359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3588365, y: 2.1876636, z: -21.34079}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

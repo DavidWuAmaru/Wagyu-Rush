@@ -55,7 +55,7 @@ public class EditorManager : MonoBehaviour
 
         CreateMap();
         sizeText.text = "Size : " + width.ToString() + " , " + height.ToString();
-        filenameInputField.text = "Assets/Tom/Test/Maps/Level0.map";
+        filenameInputField.text = "1-1";
     }
 
     void Update()
@@ -316,12 +316,15 @@ public class EditorManager : MonoBehaviour
             }
 
         MapData map = new MapData(width, height, blocks, rotations, charNum, charTypes, charPos, itemNum, itemTypes, itemPos, destNum, destTypes, destPos);
-        SaveSystem.SaveMap(map, filenameInputField.text);
+        if (filenameInputField.text.IndexOf("/") == -1) SaveSystem.SaveMap(map, "Assets/MapLevel/Level" + filenameInputField.text + ".map");
+        else SaveSystem.SaveMap(map, filenameInputField.text);
         Debug.Log("Successful!!");
     }
     public void LoadMap()
     {
-        MapData map = SaveSystem.LoadMap(filenameInputField.text);
+        MapData map;
+        if (filenameInputField.text.IndexOf("/") == -1) map = SaveSystem.LoadMap("Assets/MapLevel/Level" + filenameInputField.text + ".map");
+        else map = SaveSystem.LoadMap(filenameInputField.text);
         widthSlider.value = map.width;
         heightSlider.value = map.height;
         UpdateMap(map.width, map.height);

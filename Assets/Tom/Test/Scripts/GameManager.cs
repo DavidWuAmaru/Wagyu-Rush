@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float blockRotateSpeed = 15.0f;  //block rotating speed (exp)
     [SerializeField] private TMP_Text levelBoard;
     [SerializeField] private Canvas initialUI, ResultUI;
+    [SerializeField] private TMP_Text ResultUI_satietyBoard;
     //test
     [SerializeField] private bool usingCustomMap = true;
     [SerializeField] private List<string> mapAddress;
@@ -622,7 +623,7 @@ public class GameManager : MonoBehaviour
             enable = false;
             initialUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
-
+            ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
             return;
         }
 
@@ -848,10 +849,20 @@ public class GameManager : MonoBehaviour
     }
     public void LevelUp()
     {
-        if (currentLevel >= mapAddress.Count - 1) return;
-        currentLevel++;
-        levelBoard.text = "Level : " + (currentLevel + 1).ToString();
-        ReloadMap();
+        for(int i = 0;i < mapAddress.Count; ++i)
+        {
+            if(mapAddress[i] == filename)
+            {
+                if(i + 1 >= mapAddress.Count)
+                {
+                    Debug.LogWarning("It's the last level");
+                    return;
+                }
+                filename = mapAddress[i + 1];
+                ReloadMap();
+                return;
+            }
+        }
     }
     public void LevelDown()
     {

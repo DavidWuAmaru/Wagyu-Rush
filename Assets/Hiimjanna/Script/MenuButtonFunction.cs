@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtonFunction : MonoBehaviour
 {
-    static string levelInfoFromUItoMainGame = "1-1";
+    public static string levelInfoFromUItoMainGame = "1-1";
 
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;

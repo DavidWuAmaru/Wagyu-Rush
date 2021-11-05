@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private string filename = "Assets/MapLevel/Level" + MenuButtonFunction.levelInfoFromUItoMainGame + ".map";
+
     //information for movement
     public enum Direction { Up, Down, Left, Right }
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
     private List<Item> items;
     private List<Destination> destinations;
     private int[,] assistMap;
-
+    private static string levelFilename;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         itemReusability = new bool[] { false, false, false, false, true };
-        if (usingCustomMap) LoadExistingMap(mapAddress[currentLevel]);
+        if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
 
         scoreBoard.text = "Move : " + moveCount.ToString();
@@ -850,7 +852,7 @@ public class GameManager : MonoBehaviour
 
     public void ReloadMap()
     {
-        if (usingCustomMap) LoadExistingMap(mapAddress[currentLevel]);
+        if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
     }
     public void LevelUp()

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -880,4 +881,5 @@ public class GameManager : MonoBehaviour
     {
         satietyTar += increment;
     }
+
 }

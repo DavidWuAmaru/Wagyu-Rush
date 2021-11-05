@@ -11,8 +11,7 @@ public class MenuButtonFunction: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myLoadedAssetBundle = AssetBundle.LoadFromFile("Assets/Scenes");
-        scenePaths = myLoadedAssetBundle.GetAllScenePaths();
+        
     }
 
     // Update is called once per frame
@@ -30,7 +29,11 @@ public class MenuButtonFunction: MonoBehaviour
 
     public void callMapEditor()
     {
-        Debug.Log('1');
         SceneManager.LoadScene(1);
+    }
+
+    public void callMainMap()
+    {
+        SceneManager.LoadScene(2);
     }
 }

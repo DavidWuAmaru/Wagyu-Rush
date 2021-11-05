@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class EditorManager : MonoBehaviour
 {
@@ -355,5 +356,9 @@ public class EditorManager : MonoBehaviour
             destMap[map.destPosition[i * 2], map.destPosition[i * 2 + 1]] = map.destinations[i];
             topMap[map.destPosition[i * 2], map.destPosition[i * 2 + 1]].GetComponent<SpriteRenderer>().sprite = destSprites[map.destinations[i]];
         }
+    }
+    public void loadStartMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

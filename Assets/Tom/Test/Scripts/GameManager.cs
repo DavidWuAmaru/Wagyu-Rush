@@ -311,6 +311,9 @@ public class GameManager : MonoBehaviour
                 {
                     if(items[i].type == Item.Type.Key)
                     {
+                        //play sound effect
+                        FindObjectOfType<AudioManager>().PlaySound("CollectTag");
+
                         Debug.Log("Collect a key");
                     }
                     else if (items[i].type == Item.Type.HayStack)
@@ -499,6 +502,10 @@ public class GameManager : MonoBehaviour
         bool finished = false;
         //move blocks
         moveMap(dir);
+
+        //play sound effect
+        FindObjectOfType<AudioManager>().PlaySound("BlockSlide");
+
         finished = false;
         while (!finished)
         {
@@ -548,6 +555,10 @@ public class GameManager : MonoBehaviour
 
         //rotate blocks
         rotateBlockFunc();
+
+        //play sound effect
+        FindObjectOfType<AudioManager>().PlaySound("BlockRotate");
+
         finished = false;
         while (!finished)
         {
@@ -620,6 +631,9 @@ public class GameManager : MonoBehaviour
         if (characters.Count == 0)  //win
         {
             Debug.Log("Win!!!");
+            //play sound effect
+            FindObjectOfType<AudioManager>().PlaySound("Pass");
+
             enable = false;
             initialUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
@@ -841,6 +855,8 @@ public class GameManager : MonoBehaviour
 
     public void ReloadMap()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
         initialUI.gameObject.SetActive(true);
         ResultUI.gameObject.SetActive(false);
         if (usingCustomMap) LoadExistingMap(filename);
@@ -849,7 +865,9 @@ public class GameManager : MonoBehaviour
     }
     public void LevelUp()
     {
-        for(int i = 0;i < mapAddress.Count; ++i)
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
+        for (int i = 0;i < mapAddress.Count; ++i)
         {
             if(mapAddress[i] == filename)
             {
@@ -873,6 +891,8 @@ public class GameManager : MonoBehaviour
     }
     public void BackToStartMenu()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
         SceneManager.LoadScene(0);
     }
 

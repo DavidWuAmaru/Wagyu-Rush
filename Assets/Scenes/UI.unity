@@ -403,6 +403,18 @@ MonoBehaviour:
           m_StringArgument: 1-3
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &187431762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,6 +928,18 @@ MonoBehaviour:
           m_StringArgument: 1-1
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &388589961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,6 +1206,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 1-2
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &427279644
@@ -1835,6 +1871,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &746354965
@@ -2810,6 +2858,18 @@ MonoBehaviour:
           m_StringArgument: 2-1
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1234813450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3150,6 +3210,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4205,6 +4277,18 @@ MonoBehaviour:
           m_StringArgument: 2-2
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1573756074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4683,6 +4767,18 @@ MonoBehaviour:
           m_StringArgument: 2-3
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 126897035}
+        m_TargetAssemblyTypeName: MenuButtonFunction, Assembly-CSharp
+        m_MethodName: ClickSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1854099633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5064,3 +5160,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138556980}
   m_CullTransparentMesh: 1
+--- !u!1001 &4909032051312214877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 477.13007
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 292.1614
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -61.695522
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724312, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909032051943724318, guid: ef4fc3a3a7eea6841968cc9d51fbbefe,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ef4fc3a3a7eea6841968cc9d51fbbefe, type: 3}

@@ -9,6 +9,8 @@ public class Page : MonoBehaviour
     [SerializeField] private bool goup = false;
     private void OnMouseDown()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
         if (goup && currentPage + 1 < pages.Count)
         {
             pages[currentPage].SetActive(false);

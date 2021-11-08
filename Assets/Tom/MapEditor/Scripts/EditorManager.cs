@@ -44,8 +44,12 @@ public class EditorManager : MonoBehaviour
     public List<Draggable> trash_cans;
     public Draggable draggable;
 
+
     void Start()
     {
+        //if (FindObjectOfType<AudioManager>().isSoundPlaying("BGM")) return;
+        //FindObjectOfType<AudioManager>().PlaySound("BGM");
+
         draggable.dragEndedCallback = OnDragEnded_block;
         for (int i = 0; i < blocks.Count; ++i) blocks[i].dragEndedCallback = OnDragEnded_block;
         for (int i = 0; i < characters.Count; ++i) characters[i].dragEndedCallback = OnDragEnded_character;
@@ -76,11 +80,16 @@ public class EditorManager : MonoBehaviour
         if (Vector2.Distance(new Vector2(x, y), new Vector2(tarX, tarY)) <= acceptableArea) return new Vector2Int(tarX, tarY);
         else return new Vector2Int(-1, -1);
     }
+    private void placeBlockSoundEffect()
+    {
+        int i = Random.Range(1, 4);
+        FindObjectOfType<AudioManager>().PlaySound("PlaceBlock" + i.ToString());
+    }
     private void OnDragEnded_block(Vector2 position, int type)
     {
         Vector2Int pos = GetPos(position.x, position.y);
         if (pos.x == -1 || pos.y == -1) return;
-
+        placeBlockSoundEffect();
         baseMap[pos.x, pos.y].GetComponent<SpriteRenderer>().sprite = blockSprites[type];
         baseMap[pos.x, pos.y].transform.localScale = new Vector3(edgeLength - 0.5f, edgeLength - 0.5f, 0) * blockScales[type];
         typeMap[pos.x, pos.y] = type;
@@ -89,13 +98,18 @@ public class EditorManager : MonoBehaviour
         {
             baseMap[pos.x, pos.y].transform.eulerAngles = new Vector3(0, 0, 0);
             rotationMap[pos.x, pos.y] = 0;
-            OnDragEnded_TC(position, 1); //clear obj
+            //clear obj
+            topMap[pos.x, pos.y].GetComponent<SpriteRenderer>().sprite = blankSprite;
+            itemMap[pos.x, pos.y] = -1;
+            charMap[pos.x, pos.y] = -1;
+            destMap[pos.x, pos.y] = -1;
         }
     }
     private void OnDragEnded_character(Vector2 position, int type)
     {
         Vector2Int pos = GetPos(position.x, position.y);
         if (pos.x == -1 || pos.y == -1) return;
+        placeBlockSoundEffect();
         if (typeMap[pos.x, pos.y] < 0 || typeMap[pos.x, pos.y] > 4) return;
         topMap[pos.x, pos.y].GetComponent<SpriteRenderer>().sprite = charSprites[type];
         topMap[pos.x, pos.y].transform.localScale = new Vector3(edgeLength, edgeLength, 0) * charScales[type];
@@ -107,6 +121,7 @@ public class EditorManager : MonoBehaviour
     {
         Vector2Int pos = GetPos(position.x, position.y);
         if (pos.x == -1 || pos.y == -1) return;
+        placeBlockSoundEffect();
         if (typeMap[pos.x, pos.y] < 0 || typeMap[pos.x, pos.y] > 4) return;
         topMap[pos.x, pos.y].GetComponent<SpriteRenderer>().sprite = itemSprites[type];
         topMap[pos.x, pos.y].transform.localScale = new Vector3(edgeLength, edgeLength, 0) * itemScales[type];
@@ -118,6 +133,7 @@ public class EditorManager : MonoBehaviour
     {
         Vector2Int pos = GetPos(position.x, position.y);
         if (pos.x == -1 || pos.y == -1) return;
+        placeBlockSoundEffect();
         if (typeMap[pos.x, pos.y] < 0 || typeMap[pos.x, pos.y] > 4) return;
         topMap[pos.x, pos.y].GetComponent<SpriteRenderer>().sprite = destSprites[type];
         topMap[pos.x, pos.y].transform.localScale = new Vector3(edgeLength, edgeLength, 0) * destScales[type];
@@ -130,7 +146,8 @@ public class EditorManager : MonoBehaviour
     {
         Vector2Int pos = GetPos(position.x, position.y);
         if (pos.x == -1 || pos.y == -1) return;
-        if(type == 0)  //clear blocks + item
+        placeBlockSoundEffect();
+        if (type == 0)  //clear blocks + item
         {
             baseMap[pos.x, pos.y].GetComponent<SpriteRenderer>().sprite = plainSprite;
             baseMap[pos.x, pos.y].transform.localScale = new Vector3(edgeLength - 0.5f, edgeLength - 0.5f, 0);
@@ -250,6 +267,10 @@ public class EditorManager : MonoBehaviour
         x = (x - offsetX) / edgeLength;
         y = (y - offsetY) / edgeLength;
         int tarX = (int)(x + 0.5f), tarY = (int)(y + 0.5f);
+
+        //Play sound effect
+        FindObjectOfType<AudioManager>().PlaySound("BlockRotate");
+
         if (Vector2.Distance(new Vector2(x, y), new Vector2(tarX, tarY)) <= rightClickArea && typeMap[tarX, tarY] >=0 && typeMap[tarX, tarY] <= 4 )
         {
             baseMap[tarX, tarY].transform.eulerAngles += new Vector3(0, 0, 90.0f);
@@ -258,7 +279,8 @@ public class EditorManager : MonoBehaviour
     }
     public void ResetMap()
     {
-        for(int y = 0;y< height; ++y)
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+        for (int y = 0;y< height; ++y)
         {
             for(int x = 0; x < width;++x)
             {
@@ -275,6 +297,7 @@ public class EditorManager : MonoBehaviour
     }
     public void SaveMap()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
         int charNum = 0, itemNum = 0, destNum = 0;
         int[] blocks = new int[width * height];
         int[] rotations = new int[width * height];
@@ -322,6 +345,7 @@ public class EditorManager : MonoBehaviour
     }
     public void LoadMap()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
         MapData map;
         if (filenameInputField.text.IndexOf("/") == -1) map = SaveSystem.LoadMap("Assets/MapLevel/Level" + filenameInputField.text + ".map");
         else map = SaveSystem.LoadMap(filenameInputField.text);
@@ -362,6 +386,7 @@ public class EditorManager : MonoBehaviour
     }
     public void loadStartMenu()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
         SceneManager.LoadScene(0);
     }
 }

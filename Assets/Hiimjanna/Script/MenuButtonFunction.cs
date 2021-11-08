@@ -10,6 +10,11 @@ public class MenuButtonFunction : MonoBehaviour
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 
+    private void Awake()
+    {
+        if (FindObjectOfType<AudioManager>().isSoundPlaying("BGM")) return;
+        FindObjectOfType<AudioManager>().PlaySound("BGM");
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,19 +29,28 @@ public class MenuButtonFunction : MonoBehaviour
 
     public void exitGameMenu()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
         UnityEditor.EditorApplication.isPlaying = false;//Ãö±¼unity play mode
         Application.Quit();//exit game
-        //Debug.Log('1');
     }
 
     public void callMapEditor()
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
         SceneManager.LoadScene(1);
     }
 
     public void callMainMap(string s)
     {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
         levelInfoFromUItoMainGame = s;
         SceneManager.LoadScene(2);
+    }
+    public void ClickSoundEffect()
+    {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
     }
 }

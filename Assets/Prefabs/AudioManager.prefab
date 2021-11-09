@@ -46,7 +46,7 @@ MonoBehaviour:
   sounds:
   - name: BGM
     clip: {fileID: 8300000, guid: a582183c8742d224fb1004e56fc34459, type: 3}
-    volume: 0.1
+    volume: 0.4
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BlockSlide
     clip: {fileID: 8300000, guid: abd45ac1d0e673b4ab22a83e7e707a64, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}

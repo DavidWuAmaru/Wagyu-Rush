@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text levelBoard;
     [SerializeField] private Canvas initialUI, ResultUI;
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
+    [SerializeField] private Text ResultUI_wagyuGradingBoard;
+    [SerializeField] private Button ResultUI_NextLevel;
     //test
     [SerializeField] private bool usingCustomMap = true;
     [SerializeField] private List<string> mapAddress;
@@ -638,6 +640,15 @@ public class GameManager : MonoBehaviour
             initialUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
             ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
+            //temporary
+            string[] wagyuGradings = new string[] { "A1", "A2", "A3", "A4", "A5" };
+            if (satietyTar < 0) satietyTar = 0;
+            if (satietyTar >= 1000) satietyTar = 999;
+            ResultUI_wagyuGradingBoard.text = "Grading " + wagyuGradings[(int)(satietyTar / 200.0f)];
+
+            if (mapAddress[mapAddress.Count - 1] == filename) ResultUI_NextLevel.gameObject.SetActive(false);
+            else ResultUI_NextLevel.gameObject.SetActive(true);
+
             return;
         }
 
@@ -877,6 +888,10 @@ public class GameManager : MonoBehaviour
                     return;
                 }
                 filename = mapAddress[i + 1];
+                string levelName = filename.Substring(filename.LastIndexOf("/")).Substring(6);
+                levelName = levelName.Substring(0, levelName.LastIndexOf("."));
+                levelBoard.text = "Level : " + levelName;
+
                 ReloadMap();
                 return;
             }

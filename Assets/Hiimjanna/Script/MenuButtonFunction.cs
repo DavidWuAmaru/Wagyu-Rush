@@ -31,7 +31,7 @@ public class MenuButtonFunction : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
-        UnityEditor.EditorApplication.isPlaying = false;//Ãö±¼unity play mode
+        //UnityEditor.EditorApplication.isPlaying = false;//Ãö±¼unity play mode
         Application.Quit();//exit game
     }
 

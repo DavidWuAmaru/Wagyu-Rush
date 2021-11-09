@@ -1888,12 +1888,12 @@ MonoBehaviour:
   ResultUI_NextLevel: {fileID: 1372506007}
   usingCustomMap: 1
   mapAddress:
-  - Assets/MapLevel/Level1-1.map
-  - Assets/MapLevel/Level1-2.map
-  - Assets/MapLevel/Level1-3.map
-  - Assets/MapLevel/Level2-1.map
-  - Assets/MapLevel/Level2-2.map
-  - Assets/MapLevel/Level2-3.map
+  - Assets/Resources/MapLevel/Level1-1.map
+  - Assets/Resources/MapLevel/Level1-2.map
+  - Assets/Resources/MapLevel/Level1-3.map
+  - Assets/Resources/MapLevel/Level2-1.map
+  - Assets/Resources/MapLevel/Level2-2.map
+  - Assets/Resources/MapLevel/Level2-3.map
   satietySlider: {fileID: 1339423163}
   stepAllowed: 40
 --- !u!4 &1387280361

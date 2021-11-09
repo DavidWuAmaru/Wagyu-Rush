@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private string filename = "Assets/MapLevel/Level" + MenuButtonFunction.levelInfoFromUItoMainGame + ".map";
-
+    private string filename = "Assets/Resources/MapLevel/Level" + MenuButtonFunction.levelInfoFromUItoMainGame + ".map";
+    
     //information for movement
     public enum Direction { Up, Down, Left, Right }
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };

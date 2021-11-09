@@ -10,11 +10,6 @@ public class MenuButtonFunction : MonoBehaviour
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 
-    private void Awake()
-    {
-        if (FindObjectOfType<AudioManager>().isSoundPlaying("BGM")) return;
-        FindObjectOfType<AudioManager>().PlaySound("BGM");
-    }
     // Start is called before the first frame update
     void Start()
     {

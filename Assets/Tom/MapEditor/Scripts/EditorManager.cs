@@ -339,7 +339,7 @@ public class EditorManager : MonoBehaviour
             }
 
         MapData map = new MapData(width, height, blocks, rotations, charNum, charTypes, charPos, itemNum, itemTypes, itemPos, destNum, destTypes, destPos);
-        if (filenameInputField.text.IndexOf("/") == -1) SaveSystem.SaveMap(map, "Assets/MapLevel/Level" + filenameInputField.text + ".map");
+        if (filenameInputField.text.IndexOf("/") == -1) SaveSystem.SaveMap(map, "Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
         else SaveSystem.SaveMap(map, filenameInputField.text);
         Debug.Log("Successful!!");
     }
@@ -347,7 +347,7 @@ public class EditorManager : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
         MapData map;
-        if (filenameInputField.text.IndexOf("/") == -1) map = SaveSystem.LoadMap("Assets/MapLevel/Level" + filenameInputField.text + ".map");
+        if (filenameInputField.text.IndexOf("/") == -1) map = SaveSystem.LoadMap("Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
         else map = SaveSystem.LoadMap(filenameInputField.text);
         widthSlider.value = map.width;
         heightSlider.value = map.height;

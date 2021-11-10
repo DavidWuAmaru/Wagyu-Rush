@@ -23,6 +23,7 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private List<float> destScales;
     [SerializeField] private Sprite plainSprite;
     [SerializeField] private Sprite blankSprite;
+    [SerializeField] private TMP_Text messageBanner;
     // [SerializeField] private float puttingArea = 0.5f;
     [SerializeField] private float acceptableArea = 0.7f;
     [SerializeField] private float rightClickArea = 0.6f;
@@ -308,7 +309,13 @@ public class EditorManager : MonoBehaviour
                 if (itemMap[x, y] != -1) itemNum++;
                 if (destMap[x, y] != -1) destNum++;
         }
-        if (destNum == 0 || charNum == 0) Debug.LogWarning("[Warning] cow or van are none!!");
+        if (destNum == 0 || charNum == 0)
+        {
+            Debug.LogWarning("[Warning] cow or van are none!!");
+            StopAllCoroutines();
+            StartCoroutine(IE_bannerShow(0.5f, 0.3f));
+            return;
+        }
         int[] charTypes = new int[charNum], charPos = new int[charNum * 2];
         int[] itemTypes = new int[itemNum], itemPos = new int[itemNum * 2];
         int[] destTypes = new int[destNum], destPos = new int[destNum * 2];
@@ -358,8 +365,8 @@ public class EditorManager : MonoBehaviour
             if(map.blocks[i] != -1)
             {
                 int x = i % width, y = i / width;
-                baseMap[x, y].transform.localScale = new Vector3(edgeLength - 0.5f, edgeLength - 0.5f, 0) / 5.82f;
                 baseMap[x, y].GetComponent<SpriteRenderer>().sprite = blockSprites[map.blocks[i]];
+                baseMap[x, y].transform.localScale = new Vector3(edgeLength - 0.5f, edgeLength - 0.5f, 0) * blockScales[map.blocks[i]];
                 typeMap[x, y] = map.blocks[i];
                 rotationMap[x, y] = map.rotations[i];
                 baseMap[x, y].transform.eulerAngles = new Vector3(0, 0, 90.0f) * rotationMap[x, y];
@@ -370,23 +377,55 @@ public class EditorManager : MonoBehaviour
         {
             charMap[map.charPosition[i * 2], map.charPosition[i * 2 + 1]] = map.characters[i];
             topMap[map.charPosition[i * 2], map.charPosition[i * 2 + 1]].GetComponent<SpriteRenderer>().sprite = charSprites[map.characters[i]];
+            topMap[map.charPosition[i * 2], map.charPosition[i * 2 + 1]].transform.localScale = new Vector3(edgeLength, edgeLength, 0) * charScales[map.characters[i]];
         }
         //item
         for(int i = 0;i < map.itemNum; ++i)
         {
             itemMap[map.itemPosition[i * 2], map.itemPosition[i * 2 + 1]] = map.items[i];
             topMap[map.itemPosition[i * 2], map.itemPosition[i * 2 + 1]].GetComponent<SpriteRenderer>().sprite = itemSprites[map.items[i]];
+            topMap[map.itemPosition[i * 2], map.itemPosition[i * 2 + 1]].transform.localScale = new Vector3(edgeLength, edgeLength, 0) * itemScales[map.items[i]];
         }
         //dest
         for(int i = 0;i < map.destNum; ++i)
         {
             destMap[map.destPosition[i * 2], map.destPosition[i * 2 + 1]] = map.destinations[i];
             topMap[map.destPosition[i * 2], map.destPosition[i * 2 + 1]].GetComponent<SpriteRenderer>().sprite = destSprites[map.destinations[i]];
+            topMap[map.destPosition[i * 2], map.destPosition[i * 2 + 1]].transform.localScale = new Vector3(edgeLength, edgeLength, 0) * destScales[map.destinations[i]];
         }
     }
     public void loadStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator IE_bannerShow(float fadingDuration, float pauseDuration)
+    {
+        float counter = 0;
+        while(counter < fadingDuration)
+        {
+            counter += Time.deltaTime;
+            if (counter > fadingDuration) counter = fadingDuration;
+            messageBanner.GetComponent<CanvasGroup>().alpha = counter / fadingDuration;
+            yield return null;
+        }
+
+        counter = 0;
+        while(counter < pauseDuration)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        counter = 0;
+        while (counter < fadingDuration)
+        {
+            counter += Time.deltaTime;
+            if (counter > fadingDuration) counter = fadingDuration;
+            messageBanner.GetComponent<CanvasGroup>().alpha = 1 - counter / fadingDuration;
+            yield return null;
+        }
+        messageBanner.GetComponent<CanvasGroup>().alpha = 0;
     }
 }

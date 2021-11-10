@@ -97,34 +97,18 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             StartCoroutine(IE_move(Direction.Up));
-            if (validMove)
-            {
-                AddSatiety(-1 * satietyMax / stepAllowed);
-            }
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             StartCoroutine(IE_move(Direction.Down));
-            if (validMove)
-            {
-                AddSatiety(-1 * satietyMax / stepAllowed);
-            }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             StartCoroutine(IE_move(Direction.Left));
-            if (validMove)
-            {
-                AddSatiety(-1 * satietyMax / stepAllowed);
-            }
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             StartCoroutine(IE_move(Direction.Right));
-            if (validMove)
-            {
-                AddSatiety(-1 * satietyMax / stepAllowed);
-            }
         }
         //Satiety update
         //AddSatiety(-0.005f);
@@ -331,6 +315,7 @@ public class GameManager : MonoBehaviour
                         for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject)
                             {
                                 srcGameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+                                characters[j].position = items[i].position;
                                 characters[j].destination = items[i].entity.transform.position;
                                 characters[j].freeze += 3;
                             }
@@ -392,13 +377,13 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator IE_swap(Character ch, Vector2Int destPos)
     {
-        float scalar = 1.0f, step = 0.002f;
+        float scalar = 1.0f, step = 1.5f;
         float rotator = 0.0f, rstep = 360.0f / (scalar / step);
         while(scalar > 0)
         {
             enable = false;
-            scalar -= step;
-            rotator += rstep;
+            scalar -= step * Time.deltaTime;
+            rotator += rstep * Time.deltaTime;
             ch.entity.transform.localScale = new Vector3(scalar, scalar, 1) * blockEdgeLength;
             ch.entity.transform.eulerAngles = new Vector3(0, 0, rotator);
             yield return null;
@@ -409,8 +394,8 @@ public class GameManager : MonoBehaviour
         while(scalar < 1.0f)
         {
             enable = false;
-            scalar += step;
-            rotator -= rstep;
+            scalar += step * Time.deltaTime;
+            rotator -= rstep * Time.deltaTime;
             ch.entity.transform.localScale = new Vector3(scalar, scalar, 1) * blockEdgeLength;
             ch.entity.transform.eulerAngles = new Vector3(0, 0, rotator);
             yield return null;
@@ -583,7 +568,7 @@ public class GameManager : MonoBehaviour
             if (!finished) yield return null;
         }
 
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.04f);
         //move characters
         moveCharacter(dir);
         finished = false;
@@ -628,6 +613,8 @@ public class GameManager : MonoBehaviour
                 }
         }
 
+        //Update satiety
+        if (validMove) AddSatiety(-1 * satietyMax / stepAllowed);
 
         //see if all cows are on the car
         if (characters.Count == 0)  //win
@@ -913,6 +900,8 @@ public class GameManager : MonoBehaviour
 
     private void SetSatiety(float val)
     {
+        if (val < 0) val = 0;
+        if (val > satietyMax) val = satietyMax;
         satiety = val;
         satietyTar = val;
         satietySlider.value = satiety;
@@ -920,6 +909,8 @@ public class GameManager : MonoBehaviour
     private void AddSatiety(float increment)
     {
         satietyTar += increment;
+        if (satietyTar < 0) satietyTar = 0;
+        if (satietyTar > satietyMax) satietyTar = satietyMax;
     }
 
 }

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float characterMoveSpeed = 100.0f; //cow moving speed (linear)
     [SerializeField] private float blockRotateSpeed = 15.0f;  //block rotating speed (exp)
     [SerializeField] private TMP_Text levelBoard;
-    [SerializeField] private Canvas initialUI, ResultUI;
+    [SerializeField] private Canvas initialUI, ResultUI, SettingUI;
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
     [SerializeField] private Text ResultUI_wagyuGradingBoard;
     [SerializeField] private Button ResultUI_NextLevel;
@@ -625,6 +625,7 @@ public class GameManager : MonoBehaviour
 
             enable = false;
             initialUI.gameObject.SetActive(false);
+            SettingUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
             ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
             //temporary
@@ -897,7 +898,23 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene(0);
     }
+    public void OpenSettingMenu()
+    {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
 
+        initialUI.gameObject.SetActive(false);
+        SettingUI.gameObject.SetActive(true);
+        ResultUI.gameObject.SetActive(false);
+    }
+
+    public void CloseSettingMenu()
+    {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
+        initialUI.gameObject.SetActive(true);
+        SettingUI.gameObject.SetActive(false);
+        ResultUI.gameObject.SetActive(false);
+    }
     private void SetSatiety(float val)
     {
         if (val < 0) val = 0;

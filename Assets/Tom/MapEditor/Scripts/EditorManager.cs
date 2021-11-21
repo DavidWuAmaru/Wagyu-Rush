@@ -291,6 +291,7 @@ public class EditorManager : MonoBehaviour
                 destMap[x, y] = -1;
                 rotationMap[x, y] = 0;
                 baseMap[x, y].GetComponent<SpriteRenderer>().sprite = plainSprite;
+                baseMap[x, y].transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
                 topMap[x, y].GetComponent<SpriteRenderer>().sprite = blankSprite;
                 baseMap[x, y].transform.localScale = new Vector3(edgeLength - 0.5f, edgeLength - 0.5f, 0);
             }

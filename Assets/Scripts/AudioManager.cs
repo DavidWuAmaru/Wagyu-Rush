@@ -1,9 +1,15 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour {
     [SerializeField] private Sound[] sounds;
+    [SerializeField] private Sound[] musics;
+    [SerializeField] private Slider SESlider;
+    [SerializeField] private Slider musicSlider;
+    [Range (0.0f, 1.5f)] [SerializeField] private float SEAmplifier = 1.0f;
+    [Range (0.0f, 1.5f)] [SerializeField] private float MusicAmplifier = 1.0f;
     public static AudioManager audioManager;
     private void Awake()
     {
@@ -21,12 +27,41 @@ public class AudioManager : MonoBehaviour {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
 
-            s.source.volume = s.volume;
+            s.source.volume = s.volume * SEAmplifier;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
 
-        PlaySound("BGM");
+        foreach (Sound m in musics)
+        {
+            m.source = gameObject.AddComponent<AudioSource>();
+            m.source.clip = m.clip;
+
+            m.source.volume = m.volume * MusicAmplifier;
+            m.source.pitch = m.pitch;
+            m.source.loop = m.loop;
+        }
+
+        PlayMusic("BGM");
+    }
+    
+    public void updateSEVolume()
+    {
+        SEAmplifier = SESlider.value;
+        Debug.Log(SEAmplifier);
+        foreach (Sound s in sounds)
+        {
+            s.source.volume = s.volume * SEAmplifier;
+        }
+    }
+    public void updateMusicVolume()
+    {
+        MusicAmplifier = musicSlider.value;
+        Debug.Log(MusicAmplifier);
+        foreach (Sound m in musics)
+        {
+            m.source.volume = m.volume * MusicAmplifier;
+        }
     }
 
     public void PlaySound(string name)
@@ -56,5 +91,34 @@ public class AudioManager : MonoBehaviour {
             return;
         }
         s.source.Stop();
+    }
+
+    public void PlayMusic(string name)
+    {
+        Sound m = Array.Find(musics, music => music.name == name);
+        if (m == null)
+        {
+            Debug.LogError("Music " + name + " not found!");
+            return;
+        }
+        m.source.Play();
+    }
+    public bool isMusicPlaying(string name)
+    {
+        foreach (Sound m in musics)
+        {
+            if (m.name == name && m.source != null && m.source.isPlaying) return true;
+        }
+        return false;
+    }
+    public void StopMusic(string name)
+    {
+        Sound m = Array.Find(musics, music => music.name == name);
+        if (m == null)
+        {
+            Debug.LogError("Music " + name + " not found!");
+            return;
+        }
+        m.source.Stop();
     }
 }

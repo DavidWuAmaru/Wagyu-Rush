@@ -44,12 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: BGM
-    clip: {fileID: 8300000, guid: a582183c8742d224fb1004e56fc34459, type: 3}
-    volume: 0.4
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: 8b2fa63ffac9e044ca034ab457ac63ca, type: 3}
     volume: 1
@@ -98,3 +92,14 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  musics:
+  - name: BGM
+    clip: {fileID: 8300000, guid: a582183c8742d224fb1004e56fc34459, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  SESlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  SEAmplifier: 1
+  MusicAmplifier: 1

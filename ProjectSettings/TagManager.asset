@@ -9,6 +9,7 @@ TagManager:
   - Character
   - Destination
   - LevelInfo
+  - Block
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,6 @@ public class Draggable : MonoBehaviour
     private Vector3 mouseDragStartPosition;
     private Vector3 spriteDragStartPosition;
     
-
     private void OnMouseDown()
     {
         isDragged = true;

@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class MenuButtonFunction : MonoBehaviour
 {
     public static string levelInfoFromUItoMainGame = "1-1";
-
+    public static string ChapterNumber;
+    public static string LevelNumber;
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 

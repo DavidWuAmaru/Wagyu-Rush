@@ -10,7 +10,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private float alphaspeed;
     private float[] alpha;
     private bool controlenable;
-    //private Vector3 startposition;
+    private Vector3 startposition;
     private int positionIndex,page;
     private const int itemsNumber = 3;
     // Start is called before the first frame update
@@ -24,12 +24,19 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         }
         positionIndex = 0;
         page = 0;
-        //startposition = gameObject.transform.position;
+        startposition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < itemsNumber; ++i)
+        {
+            bubbles[i + page * itemsNumber].GetComponent<Image>().color = Vector4.Lerp(bubbles[i + page * itemsNumber].GetComponent<Image>().color, new Vector4(1, 1, 1, alpha[i + page * itemsNumber]), alphaspeed);
+        }
+
+        if (!controlenable) return;
+
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             if(positionIndex>page*itemsNumber)
@@ -37,7 +44,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
                 controlenable = false;
                 alpha[positionIndex] = 0;
                 positionIndex--;
-                StartCoroutine(IECowMove(moveAmount,true));
+                StartCoroutine(IECowMove());
             }
             
             GetComponent<Image>().sprite = cowleft;
@@ -49,37 +56,25 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
                 controlenable = false;
                 alpha[positionIndex] = 0;
                 positionIndex++;
-                StartCoroutine(IECowMove(moveAmount,false));
+                StartCoroutine(IECowMove());
             }
 
             GetComponent<Image>().sprite = cowright;
         }
 
-        for (int i = 0; i < itemsNumber; ++i)
-        {
-            bubbles[i + page * itemsNumber].GetComponent<Image>().color = Vector4.Lerp(bubbles[i + page * itemsNumber].GetComponent<Image>().color, new Vector4(1, 1, 1, alpha[i + page*itemsNumber]), alphaspeed);
-        }
-
     }
 
-    IEnumerator IECowMove(float moveAmount,bool isleft)
+    IEnumerator IECowMove()
     {
-        float temp = moveAmount;
-        while (moveAmount>0)
+        Vector3 step = new Vector3(moveAmount, 0, 0) * 3; //speed up
+        Vector3 target = new Vector3((positionIndex % itemsNumber) * moveAmount, 0, 0) + startposition;
+        if (target.x < transform.position.x) step *= -1;
+        while (Vector3.Distance(transform.position, target) >= Mathf.Abs(step.x) * Time.deltaTime * 2)
         {
-            if(isleft)
-            {
-                gameObject.transform.position += new Vector3(-(temp / 10.0f), 0, 0);
-            }
-            else
-            {
-                gameObject.transform.position += new Vector3((temp / 10.0f), 0, 0);
-            }
-            
-            moveAmount -= (temp / 10.0f);
-
+            transform.position += step * Time.deltaTime;
             yield return null;
         }
+        transform.position = target;
         alpha[positionIndex] = 1;
         controlenable = true;
     }

@@ -5,9 +5,10 @@ using UnityEngine.UI;
 public class cowBehaviorInWorldMenu : MonoBehaviour
 {
     [SerializeField] private Sprite cowleft, cowright;
-    [SerializeField] private float moveAmount;
     [SerializeField] private Image[] bubbles;
+    [SerializeField] private GameObject[] buttons = new GameObject[3];
     [SerializeField] private float alphaspeed;
+    private float moveAmount;
     private float[] alpha;
     private bool controlenable;
     private Vector3 startposition;
@@ -16,6 +17,8 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //²¾°Êªº¶ZÂ÷
+       
         controlenable = true;
         alpha = new float[bubbles.Length];
         for(int i=0;i<bubbles.Length;++i)
@@ -24,12 +27,14 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         }
         positionIndex = 0;
         page = 0;
-        startposition = transform.position;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        startposition = new Vector3(buttons[0].gameObject.transform.position.x,transform.position.y,transform.position.z);
+        moveAmount = buttons[1].gameObject.transform.position.x - buttons[0].gameObject.transform.position.x;
         for (int i = 0; i < itemsNumber; ++i)
         {
             bubbles[i + page * itemsNumber].GetComponent<Image>().color = Vector4.Lerp(bubbles[i + page * itemsNumber].GetComponent<Image>().color, new Vector4(1, 1, 1, alpha[i + page * itemsNumber]), alphaspeed);
@@ -66,8 +71,9 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
 
     IEnumerator IECowMove()
     {
+        Debug.Log(moveAmount + " " + positionIndex);
         Vector3 step = new Vector3(moveAmount, 0, 0) * 3; //speed up
-        Vector3 target = new Vector3((positionIndex % itemsNumber) * moveAmount, 0, 0) + startposition;
+        Vector3 target = new Vector3((positionIndex % itemsNumber)*moveAmount ,0,0) + startposition;
         if (target.x < transform.position.x) step *= -1;
         while (Vector3.Distance(transform.position, target) >= Mathf.Abs(step.x) * Time.deltaTime * 2)
         {
@@ -91,4 +97,5 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     {
         yield return null;
     }*/
+
 }

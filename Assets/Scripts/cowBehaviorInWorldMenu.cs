@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class cowBehaviorInWorldMenu : MonoBehaviour
 {
     [SerializeField] private Sprite cowleft, cowright;
     [SerializeField] private Image[] bubbles;
     [SerializeField] private GameObject[] buttons = new GameObject[3];
     [SerializeField] private float alphaspeed;
+    [SerializeField] private Canvas LevelMenu;
+    [SerializeField] private TextMeshProUGUI WorldTitle;
     private float moveAmount;
     private float[] alpha;
     private bool controlenable;
     private Vector3 startposition;
     private int positionIndex,page;
     private const int itemsNumber = 3;
+    public static string worldNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,11 +71,37 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             GetComponent<Image>().sprite = cowright;
         }
 
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            LevelMenu.gameObject.SetActive(true);
+            FindObjectOfType<AudioManager>().PlaySound("Click");
+
+            switch (positionIndex)
+            {
+                case 0:
+                    WorldTitle.text = "1.beginner";
+                    worldNum = "1-";
+                    break;
+                case 1:
+                    WorldTitle.text = "2.Rotation Block";
+                    worldNum = "2-";
+                    break;
+                case 2:
+                    WorldTitle.text = "3.Dancing Wagyu";
+                    worldNum = "3-";
+                    break;
+                default:
+                    Debug.Log("World Title Text Error");
+                    break;
+            }
+                
+        }
+
     }
 
     IEnumerator IECowMove()
     {
-        Debug.Log(moveAmount + " " + positionIndex);
+        //Debug.Log(moveAmount + " " + positionIndex);
         Vector3 step = new Vector3(moveAmount, 0, 0) * 3; //speed up
         Vector3 target = new Vector3((positionIndex % itemsNumber)*moveAmount ,0,0) + startposition;
         if (target.x < transform.position.x) step *= -1;

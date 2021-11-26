@@ -41,8 +41,8 @@ public class MenuButtonFunction : MonoBehaviour
     public void callMainMap(string s)
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
-
-        levelInfoFromUItoMainGame = s;
+ 
+        levelInfoFromUItoMainGame = cowBehaviorInWorldMenu.worldNum + s;
         SceneManager.LoadScene(2);
     }
     public void ClickSoundEffect()

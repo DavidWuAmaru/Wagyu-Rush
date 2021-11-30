@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
     [SerializeField] private Text ResultUI_wagyuGradingBoard;
     [SerializeField] private Button ResultUI_NextLevel;
+    //
     [SerializeField] private Image resultCowImage;
     [SerializeField] private Sprite[] resultCowPics;
     [SerializeField] private Image cowEmojiImage;

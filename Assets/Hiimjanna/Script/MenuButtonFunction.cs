@@ -43,7 +43,8 @@ public class MenuButtonFunction : MonoBehaviour
         FindObjectOfType<AudioManager>().PlaySound("Click");
  
         levelInfoFromUItoMainGame = cowBehaviorInWorldMenu.worldNum + s;
-        SceneManager.LoadScene(2);
+        if(levelInfoFromUItoMainGame == "1-1") SceneManager.LoadScene(3);
+        else SceneManager.LoadScene(2);
     }
     public void ClickSoundEffect()
     {

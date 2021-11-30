@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMap.unity
     guid: 9711b65d916800549935fbd436891a17
+  - enabled: 1
+    path: Assets/Scenes/TeachMainMap.unity
+    guid: 5f7a6e84ff09b1b4182d3d664af0ce46
   m_configObjects: {}

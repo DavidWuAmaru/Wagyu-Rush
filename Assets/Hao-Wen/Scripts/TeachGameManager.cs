@@ -45,6 +45,11 @@ public class TeachGameManager : MonoBehaviour
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
 
+    [SerializeField] private Image resultCowImage;
+    [SerializeField] private Sprite[] resultCowPics;
+    [SerializeField] private Image cowEmojiImage;
+    [SerializeField] private Sprite[] cowEmojiPics;
+
     [SerializeField] private Text dialogTxt;
     [SerializeField] [Multiline]private string[] dialogs;
     [SerializeField] private GameObject dialogBox;
@@ -776,7 +781,8 @@ public class TeachGameManager : MonoBehaviour
             string[] wagyuGradings = new string[] { "A1", "A2", "A3", "A4", "A5" };
             if (satietyTar < 0) satietyTar = 0;
             if (satietyTar >= 1000) satietyTar = 999;
-            ResultUI_wagyuGradingBoard.text = "Grading " + wagyuGradings[(int)(satietyTar / 200.0f)];
+            ResultUI_wagyuGradingBoard.text = wagyuGradings[(int)(satietyTar / 200.0f)];
+            resultCowImage.GetComponent<Image>().sprite = resultCowPics[(int)(satietyTar / 200.0f) / 2];
 
             if (mapAddress[mapAddress.Count - 1] == filename) ResultUI_NextLevel.gameObject.SetActive(false);
             else ResultUI_NextLevel.gameObject.SetActive(true);
@@ -1062,16 +1068,20 @@ public class TeachGameManager : MonoBehaviour
     private void SetSatiety(float val)
     {
         if (val < 0) val = 0;
-        if (val > satietyMax) val = satietyMax;
+        if (val > satietyMax) val = satietyMax - 1;
         satiety = val;
         satietyTar = val;
         satietySlider.value = satiety;
+
+        cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(int)(satietyTar / 200.0f) / 2];
     }
     private void AddSatiety(float increment)
     {
         satietyTar += increment;
         if (satietyTar < 0) satietyTar = 0;
-        if (satietyTar > satietyMax) satietyTar = satietyMax;
+        if (satietyTar > satietyMax) satietyTar = satietyMax - 1;
+
+        cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(int)(satietyTar / 200.0f) / 2];
     }
 
 }

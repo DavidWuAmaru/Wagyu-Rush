@@ -2557,6 +2557,9 @@ MonoBehaviour:
   - Assets/Resources/MapLevel/Level2-1.map
   - Assets/Resources/MapLevel/Level2-2.map
   - Assets/Resources/MapLevel/Level2-3.map
+  - Assets/Resources/MapLevel/Level3-1.map
+  - Assets/Resources/MapLevel/Level3-2.map
+  - Assets/Resources/MapLevel/Level3-3.map
   satietySlider: {fileID: 1339423163}
   levelGradingChaos: 0f000000140000001e0000002800000032000000
   levelGradingHard: 0c0000000f000000140000001e00000028000000

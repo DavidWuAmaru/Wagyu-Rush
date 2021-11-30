@@ -26,6 +26,7 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private Sprite blankSprite;
     [SerializeField] private TMP_Text messageBanner;
     [SerializeField] private GameObject trashCan;
+    [SerializeField] private TMP_Dropdown difficultyDropdown;
     // [SerializeField] private float puttingArea = 0.5f;
     [SerializeField] private float acceptableArea = 0.7f;
     [SerializeField] private float rightClickArea = 0.6f;
@@ -421,7 +422,7 @@ public class EditorManager : MonoBehaviour
                 }
             }
 
-        MapData map = new MapData(width, height, blocks, rotations, charNum, charTypes, charPos, itemNum, itemTypes, itemPos, destNum, destTypes, destPos);
+        MapData map = new MapData(difficultyDropdown.value, width, height, blocks, rotations, charNum, charTypes, charPos, itemNum, itemTypes, itemPos, destNum, destTypes, destPos);
         if (filenameInputField.text.IndexOf("/") == -1) SaveSystem.SaveMap(map, "Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
         else SaveSystem.SaveMap(map, filenameInputField.text);
         Debug.Log("Successful!!");
@@ -432,6 +433,7 @@ public class EditorManager : MonoBehaviour
         MapData mapData;
         if (filenameInputField.text.IndexOf("/") == -1) mapData = SaveSystem.LoadMap("Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
         else mapData = SaveSystem.LoadMap(filenameInputField.text);
+        difficultyDropdown.value = mapData.difficulty;
         widthSlider.value = mapData.width;
         heightSlider.value = mapData.height;
         UpdateMap(mapData.width, mapData.height);

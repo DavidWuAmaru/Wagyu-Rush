@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class MapData
 {
+    public int difficulty = 2;
     public int width, height;
     public int[] blocks, rotations;
     public int charNum, itemNum, destNum;
@@ -14,14 +15,16 @@ public class MapData
 
     public MapData()
     {
+        difficulty = 2;
         width = 0;
         height = 0;
         charNum = 0;
         itemNum = 0;
         destNum = 0;
     }
-    public MapData(int _width, int _height, int[] _blocks, int[] _rotations, int _charNum, int[] _characters, int[] _charPosition, int _itemNum, int[] _items, int[] _itemPosition, int _destNum, int[] _dests, int[] _destPosition)
+    public MapData(int _difficulty, int _width, int _height, int[] _blocks, int[] _rotations, int _charNum, int[] _characters, int[] _charPosition, int _itemNum, int[] _items, int[] _itemPosition, int _destNum, int[] _dests, int[] _destPosition)
     {
+        difficulty = _difficulty;
         width = _width;
         height = _height;
         charNum = _charNum;

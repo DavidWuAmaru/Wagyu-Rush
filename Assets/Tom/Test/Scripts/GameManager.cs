@@ -15,9 +15,7 @@ public class GameManager : MonoBehaviour
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
     private int[] movementX = new int[4] { 0, 0, -1, 1 };
     private int[] movementY = new int[4] { 1, -1, 0, 0 };
-
     //class definition
-    
     #region SerializeField
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<GameObject> blockTypes;
@@ -33,6 +31,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
     [SerializeField] private Text ResultUI_wagyuGradingBoard;
     [SerializeField] private Button ResultUI_NextLevel;
+    [SerializeField] private Image resultCowImage;
+    [SerializeField] private Sprite[] resultCowPics;
+    [SerializeField] private Image cowEmojiImage;
+    [SerializeField] private Sprite[] cowEmojiPics;
     //test
     [SerializeField] private bool usingCustomMap = true;
     [SerializeField] private List<string> mapAddress;
@@ -41,9 +43,16 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     //satiety
     [SerializeField] private Slider satietySlider;
-    [SerializeField] private int stepAllowed = 40;
+    private int stepCount = 0, stepMax = 40;
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
+    //difficulty
+    [SerializeField] private int[] levelGradingChaos;       //small -> large
+    [SerializeField] private int[] levelGradingHard;         //small -> large
+    [SerializeField] private int[] levelGradingNormal;      //small -> large
+    [SerializeField] private int[] levelGradingEasy;           //small -> large
+    [SerializeField] private int[] levelGradingNoob;        //small -> large
+    private List<int[]> levelGradings;
 
     #endregion
 
@@ -58,6 +67,7 @@ public class GameManager : MonoBehaviour
     private List<Item> items;
     private List<Destination> destinations;
     private int[,] assistMap;
+    private int difficulty = 2;
     private static string levelFilename;
     // Start is called before the first frame update
     void Start()
@@ -76,9 +86,17 @@ public class GameManager : MonoBehaviour
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         itemReusability = new bool[] { false, false, false, false, true };
+
+        //difficulty
+        levelGradings = new List<int[]>();
+        levelGradings.Add(levelGradingChaos);
+        levelGradings.Add(levelGradingHard);
+        levelGradings.Add(levelGradingNormal);
+        levelGradings.Add(levelGradingEasy);
+        levelGradings.Add(levelGradingNoob);
+
         if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
-
 
         levelBoard.text = "Level : " + MenuButtonFunction.levelInfoFromUItoMainGame;
 
@@ -124,6 +142,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < characters.Count; ++i) Destroy(characters[i].entity);
         for (int i = 0; i < items.Count; ++i) Destroy(items[i].entity);
         for (int i = 0; i < destinations.Count; ++i) Destroy(destinations[i].entity);
+        SetStep(0);
         blocks.Clear();
         characters.Clear();
         items.Clear();
@@ -135,6 +154,9 @@ public class GameManager : MonoBehaviour
     {
         ClearAllObjs();
         MapData mapData = SaveSystem.LoadMap(filename);
+        difficulty = mapData.difficulty;
+        stepMax = levelGradings[difficulty][4];
+        for (int i = 0; i < 4; ++i) if (stepMax < levelGradings[difficulty][i]) stepMax = levelGradings[difficulty][i];
         mapSize.x = mapData.width; mapSize.y = mapData.height;
         assistMap = new int[mapSize.x, mapSize.y];
         //update edge length
@@ -205,6 +227,9 @@ public class GameManager : MonoBehaviour
     {
         ClearAllObjs();
         assistMap = new int[mapSize.x, mapSize.y];
+        difficulty = 2;
+        stepMax = levelGradings[difficulty][4];
+        for (int i = 0; i < 4; ++i) if (stepMax < levelGradings[difficulty][i]) stepMax = levelGradings[difficulty][i];
         //update edge length
         blockEdgeLength = mainMapLength / Mathf.Max(mapSize.x, mapSize.y);
         mapOffsetX = blockEdgeLength * 0.5f + 0.5f;
@@ -295,7 +320,11 @@ public class GameManager : MonoBehaviour
         {
             for(int i = 0;i < items.Count;++i) if(items[i].entity == tarGameObject)
                 {
-                    if(items[i].type == Item.Type.Key)
+                    int charIndex = -1;
+                    for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject) charIndex = j;
+                    if (charIndex == -1) return;
+
+                    if (items[i].type == Item.Type.Key)
                     {
                         //play sound effect
                         FindObjectOfType<AudioManager>().PlaySound("CollectTag");
@@ -304,37 +333,39 @@ public class GameManager : MonoBehaviour
                     }
                     else if (items[i].type == Item.Type.HayStack)
                     {
-                        AddSatiety(5 * (satietyMax / stepAllowed));
+                        //play particle system
+                        srcGameObject.transform.position = tarGameObject.transform.position;
+                        srcGameObject.transform.GetChild(2).gameObject.SetActive(false);
+                        srcGameObject.transform.GetChild(2).gameObject.SetActive(true);
+                        AddStep(-5);
                     }
                     else if (items[i].type == Item.Type.Trap)
                     {
-                        AddSatiety(-5 * (satietyMax / stepAllowed));
+                        //play particle system
+                        srcGameObject.transform.position = tarGameObject.transform.position;
+                        srcGameObject.transform.GetChild(1).gameObject.SetActive(false);
+                        srcGameObject.transform.GetChild(1).gameObject.SetActive(true);
+                        AddStep(5);
                     }
                     else if (items[i].type == Item.Type.HeadPhone)
                     {
-                        for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject)
-                            {
-                                srcGameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
-                                characters[j].position = items[i].position;
-                                characters[j].destination = items[i].entity.transform.position;
-                                characters[j].freeze += 3;
-                            }
+                        srcGameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+                        characters[charIndex].position = items[i].position;
+                        characters[charIndex].destination = items[i].entity.transform.position;
+                        characters[charIndex].freeze += 3;
                     }
                     else if (items[i].type == Item.Type.Portal)
                     {
-                        for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject)
+                        for (int k = 0; k < items.Count; ++k)
+                        {
+                            if (items[k].type == Item.Type.Portal && i != k)
                             {
-                                for(int k = 0;k < items.Count; ++k)
-                                {
-                                    if(items[k].type == Item.Type.Portal && i != k)
-                                    {
-                                        items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
-                                        items[k].entity.GetComponent<BoxCollider2D>().enabled = false;
-                                        characters[j].destination = items[i].entity.transform.position;
-                                        StartCoroutine(IE_swap(characters[j], items[k].position));
-                                    }
-                                }
+                                items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
+                                items[k].entity.GetComponent<BoxCollider2D>().enabled = false;
+                                characters[charIndex].destination = items[i].entity.transform.position;
+                                StartCoroutine(IE_swap(characters[charIndex], items[k].position));
                             }
+                        }
                     }
                     if (!itemReusability[(int)items[i].type])
                     {
@@ -614,7 +645,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Update satiety
-        if (validMove) AddSatiety(-1 * satietyMax / stepAllowed);
+        if (validMove) AddStep(1);
 
         //see if all cows are on the car
         if (characters.Count == 0)  //win
@@ -628,11 +659,15 @@ public class GameManager : MonoBehaviour
             SettingUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
             ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
-            //temporary
+            
             string[] wagyuGradings = new string[] { "A1", "A2", "A3", "A4", "A5" };
-            if (satietyTar < 0) satietyTar = 0;
-            if (satietyTar >= 1000) satietyTar = 999;
-            ResultUI_wagyuGradingBoard.text = "Grading " + wagyuGradings[(int)(satietyTar / 200.0f)];
+            //update result picture
+            for (int i = 0; i < 5; ++i) if (stepCount <= levelGradings[difficulty][i])
+                {
+                    ResultUI_wagyuGradingBoard.text = wagyuGradings[4 - i];
+                    resultCowImage.GetComponent<Image>().sprite = resultCowPics[(4 - i) / 2];
+                    break;
+                }
 
             if (mapAddress[mapAddress.Count - 1] == filename) ResultUI_NextLevel.gameObject.SetActive(false);
             else ResultUI_NextLevel.gameObject.SetActive(true);
@@ -892,6 +927,11 @@ public class GameManager : MonoBehaviour
         levelBoard.text = "Level : " + (currentLevel + 1).ToString();
         ReloadMap();
     }
+    public void LoadMainMap(string level)
+    {
+        MenuButtonFunction.levelInfoFromUItoMainGame = level;
+        SceneManager.LoadScene(2);
+    }
     public void BackToStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
@@ -915,6 +955,38 @@ public class GameManager : MonoBehaviour
         SettingUI.gameObject.SetActive(false);
         ResultUI.gameObject.SetActive(false);
     }
+
+    private void SetStep(int val)
+    {
+        stepCount = val;
+        //correction
+        if (stepCount < 0) stepCount = 0;
+        if (stepCount > stepMax) stepCount = stepMax;
+        //update satiety bar
+        SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
+        //update emoji
+        for(int i = 0;i < 5; ++i) if(stepCount <= levelGradings[difficulty][i])
+            {
+                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(4 - i) / 2];
+                return;
+            }
+    }
+    private void AddStep(int increment)
+    {
+        stepCount += increment;
+        //correction
+        if (stepCount < 0) stepCount = 0;
+        if (stepCount > stepMax) stepCount = stepMax;
+        //update satiety bar
+        SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
+        //update emoji
+        for (int i = 0; i < 5; ++i) if (stepCount <= levelGradings[difficulty][i])
+            {
+                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(4 - i) / 2];
+                return;
+            }
+    }
+
     private void SetSatiety(float val)
     {
         if (val < 0) val = 0;

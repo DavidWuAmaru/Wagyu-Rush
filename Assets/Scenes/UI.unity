@@ -2845,10 +2845,6 @@ MonoBehaviour:
     m_Options:
     - m_Text: Full screen
       m_Image: {fileID: 0}
-    - m_Text: 1920 * 1080
-      m_Image: {fileID: 0}
-    - m_Text: Option C
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

@@ -8,30 +8,37 @@ public class settingMenu : MonoBehaviour
 {
     [SerializeField] private Slider SESlider, MusicSlider;
     [SerializeField] private TMP_Dropdown resolutionDropdown;
-    Resolution[] resolutions;
-
+    public static int currentResolutionIndex = -1;
+    private List<Resolution> resolutions;
+    
     private void Start()
     {
-        resolutions = Screen.resolutions;
+        resolutions = new List<Resolution>();
+        Resolution[] _resolutions = Screen.resolutions;
+        for (int i = 0; i < _resolutions.Length; ++i)
+            if (resolutions.Count == 0
+                   || resolutions[resolutions.Count - 1].width != _resolutions[i].width
+                   || resolutions[resolutions.Count - 1].height != _resolutions[i].height) resolutions.Add(_resolutions[i]);
+
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
-        int currentResolutionIndex = 1;
-        for (int i = 0;i < resolutions.Length; ++i)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
+        for (int i = 0; i < resolutions.Count; ++i) options.Add(resolutions[i].width + " x " + resolutions[i].height);
+        options.Add("Full Screen");
 
-            if(resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
+        if(currentResolutionIndex < 0) for (int i = 0; i < resolutions.Count; ++i)
+        {
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
             }
         }
-        options.Add("Full Screen");
+        if (currentResolutionIndex < 0) currentResolutionIndex = 0;
 
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        SetResolution(currentResolutionIndex);
     }
     private void Awake()
     {
@@ -50,15 +57,15 @@ public class settingMenu : MonoBehaviour
 
     public void SetResolution(int resolutionIndex)
     {
-        if(resolutionIndex + 1 == resolutions.Length)
+        if (resolutionIndex == resolutions.Count)
         {
-            Screen.fullScreen = false;
+            Screen.fullScreen = true;
         }
         else
         {
-            Screen.fullScreen = true;
             Resolution resolution = resolutions[resolutionIndex];
-            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+            Screen.SetResolution(resolution.width, resolution.height, false);
         }
+        currentResolutionIndex = resolutionIndex;
     }
 }

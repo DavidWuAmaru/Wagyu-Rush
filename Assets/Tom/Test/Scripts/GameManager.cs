@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
     [SerializeField] private Text ResultUI_wagyuGradingBoard;
     [SerializeField] private Button ResultUI_NextLevel;
-    //
+    //Cow status
     [SerializeField] private Image resultCowImage;
     [SerializeField] private Sprite[] resultCowPics;
     [SerializeField] private Image cowEmojiImage;
@@ -41,7 +40,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<string> mapAddress;
     private bool[] itemReusability;
     private List<Sprite> cowSprites;
-    private int currentLevel = 0;
     //satiety
     [SerializeField] private Slider satietySlider;
     private int stepCount = 0, stepMax = 40;
@@ -70,6 +68,7 @@ public class GameManager : MonoBehaviour
     private int[,] assistMap;
     private int difficulty = 2;
     private static string levelFilename;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -149,7 +148,7 @@ public class GameManager : MonoBehaviour
         items.Clear();
         destinations.Clear();
         enable = true;
-        SetSatiety(satietyMax);
+        //SetSatiety(satietyMax);
     }
     private void LoadExistingMap(string filename)
     {
@@ -350,7 +349,7 @@ public class GameManager : MonoBehaviour
                     }
                     else if (items[i].type == Item.Type.HeadPhone)
                     {
-                        srcGameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+                        srcGameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("isDancing");
                         characters[charIndex].position = items[i].position;
                         characters[charIndex].destination = items[i].entity.transform.position;
                         characters[charIndex].freeze += 3;
@@ -761,7 +760,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     private void moveCharacter(Direction dir)
     {
         setUpAssistMap();
@@ -774,7 +772,7 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
                         characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[0];
                     }
                     continue;
@@ -799,7 +797,7 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
                         characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[1];
                     }
                     continue;
@@ -824,7 +822,7 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
                         characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[2];
                     }
                     continue;
@@ -849,7 +847,7 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
                         characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[3];
                     }
                     continue;
@@ -887,7 +885,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     public void ReloadMap()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
@@ -912,7 +909,8 @@ public class GameManager : MonoBehaviour
                     return;
                 }
                 filename = mapAddress[i + 1];
-                string levelName = filename.Substring(filename.LastIndexOf("/")).Substring(6);
+                string levelName = filename.Substring(filename.LastIndexOf("/") + 1);
+                if (levelName.Substring(0, 5) == "Level") levelName = levelName.Substring(5);
                 levelName = levelName.Substring(0, levelName.LastIndexOf("."));
                 levelBoard.text = "Level : " + levelName;
 
@@ -923,10 +921,27 @@ public class GameManager : MonoBehaviour
     }
     public void LevelDown()
     {
-        if (currentLevel <= 0) return;
-        currentLevel--;
-        levelBoard.text = "Level : " + (currentLevel + 1).ToString();
-        ReloadMap();
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
+        for (int i = 0; i < mapAddress.Count; ++i)
+        {
+            if (mapAddress[i] == filename)
+            {
+                if (i <= 0)
+                {
+                    Debug.LogWarning("It's the first level");
+                    return;
+                }
+                filename = mapAddress[i - 1];
+                string levelName = filename.Substring(filename.LastIndexOf("/") + 1);
+                if (levelName.Substring(0, 5) == "Level") levelName = levelName.Substring(5);
+                levelName = levelName.Substring(0, levelName.LastIndexOf("."));
+                levelBoard.text = "Level : " + levelName;
+
+                ReloadMap();
+                return;
+            }
+        }
     }
     public void LoadMainMap(string level)
     {
@@ -936,7 +951,6 @@ public class GameManager : MonoBehaviour
     public void BackToStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
-
         SceneManager.LoadScene(0);
     }
     public void OpenSettingMenu()
@@ -947,7 +961,6 @@ public class GameManager : MonoBehaviour
         SettingUI.gameObject.SetActive(true);
         ResultUI.gameObject.SetActive(false);
     }
-
     public void CloseSettingMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
@@ -956,7 +969,6 @@ public class GameManager : MonoBehaviour
         SettingUI.gameObject.SetActive(false);
         ResultUI.gameObject.SetActive(false);
     }
-
     private void SetStep(int val)
     {
         stepCount = val;

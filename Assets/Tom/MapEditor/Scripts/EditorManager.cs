@@ -31,6 +31,8 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private float acceptableArea = 0.7f;
     [SerializeField] private float rightClickArea = 0.6f;
 
+    [SerializeField] private GameObject closingPrefab;
+
 
 
     public int width = 4, height = 4;
@@ -590,8 +592,18 @@ public class EditorManager : MonoBehaviour
     public void loadStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
-        SceneManager.LoadScene(0);
+
+        StartCoroutine("ChangeToEditor", 0);
+        //SceneManager.LoadScene(0);
     }
+    IEnumerator ChangeToEditor(int sceneId)
+    {
+        GameObject temp = Instantiate(closingPrefab);
+        yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
+
+        SceneManager.LoadScene(sceneId);
+    }
+
     IEnumerator IE_bannerShow(float fadingDuration, float pauseDuration)
     {
         float counter = 0;

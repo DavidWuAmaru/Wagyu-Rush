@@ -60,6 +60,8 @@ public class TeachGameManager : MonoBehaviour
     [SerializeField] private GameObject levelMask;
     [SerializeField] private GameObject canvasMask;
 
+    [SerializeField] private GameObject closingPrefab;
+
 
     #endregion
 
@@ -1046,8 +1048,18 @@ public class TeachGameManager : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
-        SceneManager.LoadScene(0);
+        StartCoroutine("ChangeToEditor", 0);
+        //SceneManager.LoadScene(0);
     }
+
+    IEnumerator ChangeToEditor(int sceneId)
+    {
+        GameObject temp = Instantiate(closingPrefab);
+        yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
+
+        SceneManager.LoadScene(sceneId);
+    }
+
     public void OpenSettingMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");

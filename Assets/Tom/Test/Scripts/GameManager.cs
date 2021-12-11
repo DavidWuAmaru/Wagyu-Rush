@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [SerializeField] private GameObject closingPrefab;
+
     private List<bool[]> oriBlockAccessible;
     private float mainMapLength = 48.0f;
     private float blockEdgeLength = 8.0f;
@@ -973,12 +975,24 @@ public class GameManager : MonoBehaviour
     public void LoadMainMap(string level)
     {
         MenuButtonFunction.levelInfoFromUItoMainGame = level;
-        SceneManager.LoadScene(2);
+
+        StartCoroutine("ChangeToEditor", 2);
+        //SceneManager.LoadScene(2);
     }
     public void BackToStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
-        SceneManager.LoadScene(0);
+
+        StartCoroutine("ChangeToEditor", 0);
+        //SceneManager.LoadScene(0);
+    }
+
+    IEnumerator ChangeToEditor(int sceneId)
+    {
+        GameObject temp = Instantiate(closingPrefab);
+        yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
+
+        SceneManager.LoadScene(sceneId);
     }
     public void OpenSettingMenu()
     {

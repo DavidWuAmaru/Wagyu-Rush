@@ -22,6 +22,7 @@ public class Draggable : MonoBehaviour
         grabber.transform.position = transform.position;
         spriteDragStartPosition = grabber.transform.position;
         grabber.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+        grabber.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
         grabber.transform.localScale = new Vector3(scaler, scaler, 1);
         grabber.SetActive(true);
     }

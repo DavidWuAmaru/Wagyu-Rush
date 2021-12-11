@@ -26,8 +26,7 @@ public class Item : Identity
 {
     public enum Type { Key, HayStack, Trap, HeadPhone, Portal };
     public Type type;
-    //extra function
-
+    public int id = 0;
 }
 
 public class Destination : Identity

@@ -9,9 +9,10 @@ public class MapData
     public int difficulty = 2;
     public int width, height;
     public int[] blocks, rotations;
-    public int charNum, itemNum, destNum;
+    public int charNum, itemNum, destNum, portalNum;
     public int[] characters, items, destinations;
-    public int[] charPosition, itemPosition, destPosition;
+    public int[] charPosition, itemPosition, destPosition, portalPosition;
+
 
     public MapData()
     {
@@ -22,13 +23,14 @@ public class MapData
         itemNum = 0;
         destNum = 0;
     }
-    public MapData(int _difficulty, int _width, int _height, int[] _blocks, int[] _rotations, int _charNum, int[] _characters, int[] _charPosition, int _itemNum, int[] _items, int[] _itemPosition, int _destNum, int[] _dests, int[] _destPosition)
+    public MapData(int _difficulty, int _width, int _height, int[] _blocks, int[] _rotations, int _charNum, int[] _characters, int[] _charPosition, int _itemNum, int[] _items, int[] _itemPosition, int _portalNum, int[] _portalPosition, int _destNum, int[] _dests, int[] _destPosition)
     {
         difficulty = _difficulty;
         width = _width;
         height = _height;
         charNum = _charNum;
         itemNum = _itemNum;
+        portalNum = _portalNum;
         destNum = _destNum;
         blocks = new int[width * height];
         rotations = new int[width * height];
@@ -36,6 +38,7 @@ public class MapData
         charPosition = new int[charNum * 2];
         items = new int[itemNum];
         itemPosition = new int[itemNum * 2];
+        portalPosition = new int[portalNum * 2];
         destinations = new int[destNum];
         destPosition = new int[destNum * 2];
 
@@ -55,6 +58,11 @@ public class MapData
             items[i] = _items[i];
             itemPosition[i * 2] = _itemPosition[i * 2];
             itemPosition[i * 2 + 1] = _itemPosition[i * 2 + 1];
+        }
+        for(int i = 0;i < portalNum; ++i)
+        {
+            portalPosition[i * 2] = _portalPosition[i * 2];
+            portalPosition[i * 2 + 1] = _portalPosition[i * 2 + 1];
         }
         for(int i = 0;i < destNum; ++i)
         {

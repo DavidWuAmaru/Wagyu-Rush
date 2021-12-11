@@ -46,10 +46,13 @@ public class Draggable2 : MonoBehaviour
 
     private void Update()
     {
-        if(isHoldingControl != Input.GetKey(KeyCode.LeftControl) && isDragged)
+        if (isHoldingControl != Input.GetKey(KeyCode.LeftControl) && isDragged)
         {
-            spriteRenderer1.color = new Vector4(1.0f, 1.0f, 1.0f, Input.GetKey(KeyCode.LeftControl) ? 1.0f : draggingTransparency);
-            spriteRenderer2.color = new Vector4(1.0f, 1.0f, 1.0f, Input.GetKey(KeyCode.LeftControl) ? 1.0f : draggingTransparency);
+            Color c;
+            c = spriteRenderer1.color;
+            spriteRenderer1.color = new Vector4(c.r, c.g, c.b, Input.GetKey(KeyCode.LeftControl) ? 1.0f : draggingTransparency);
+            c = spriteRenderer2.color;
+            spriteRenderer2.color = new Vector4(c.r, c.g, c.b, Input.GetKey(KeyCode.LeftControl) ? 1.0f : draggingTransparency);
         }
         isHoldingControl = Input.GetKey(KeyCode.LeftControl);
     }
@@ -70,32 +73,43 @@ public class Draggable2 : MonoBehaviour
         grabber2.transform.localScale = transform.GetChild(1).transform.localScale * scaler;
         grabber2.transform.eulerAngles = transform.GetChild(1).transform.eulerAngles;
 
-        grabber.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-        grabber2.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        Color c;
+        c = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+        grabber.GetComponent<SpriteRenderer>().color = new Vector4(c.r, c.g, c.b, 1.0f);
+        c = transform.GetChild(1).GetComponent<SpriteRenderer>().color;
+        grabber2.GetComponent<SpriteRenderer>().color = new Vector4(c.r, c.g, c.b, 1.0f);
+
         grabber.SetActive(true);
         grabber2.SetActive(true);
 
         if (!isHoldingControl)
         {
-            spriteRenderer1.color = new Vector4(1.0f, 1.0f, 1.0f, draggingTransparency);
-            spriteRenderer2.color = new Vector4(1.0f, 1.0f, 1.0f, draggingTransparency);
+            c = spriteRenderer1.color;
+            spriteRenderer1.color = new Vector4(c.r, c.g, c.b, draggingTransparency);
+            c = spriteRenderer2.color;
+            spriteRenderer2.color = new Vector4(c.r, c.g, c.b, draggingTransparency);
         }
     }
     private void OnMouseDrag()
     {
         if (isDragged)
         {
+            Color c;
             grabber.transform.localPosition = spriteDragStartPosition + (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mouseDragStartPosition);
             grabber2.transform.localPosition = spriteDragStartPosition + (Camera.main.ScreenToWorldPoint(Input.mousePosition) - mouseDragStartPosition);
             if (Vector2.Distance(trashCanPos, new Vector2(grabber.transform.localPosition.x, grabber.transform.localPosition.y)) <= 5.0f)
             {
-                grabber.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, draggingTransparency);
-                grabber2.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, draggingTransparency);
+                c = grabber.GetComponent<SpriteRenderer>().color;
+                grabber.GetComponent<SpriteRenderer>().color = new Vector4(c.r, c.g, c.b, draggingTransparency);
+                c = grabber2.GetComponent<SpriteRenderer>().color;
+                grabber2.GetComponent<SpriteRenderer>().color = new Vector4(c.r, c.g, c.b, draggingTransparency);
             }
             else
             {
-                grabber.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-                grabber2.GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+                c = grabber.GetComponent<SpriteRenderer>().color;
+                grabber.GetComponent<SpriteRenderer>().color = new Vector4(c.r, c.g, c.b, 1.0f);
+                c = grabber2.GetComponent<SpriteRenderer>().color;
+                grabber2.GetComponent<SpriteRenderer>().color = new Vector4(c.r, c.g, c.b, 1.0f);
             }
         }
     }
@@ -108,8 +122,11 @@ public class Draggable2 : MonoBehaviour
         grabber.SetActive(false);
         grabber2.SetActive(false);
 
-        spriteRenderer1.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-        spriteRenderer2.color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        Color c;
+        c = spriteRenderer1.color;
+        spriteRenderer1.color = new Vector4(c.r, c.g, c.b, 1.0f);
+        c = spriteRenderer2.color;
+        spriteRenderer2.color = new Vector4(c.r, c.g, c.b, 1.0f);
         dragEndedCallback(this.gameObject, new Vector2(grabber.transform.localPosition.x, grabber.transform.localPosition.y), isHoldingControl);
     }
 

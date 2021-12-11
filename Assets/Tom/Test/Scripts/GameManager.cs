@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
     private int[,] assistMap;
     private int difficulty = 2;
     private static string levelFilename;
+    private List<Color> portalColor;
+    private int itemPortalOffset = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -94,6 +96,20 @@ public class GameManager : MonoBehaviour
         levelGradings.Add(levelGradingNormal);
         levelGradings.Add(levelGradingEasy);
         levelGradings.Add(levelGradingNoob);
+
+        //portal colors definition
+        portalColor = new List<Color>();
+        portalColor.Add(new Color(1, 1, 1, 1));
+        for (float i = 1.0f; i >= 0; i -= 0.2f)
+        {
+            portalColor.Add(new Color(i, 0, 0, 1));
+            portalColor.Add(new Color(0, i, 0, 1));
+            portalColor.Add(new Color(0, 0, i, 1));
+            portalColor.Add(new Color(i, i, 0, 1));
+            portalColor.Add(new Color(i, 0, i, 1));
+            portalColor.Add(new Color(0, i, i, 1));
+        }
+        portalColor.Add(new Color(0, 0, 0, 1));
 
         if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
@@ -202,11 +218,26 @@ public class GameManager : MonoBehaviour
         items.Clear();
         for (int i = 0; i < mapData.itemNum; ++i)
         {
+            if ((Item.Type)mapData.items[i] == Item.Type.Portal) continue;
             Item newItem = new Item();
             newItem.type = (Item.Type)mapData.items[i];
             newItem.position = new Vector2Int(mapData.itemPosition[i * 2], mapData.itemPosition[i * 2 + 1]);
             newItem.entity = Instantiate(itemTypes[mapData.items[i]], new Vector3(newItem.position.x * blockEdgeLength + mapOffsetX, newItem.position.y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
             newItem.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
+            newItem.destination = newItem.entity.transform.position;
+            items.Add(newItem);
+        }
+        //load portals
+        itemPortalOffset = items.Count;
+        for(int i = 0;i < mapData.portalNum; ++i)
+        {
+            Item newItem = new Item();
+            newItem.type = Item.Type.Portal;
+            newItem.id = i / 2;
+            newItem.position = new Vector2Int(mapData.portalPosition[i * 2], mapData.portalPosition[i * 2 + 1]);
+            newItem.entity = Instantiate(itemTypes[(int)(Item.Type.Portal)], new Vector3(newItem.position.x * blockEdgeLength + mapOffsetX, newItem.position.y * blockEdgeLength + mapOffsetY, 0), Quaternion.identity);
+            newItem.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
+            newItem.entity.transform.GetChild(0).GetComponent<SpriteRenderer>().color = portalColor[newItem.id];
             newItem.destination = newItem.entity.transform.position;
             items.Add(newItem);
         }
@@ -314,11 +345,14 @@ public class GameManager : MonoBehaviour
         destinations.Add(van);
     }
 
+    bool isSwapping = false;
     private void onCollectingItem(GameObject srcGameObject, GameObject tarGameObject , bool isItem)
     {
         if (isItem)  //deal with item
         {
-            for(int i = 0;i < items.Count;++i) if(items[i].entity == tarGameObject)
+            for (int i = 0; i < items.Count; ++i)
+            {
+                if (items[i].entity == tarGameObject)
                 {
                     int charIndex = -1;
                     for (int j = 0; j < characters.Count; ++j) if (characters[j].entity == srcGameObject) charIndex = j;
@@ -356,10 +390,11 @@ public class GameManager : MonoBehaviour
                     }
                     else if (items[i].type == Item.Type.Portal)
                     {
-                        for (int k = 0; k < items.Count; ++k)
+                        for (int k = itemPortalOffset; k < items.Count; ++k)
                         {
-                            if (items[k].type == Item.Type.Portal && i != k)
+                            if (items[i].id == items[k].id && i != k)
                             {
+                                isSwapping = true;
                                 items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
                                 items[k].entity.GetComponent<BoxCollider2D>().enabled = false;
                                 characters[charIndex].destination = items[i].entity.transform.position;
@@ -367,6 +402,7 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
+
                     if (!itemReusability[(int)items[i].type])
                     {
                         Destroy(items[i].entity);
@@ -374,6 +410,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 }
+            }
         }
         else  //deal with dest
         {
@@ -435,6 +472,8 @@ public class GameManager : MonoBehaviour
         ch.entity.transform.localScale = new Vector3(blockEdgeLength, blockEdgeLength, 1);
         ch.entity.transform.eulerAngles = new Vector3(0, 0, 0);
 
+        moveEndEvent();
+        isSwapping = false;
         enable = true;
     }
 
@@ -618,30 +657,18 @@ public class GameManager : MonoBehaviour
             if (!finished) yield return null;
         }
 
-        moveEndEvent();
+        if(!isSwapping) moveEndEvent();
     }
     
     private void moveEndEvent()
     {
-        for(int i = 0;i < characters.Count; ++i)
+        for (int i = itemPortalOffset; i < items.Count; i ++)
         {
-            bool OnPortal = false;
-            for(int j = 0;j < items.Count; ++j)
-            {
-                if(items[j].type == Item.Type.Portal && items[j].position == characters[i].position)
-                {
-                    OnPortal = true;
-                    for(int k = 0;k < items.Count; ++k)
-                    {
-                        if(j != k && items[k].type == Item.Type.Portal) items[i].entity.GetComponent<BoxCollider2D>().enabled = false;
-                    }
-                    break;
-                }
-            }
-            if (!OnPortal) for (int j = 0; j < items.Count; ++j)
-                {
-                    items[j].entity.GetComponent<BoxCollider2D>().enabled = true;
-                }
+            if (items[i].type != Item.Type.Portal) continue;
+            bool isCharOn = false;
+            for (int j = 0; j < characters.Count; ++j) if (characters[j].position == items[i].position) isCharOn = true;
+
+            items[i].entity.GetComponent<BoxCollider2D>().enabled = !isCharOn;
         }
 
         //Update satiety

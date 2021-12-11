@@ -9,6 +9,14 @@ public class GameManager : MonoBehaviour
 {
     private string filename = "Assets/Resources/MapLevel/Level" + MenuButtonFunction.levelInfoFromUItoMainGame + ".map";
     
+    //information of current status
+    public enum Status
+    {
+        Introduction,
+        Normal
+    }
+    private Status currentStatus;
+
     //information for movement
     public enum Direction { Up, Down, Left, Right }
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
@@ -39,7 +47,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool usingCustomMap = true;
     [SerializeField] private List<string> mapAddress;
     private bool[] itemReusability;
-    private List<Sprite> cowSprites;
     //satiety
     [SerializeField] private Slider satietySlider;
     private int stepCount = 0, stepMax = 40;
@@ -53,6 +60,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int[] levelGradingNoob;        //small -> large
     private List<int[]> levelGradings;
 
+    [SerializeField] private Image targetBoardImage;
+    [SerializeField] private TMP_Text targetBoardText;
     #endregion
 
     [SerializeField] private GameObject closingPrefab;
@@ -117,13 +126,6 @@ public class GameManager : MonoBehaviour
         else LoadRandomMap();
 
         levelBoard.text = "Level : " + MenuButtonFunction.levelInfoFromUItoMainGame;
-
-        //load cow sprites
-        cowSprites = new List<Sprite>();
-        cowSprites.Add(Resources.Load<Sprite>("cow_up"));
-        cowSprites.Add(Resources.Load<Sprite>("cow_down"));
-        cowSprites.Add(Resources.Load<Sprite>("cow_left"));
-        cowSprites.Add(Resources.Load<Sprite>("cow_right"));
     }
 
     // Update is called once per frame
@@ -255,6 +257,8 @@ public class GameManager : MonoBehaviour
             newDest.destination = newDest.entity.transform.position;
             destinations.Add(newDest);
         }
+
+        updateTargetBoard();
     }
     private void LoadRandomMap()
     {
@@ -385,7 +389,7 @@ public class GameManager : MonoBehaviour
                     }
                     else if (items[i].type == Item.Type.HeadPhone)
                     {
-                        srcGameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("isDancing");
+                        srcGameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("isDancing", true);
                         characters[charIndex].position = items[i].position;
                         characters[charIndex].destination = items[i].entity.transform.position;
                         characters[charIndex].freeze += 3;
@@ -444,6 +448,7 @@ public class GameManager : MonoBehaviour
                     break;
                 }
         }
+        updateTargetBoard();
     }
     IEnumerator IE_swap(Character ch, Vector2Int destPos)
     {
@@ -706,6 +711,21 @@ public class GameManager : MonoBehaviour
 
         enable = true;
     }
+    private void updateTargetBoard()
+    {
+        int ticketCount = 0;
+        for(int i = 0; i < items.Count; ++i) if (items[i].type == Item.Type.Key) ticketCount++;
+        if (ticketCount > 0)
+        {
+            targetBoardImage.GetComponent<Image>().sprite = itemTypes[(int)(Item.Type.Key)].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            targetBoardText.text = "x" + ticketCount.ToString();
+        }
+        else
+        {
+            targetBoardImage.GetComponent<Image>().sprite = destinationTypes[0].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            targetBoardText.text = "";
+        }
+    }
     private void setUpAssistMap()
     {
         //setup the map
@@ -801,8 +821,10 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
-                        characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[0];
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetBool("isDancing", false);
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 0);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
                     }
                     continue;
                 }
@@ -811,7 +833,9 @@ public class GameManager : MonoBehaviour
                 {
                     y++;
                     validMove = true;
-                    characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[0];
+                    characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 0);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
@@ -826,8 +850,10 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
-                        characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[1];
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetBool("isDancing", false);
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 1);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
                     }
                     continue;
                 }
@@ -836,7 +862,9 @@ public class GameManager : MonoBehaviour
                 {
                     y--;
                     validMove = true;
-                    characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[1];
+                    characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 1);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
@@ -851,8 +879,10 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
-                        characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[2];
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetBool("isDancing", false);
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 2);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
                     }
                     continue;
                 }
@@ -861,7 +891,9 @@ public class GameManager : MonoBehaviour
                 {
                     x--;
                     validMove = true;
-                    characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[2];
+                    characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 2);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);
@@ -876,8 +908,10 @@ public class GameManager : MonoBehaviour
                     characters[i].freeze--;
                     if (characters[i].freeze <= 0)
                     {
-                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().ResetTrigger("isDancing");
-                        characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[3];
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetBool("isDancing", false);
+                        characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 3);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+                        characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
                     }
                     continue;
                 }
@@ -886,7 +920,9 @@ public class GameManager : MonoBehaviour
                 {
                     x++;
                     validMove = true;
-                    characters[i].entity.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cowSprites[3];
+                    characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetInteger("Direction", 3);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+                    characters[i].entity.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
                 }
                 characters[i].position = new Vector2Int(x, y);
                 characters[i].destination = new Vector3(x, y, 0) * blockEdgeLength + new Vector3(mapOffsetX, mapOffsetY, 0);

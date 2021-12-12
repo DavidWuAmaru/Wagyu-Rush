@@ -7,15 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private string filename = "Assets/Resources/MapLevel/Level" + MenuButtonFunction.levelInfoFromUItoMainGame + ".map";
-    
-    //information of current status
-    public enum Status
-    {
-        Introduction,
-        Normal
-    }
-    private Status currentStatus;
+    //private string filename = DataManager.mapAddress[0, 0];
+    public static int currentWorld = 0, currentLevel = 0;
 
     //information for movement
     public enum Direction { Up, Down, Left, Right }
@@ -24,7 +17,6 @@ public class GameManager : MonoBehaviour
     private int[] movementY = new int[4] { 1, -1, 0, 0 };
     //class definition
     #region SerializeField
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private List<GameObject> blockTypes;
     [SerializeField] private List<GameObject> characterTypes;
     [SerializeField] private List<GameObject> itemTypes;
@@ -45,7 +37,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] cowEmojiPics;
     //test
     [SerializeField] private bool usingCustomMap = true;
-    [SerializeField] private List<string> mapAddress;
     private bool[] itemReusability;
     //satiety
     [SerializeField] private Slider satietySlider;
@@ -63,7 +54,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image targetBoardImage;
     [SerializeField] private TMP_Text targetBoardText;
     #endregion
-
     [SerializeField] private GameObject closingPrefab;
 
     private List<bool[]> oriBlockAccessible;
@@ -78,7 +68,6 @@ public class GameManager : MonoBehaviour
     private List<Destination> destinations;
     private int[,] assistMap;
     private int difficulty = 2;
-    private static string levelFilename;
     private List<Color> portalColor;
     private int itemPortalOffset = 0;
 
@@ -122,10 +111,10 @@ public class GameManager : MonoBehaviour
         }
         portalColor.Add(new Color(0, 0, 0, 1));
 
-        if (usingCustomMap) LoadExistingMap(filename);
+        if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[currentWorld, currentLevel]);
         else LoadRandomMap();
 
-        levelBoard.text = "Level : " + MenuButtonFunction.levelInfoFromUItoMainGame;
+        levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
     }
 
     // Update is called once per frame
@@ -694,18 +683,36 @@ public class GameManager : MonoBehaviour
             ResultUI.gameObject.SetActive(true);
             ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
             
-            string[] wagyuGradings = new string[] { "A1", "A2", "A3", "A4", "A5" };
             //update result picture
+            int grading = 0;
             for (int i = 0; i < 5; ++i) if (stepCount <= levelGradings[difficulty][i])
                 {
-                    ResultUI_wagyuGradingBoard.text = wagyuGradings[4 - i];
-                    resultCowImage.GetComponent<Image>().sprite = resultCowPics[(4 - i) / 2];
+                    grading = 4 - i;
                     break;
                 }
+            ResultUI_wagyuGradingBoard.text = DataManager.wagyuGradings[grading];
+            resultCowImage.GetComponent<Image>().sprite = resultCowPics[grading / 2];
 
-            if (mapAddress[mapAddress.Count - 1] == filename) ResultUI_NextLevel.gameObject.SetActive(false);
+            if (currentLevel + 1 >= DataManager.levelsOfWorld[currentWorld]) ResultUI_NextLevel.gameObject.SetActive(false);
             else ResultUI_NextLevel.gameObject.SetActive(true);
 
+            //update history best
+            levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
+            
+            PlayerData.Load();
+            if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1 || PlayerData.mapInfo.historyBest[currentWorld, currentLevel] < grading)  //update best score
+            {
+                PlayerData.mapInfo.historyBest[currentWorld, currentLevel] = grading;
+            }
+            if (currentWorld + 1 < DataManager.worldSize && currentLevel >= 2 && PlayerData.mapInfo.levelLocked[currentWorld + 1] <= 0)  //unlock next world
+            {
+                PlayerData.mapInfo.levelLocked[currentWorld + 1] = 1;
+            }
+            if (currentLevel + 2 < DataManager.levelsOfWorld[currentWorld] && PlayerData.mapInfo.levelLocked[currentWorld] < currentLevel + 2)  //unlock next level
+            {
+                PlayerData.mapInfo.levelLocked[currentWorld] = currentLevel + 2;
+            }
+            PlayerData.Save();
             return;
         }
 
@@ -950,7 +957,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void ReloadMap()
+    public void ReloadMap(string filename)
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
@@ -962,55 +969,32 @@ public class GameManager : MonoBehaviour
     }
     public void LevelUp()
     {
+        if (currentLevel + 1 >= DataManager.levelsOfWorld[currentWorld])
+        {
+            Debug.LogError("This is already the last level in the world!");
+            return;
+        }
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
-        for (int i = 0;i < mapAddress.Count; ++i)
-        {
-            if(mapAddress[i] == filename)
-            {
-                if(i + 1 >= mapAddress.Count)
-                {
-                    Debug.LogWarning("It's the last level");
-                    return;
-                }
-                filename = mapAddress[i + 1];
-                string levelName = filename.Substring(filename.LastIndexOf("/") + 1);
-                if (levelName.Substring(0, 5) == "Level") levelName = levelName.Substring(5);
-                levelName = levelName.Substring(0, levelName.LastIndexOf("."));
-                levelBoard.text = "Level : " + levelName;
-
-                ReloadMap();
-                return;
-            }
-        }
+        currentLevel++;
+        ReloadMap(DataManager.mapAddress[currentWorld, currentLevel]);
     }
     public void LevelDown()
     {
+        if (currentLevel <= 0)
+        {
+            Debug.LogError("This is the first level in the world!");
+            return;
+        }
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
-        for (int i = 0; i < mapAddress.Count; ++i)
-        {
-            if (mapAddress[i] == filename)
-            {
-                if (i <= 0)
-                {
-                    Debug.LogWarning("It's the first level");
-                    return;
-                }
-                filename = mapAddress[i - 1];
-                string levelName = filename.Substring(filename.LastIndexOf("/") + 1);
-                if (levelName.Substring(0, 5) == "Level") levelName = levelName.Substring(5);
-                levelName = levelName.Substring(0, levelName.LastIndexOf("."));
-                levelBoard.text = "Level : " + levelName;
-
-                ReloadMap();
-                return;
-            }
-        }
+        currentLevel--;
+        ReloadMap(DataManager.mapAddress[currentWorld, currentLevel]);
     }
-    public void LoadMainMap(string level)
+    public void LoadMainMap(int world, int level)
     {
-        MenuButtonFunction.levelInfoFromUItoMainGame = level;
+        MenuButtonFunction.ChapterNumber = world;
+        MenuButtonFunction.LevelNumber = level;
 
         StartCoroutine("ChangeToEditor", 2);
         //SceneManager.LoadScene(2);

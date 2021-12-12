@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class TeachGameManager : MonoBehaviour
 {
-    private string filename = "Assets/Resources/MapLevel/Level" + MenuButtonFunction.levelInfoFromUItoMainGame + ".map";
-
     //information for movement
     public enum Direction { Up, Down, Left, Right }
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
@@ -35,7 +33,6 @@ public class TeachGameManager : MonoBehaviour
     [SerializeField] private Button ResultUI_NextLevel;
     //test
     [SerializeField] private bool usingCustomMap = true;
-    [SerializeField] private List<string> mapAddress;
     private bool[] itemReusability;
     private List<Sprite> cowSprites;
     private int currentLevel = 0;
@@ -99,11 +96,11 @@ public class TeachGameManager : MonoBehaviour
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         itemReusability = new bool[] { false, false, false, false, true };
-        if (usingCustomMap) LoadExistingMap(filename);
+        if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[0, 0]);
         else LoadRandomMap();
 
 
-        levelBoard.text = "Level : " + MenuButtonFunction.levelInfoFromUItoMainGame;
+        levelBoard.text = "Level : 1-1";
 
         //load cow sprites
         cowSprites = new List<Sprite>();
@@ -786,8 +783,7 @@ public class TeachGameManager : MonoBehaviour
             ResultUI_wagyuGradingBoard.text = wagyuGradings[(int)(satietyTar / 200.0f)];
             resultCowImage.GetComponent<Image>().sprite = resultCowPics[(int)(satietyTar / 200.0f) / 2];
 
-            if (mapAddress[mapAddress.Count - 1] == filename) ResultUI_NextLevel.gameObject.SetActive(false);
-            else ResultUI_NextLevel.gameObject.SetActive(true);
+            ResultUI_NextLevel.gameObject.SetActive(true);
 
             return;
         }
@@ -1010,40 +1006,11 @@ public class TeachGameManager : MonoBehaviour
 
         initialUI.gameObject.SetActive(true);
         ResultUI.gameObject.SetActive(false);
-        if (usingCustomMap) LoadExistingMap(filename);
+        if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[0, 0]);
         else LoadRandomMap();
         m_enabled = true;
     }
-    public void LevelUp()
-    {
-        FindObjectOfType<AudioManager>().PlaySound("Click");
-
-        for (int i = 0; i < mapAddress.Count; ++i)
-        {
-            if (mapAddress[i] == filename)
-            {
-                if (i + 1 >= mapAddress.Count)
-                {
-                    Debug.LogWarning("It's the last level");
-                    return;
-                }
-                filename = mapAddress[i + 1];
-                string levelName = filename.Substring(filename.LastIndexOf("/")).Substring(6);
-                levelName = levelName.Substring(0, levelName.LastIndexOf("."));
-                levelBoard.text = "Level : " + levelName;
-
-                ReloadMap();
-                return;
-            }
-        }
-    }
-    public void LevelDown()
-    {
-        if (currentLevel <= 0) return;
-        currentLevel--;
-        levelBoard.text = "Level : " + (currentLevel + 1).ToString();
-        ReloadMap();
-    }
+    
     public void BackToStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+[System.Serializable]
 public class MapInfo
 {
     public int[] levelLocked;
@@ -15,8 +16,26 @@ public class MapInfo
                                       { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 } };
     }
+    public void Show()
+    {
+        string s = "";
+        for(int i = 0;i < levelLocked.Length; ++i)
+        {
+            s += levelLocked[i] + " ";
+        }
+        Debug.Log(s);
+        for (int i = 0; i < historyBest.GetLength(0); ++i)
+        {
+            s = "";
+            for (int j = 0; j < historyBest.GetLength(1); ++j)
+            {
+                s += historyBest[i, j] + " ";
+            }
+            Debug.Log(s);
+        }
+    }
 }
-public static class PlayerData
+public class PlayerData
 {
     public static MapInfo mapInfo = new MapInfo();
     public static void Save()

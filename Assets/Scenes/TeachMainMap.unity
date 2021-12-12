@@ -2102,7 +2102,10 @@ MonoBehaviour:
   levelGradingNormal: 
   levelGradingEasy: 
   levelGradingNoob: 
-  closingPrefab: {fileID: 0}
+  targetBoardImage: {fileID: 0}
+  targetBoardText: {fileID: 0}
+  closingPrefab: {fileID: 9127005262850940110, guid: 3d2db5c80f77ace45929d78e81fcea1c,
+    type: 3}
 --- !u!4 &1387280361
 Transform:
   m_ObjectHideFlags: 0
@@ -2129,8 +2132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0cac6f5fcab9e418cd08c54b51e231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closingPrefab: {fileID: 0}
-  settingsMenuObj: {fileID: 0}
+  closingPrefab: {fileID: 9127005262850940110, guid: 3d2db5c80f77ace45929d78e81fcea1c,
+    type: 3}
+  settingsMenuObj: {fileID: 3212346113170192467}
 --- !u!114 &1387280363
 MonoBehaviour:
   m_ObjectHideFlags: 0

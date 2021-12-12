@@ -10,6 +10,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private GameObject[] buttons = new GameObject[3];
     [SerializeField] private float alphaspeed;
     [SerializeField] private Canvas LevelMenu;
+    [SerializeField] private Canvas WorldMenu;
     [SerializeField] private TextMeshProUGUI WorldTitle;
     private float moveAmount;
     private float[] alpha;
@@ -17,7 +18,6 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     private Vector3 startposition;
     private int positionIndex,page;
     private const int itemsNumber = 3;
-    public static string worldNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,17 +77,17 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             {
                 case 0:
                     WorldTitle.text = "1.beginner";
-                    worldNum = "1-";
+                    MenuButtonFunction.ChapterNumber = 0;
                     buttonMaskManager.currentWorld = 0;
                     break;
                 case 1:
                     WorldTitle.text = "2.Rotation Block";
-                    worldNum = "2-";
+                    MenuButtonFunction.ChapterNumber = 1;
                     buttonMaskManager.currentWorld = 1;
                     break;
                 case 2:
                     WorldTitle.text = "3.Dancing Wagyu";
-                    worldNum = "3-";
+                    MenuButtonFunction.ChapterNumber = 2;
                     buttonMaskManager.currentWorld = 2;
                     break;
                 default:
@@ -96,6 +96,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             }
 
             LevelMenu.gameObject.SetActive(true);
+            WorldMenu.gameObject.SetActive(false);
             FindObjectOfType<AudioManager>().PlaySound("Click");
         }
 

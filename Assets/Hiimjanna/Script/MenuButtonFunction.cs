@@ -7,9 +7,8 @@ using DG.Tweening;
 
 public class MenuButtonFunction : MonoBehaviour
 {
-    public static string levelInfoFromUItoMainGame = "1-1";
-    public static string ChapterNumber;
-    public static string LevelNumber;
+    public static int ChapterNumber;
+    public static int LevelNumber;
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 
@@ -57,14 +56,29 @@ public class MenuButtonFunction : MonoBehaviour
         StartCoroutine("ChangeToEditor",1);
         //SceneManager.LoadScene(1);
     }
-
-    public void callMainMap(string s)
+    public void callMainMap(int level)
     {
+        LevelNumber = level;
         FindObjectOfType<AudioManager>().PlaySound("Click");
- 
-        levelInfoFromUItoMainGame = cowBehaviorInWorldMenu.worldNum + s;
 
-        if (levelInfoFromUItoMainGame == "1-1") StartCoroutine("ChangeToEditor", 3);
+        GameManager.currentWorld = ChapterNumber;
+        GameManager.currentLevel = LevelNumber;
+
+        if (ChapterNumber == 0 && LevelNumber == 0) StartCoroutine("ChangeToEditor", 3);
+        else StartCoroutine("ChangeToEditor", 2);
+        /*if(levelInfoFromUItoMainGame == "1-1") SceneManager.LoadScene(3);
+        else SceneManager.LoadScene(2);*/
+    }
+    public void callMainMap(int world, int level)
+    {
+        LevelNumber = level;
+        ChapterNumber = world;
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
+        GameManager.currentWorld = ChapterNumber;
+        GameManager.currentLevel = LevelNumber;
+
+        if (ChapterNumber == 0 && LevelNumber == 0) StartCoroutine("ChangeToEditor", 3);
         else StartCoroutine("ChangeToEditor", 2);
         /*if(levelInfoFromUItoMainGame == "1-1") SceneManager.LoadScene(3);
         else SceneManager.LoadScene(2);*/

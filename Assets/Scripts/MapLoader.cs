@@ -12,6 +12,7 @@ public class MapLoader : MonoBehaviour
     [SerializeField] private List<Sprite> charSprites;
     [SerializeField] private List<Sprite> itemSprites;
     [SerializeField] private List<Sprite> destSprites;
+    [SerializeField] private Sprite lockedImage;
 
     Image[,] baseMap = null, topMap = null;
     private int width = 4, height = 4;
@@ -38,10 +39,14 @@ public class MapLoader : MonoBehaviour
 
         LoadMap();
     }
+    void ClearMap()
+    {
+        if (baseMap != null) for (int i = 0; i < width; ++i) for (int j = 0; j < height; ++j) Destroy(baseMap[i, j]);
+        if (topMap != null) for (int i = 0; i < width; ++i) for (int j = 0; j < height; ++j) Destroy(topMap[i, j]);
+    }
     void ResetMap()
     {
-        if (baseMap != null) for(int i = 0;i < width; ++i) for(int j = 0;j < height; ++j) Destroy(baseMap[i, j]);
-        if (topMap != null) for (int i = 0; i < width; ++i) for (int j = 0; j < height; ++j) Destroy(topMap[i, j]);
+        ClearMap();
 
         //create
         baseMap = new Image[width, height];
@@ -60,6 +65,7 @@ public class MapLoader : MonoBehaviour
                 baseMap[x, y].transform.parent = this.transform;
                 baseMap[x, y].rectTransform.localScale = new Vector3(1.0f / width, 1.0f / height, 1);
                 baseMap[x, y].rectTransform.localPosition = new Vector3(x * edgeLength + offsetX, y * edgeLength + offsetY, 1);
+                baseMap[x, y].GetComponent<Image>().color = new Color(108 / 255.0f, 70 / 255.0f, 34 / 255.0f);
 
                 topMap[x, y] = Instantiate(blockPref, new Vector3(x * edgeLength + offsetX, y * edgeLength + offsetY, 1), Quaternion.identity);
                 topMap[x, y].transform.parent = this.transform;
@@ -86,6 +92,7 @@ public class MapLoader : MonoBehaviour
                 int x = i % width, y = i / width;
                 baseMap[x, y].GetComponent<Image>().sprite = blockSprites[mapData.blocks[i]];
                 baseMap[x, y].transform.eulerAngles = new Vector3(0, 0, 90.0f) * mapData.rotations[i];
+                baseMap[x, y].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
         }
         //char
@@ -114,7 +121,16 @@ public class MapLoader : MonoBehaviour
     }
     public void UpdateMap(string _filename)
     {
-        filename = _filename;
-        LoadMap();
+        if(_filename == "Locked")
+        {
+            ClearMap();
+            GetComponent<Image>().sprite = lockedImage;
+        }
+        else
+        {
+            GetComponent<Image>().sprite = null;
+            filename = _filename;
+            LoadMap();
+        }
     }
 }

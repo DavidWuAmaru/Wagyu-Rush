@@ -73,28 +73,30 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            LevelMenu.gameObject.SetActive(true);
-            FindObjectOfType<AudioManager>().PlaySound("Click");
-
             switch (positionIndex)
             {
                 case 0:
                     WorldTitle.text = "1.beginner";
                     worldNum = "1-";
+                    buttonMaskManager.currentWorld = 0;
                     break;
                 case 1:
                     WorldTitle.text = "2.Rotation Block";
                     worldNum = "2-";
+                    buttonMaskManager.currentWorld = 1;
                     break;
                 case 2:
                     WorldTitle.text = "3.Dancing Wagyu";
                     worldNum = "3-";
+                    buttonMaskManager.currentWorld = 2;
                     break;
                 default:
                     Debug.Log("World Title Text Error");
                     break;
             }
-                
+
+            LevelMenu.gameObject.SetActive(true);
+            FindObjectOfType<AudioManager>().PlaySound("Click");
         }
 
     }

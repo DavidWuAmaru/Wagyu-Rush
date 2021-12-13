@@ -708,7 +708,7 @@ public class GameManager : MonoBehaviour
             {
                 PlayerData.mapInfo.levelLocked[currentWorld + 1] = 1;
             }
-            if (currentLevel + 2 < DataManager.levelsOfWorld[currentWorld] && PlayerData.mapInfo.levelLocked[currentWorld] < currentLevel + 2)  //unlock next level
+            if (currentLevel + 1 < DataManager.levelsOfWorld[currentWorld] && PlayerData.mapInfo.levelLocked[currentWorld] < currentLevel + 2)  //unlock next level
             {
                 PlayerData.mapInfo.levelLocked[currentWorld] = currentLevel + 2;
             }
@@ -957,6 +957,17 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void ReloadMap()
+    {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+
+        initialUI.gameObject.SetActive(true);
+        ResultUI.gameObject.SetActive(false);
+        if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[currentWorld, currentLevel]);
+        else LoadRandomMap();
+        levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
+        enable = true;
+    }
     public void ReloadMap(string filename)
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
@@ -965,6 +976,7 @@ public class GameManager : MonoBehaviour
         ResultUI.gameObject.SetActive(false);
         if (usingCustomMap) LoadExistingMap(filename);
         else LoadRandomMap();
+        levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
         enable = true;
     }
     public void LevelUp()
@@ -977,7 +989,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
         currentLevel++;
-        ReloadMap(DataManager.mapAddress[currentWorld, currentLevel]);
+        ReloadMap();
     }
     public void LevelDown()
     {
@@ -989,7 +1001,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
         currentLevel--;
-        ReloadMap(DataManager.mapAddress[currentWorld, currentLevel]);
+        ReloadMap();
     }
     public void LoadMainMap(int world, int level)
     {

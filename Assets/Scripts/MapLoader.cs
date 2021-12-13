@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MapLoader : MonoBehaviour
 {
     private Vector2 position;
-    public string filename = "1-1";
+    public string filename = "";
     [SerializeField] private Image blockPref;
     [SerializeField] private List<Sprite> blockSprites;
     [SerializeField] private List<Sprite> charSprites;
@@ -15,7 +15,7 @@ public class MapLoader : MonoBehaviour
     [SerializeField] private Sprite lockedImage;
 
     Image[,] baseMap = null, topMap = null;
-    private int width = 4, height = 4;
+    private int width = 0, height = 0;
     private float offsetX, offsetY;
     private float edgeLength = 4.0f;
     [SerializeField] private float mapLength;
@@ -46,8 +46,6 @@ public class MapLoader : MonoBehaviour
     }
     void ResetMap()
     {
-        ClearMap();
-
         //create
         baseMap = new Image[width, height];
         topMap = new Image[width, height];
@@ -63,13 +61,13 @@ public class MapLoader : MonoBehaviour
             {
                 baseMap[x, y] = Instantiate(blockPref, new Vector3(x * edgeLength + offsetX, y * edgeLength + offsetY, 1), Quaternion.identity);
                 baseMap[x, y].transform.parent = this.transform;
-                baseMap[x, y].rectTransform.localScale = new Vector3(1.0f / width, 1.0f / height, 1);
+                baseMap[x, y].rectTransform.localScale = new Vector3(1.0f / Mathf.Max(width, height), 1.0f / Mathf.Max(width, height), 1);
                 baseMap[x, y].rectTransform.localPosition = new Vector3(x * edgeLength + offsetX, y * edgeLength + offsetY, 1);
                 baseMap[x, y].GetComponent<Image>().color = new Color(108 / 255.0f, 70 / 255.0f, 34 / 255.0f);
 
                 topMap[x, y] = Instantiate(blockPref, new Vector3(x * edgeLength + offsetX, y * edgeLength + offsetY, 1), Quaternion.identity);
                 topMap[x, y].transform.parent = this.transform;
-                topMap[x, y].rectTransform.localScale = new Vector3(1.0f / width, 1.0f / height, 1) * 0.275f;
+                topMap[x, y].rectTransform.localScale = new Vector3(1.0f / Mathf.Max(width, height), 1.0f / Mathf.Max(width, height), 1) * 0.275f;
                 topMap[x, y].rectTransform.localPosition = new Vector3(x * edgeLength + offsetX, y * edgeLength + offsetY, 1);
                 topMap[x, y].GetComponent<Image>().color = new Color(1, 1, 1, 0);
             }
@@ -80,6 +78,11 @@ public class MapLoader : MonoBehaviour
         MapData mapData;
         if (filename.IndexOf("/") == -1) mapData = SaveSystem.LoadMap("Assets/Resources/MapLevel/Level" + filename + ".map");
         else mapData = SaveSystem.LoadMap(filename);
+        if (mapData == null)
+        {
+            return;
+        }
+        ClearMap();
         width = mapData.width;
         height = mapData.height;
         ResetMap();

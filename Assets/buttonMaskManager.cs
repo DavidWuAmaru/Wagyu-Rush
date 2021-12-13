@@ -38,7 +38,7 @@ public class buttonMaskManager : MonoBehaviour
        }
        if(Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow))
        {
-            if (currentLevel >= PlayerData.mapInfo.levelLocked[currentWorld]) return;
+            if (currentLevel >= PlayerData.mapInfo.levelLocked[currentWorld] || currentLevel + 1 >= DataManager.levelsOfWorld[currentWorld]) return;
             else
             {
                 currentLevel++;

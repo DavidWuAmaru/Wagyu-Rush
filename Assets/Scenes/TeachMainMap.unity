@@ -1842,10 +1842,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1387280360}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1387280363}
+        m_TargetAssemblyTypeName: TeachGameManager, Assembly-CSharp
         m_MethodName: LoadMainMap
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2026,7 +2026,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1387280361}
-  - component: {fileID: 1387280360}
   - component: {fileID: 1387280362}
   - component: {fileID: 1387280363}
   m_Layer: 0
@@ -2036,76 +2035,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1387280360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387280359}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f545ea7c7dd7f3e4b9ea3ba9c5d76050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 7176047}
-  blockTypes:
-  - {fileID: 892598097076899973, guid: 90af29f48c688d847bb3785436956edc, type: 3}
-  - {fileID: 60620024841158810, guid: 4d6445e8c2cb9c043b4a65ff2cc913e9, type: 3}
-  - {fileID: 8853489643484213109, guid: b52a6b62d81b3014eb0163c485c0e73e, type: 3}
-  - {fileID: 5433233767052392269, guid: cf0a3e386ea8b784da1b065df72dba84, type: 3}
-  - {fileID: 9156246289378959001, guid: 22b5e897ab085ab4fb299b8d8b3bc8be, type: 3}
-  - {fileID: 267510922473254360, guid: 411ae33b400265b4e9b81c6469d00459, type: 3}
-  - {fileID: 6867694763005246098, guid: 4e008fc4e8125fd4695028a8128997e2, type: 3}
-  characterTypes:
-  - {fileID: 6154960460570675233, guid: 582e9b2a5f3f43647950ce084152ab01, type: 3}
-  itemTypes:
-  - {fileID: 4770987167060937822, guid: 8bdd3b97d9267c142b0f1e269c106b97, type: 3}
-  - {fileID: 1490929722800622045, guid: 5785945b6165f7248b65c6d337b47c77, type: 3}
-  - {fileID: 3492877323261135271, guid: c47247b6046a77740aa4b9cb6ee46d4f, type: 3}
-  - {fileID: 2579692968993614285, guid: f2580ca6484d15b4ca8177e7d50563fc, type: 3}
-  - {fileID: 6119173902236006185, guid: 94a3302efe64ea64bbfec157b63958bc, type: 3}
-  destinationTypes:
-  - {fileID: 482675361180265473, guid: 0b2e41a26d840ce41b55afc282ae442c, type: 3}
-  mapSize: {x: 5, y: 5}
-  blockMoveSpeed: 30
-  characterMoveSpeed: 100
-  blockRotateSpeed: 15
-  levelBoard: {fileID: 1076911976}
-  initialUI: {fileID: 861718134}
-  ResultUI: {fileID: 0}
-  SettingUI: {fileID: 466645163}
-  ResultUI_satietyBoard: {fileID: 0}
-  ResultUI_wagyuGradingBoard: {fileID: 0}
-  ResultUI_NextLevel: {fileID: 0}
-  resultCowImage: {fileID: 0}
-  resultCowPics:
-  - {fileID: 21300000, guid: 9c30907e252c45f41a24ad74aaab7f26, type: 3}
-  - {fileID: 21300000, guid: 9204c6ce18d6c5641b98ed26aeb9190d, type: 3}
-  - {fileID: 21300000, guid: ef7bf3f4562f032449dc8b43471e47e5, type: 3}
-  cowEmojiImage: {fileID: 606670871}
-  cowEmojiPics:
-  - {fileID: 21300000, guid: 2712103222ffe174ba6f15e4cf644804, type: 3}
-  - {fileID: 21300000, guid: 9204c6ce18d6c5641b98ed26aeb9190d, type: 3}
-  - {fileID: 21300000, guid: 12564c655e6043846a945ee754c712dd, type: 3}
-  usingCustomMap: 1
-  mapAddress:
-  - Assets/Resources/MapLevel/Level1-1.map
-  - Assets/Resources/MapLevel/Level1-2.map
-  - Assets/Resources/MapLevel/Level1-3.map
-  - Assets/Resources/MapLevel/Level2-1.map
-  - Assets/Resources/MapLevel/Level2-2.map
-  - Assets/Resources/MapLevel/Level2-3.map
-  satietySlider: {fileID: 1339423163}
-  levelGradingChaos: 
-  levelGradingHard: 
-  levelGradingNormal: 
-  levelGradingEasy: 
-  levelGradingNoob: 
-  targetBoardImage: {fileID: 0}
-  targetBoardText: {fileID: 0}
-  closingPrefab: {fileID: 9127005262850940110, guid: 3d2db5c80f77ace45929d78e81fcea1c,
-    type: 3}
 --- !u!4 &1387280361
 Transform:
   m_ObjectHideFlags: 0
@@ -2178,13 +2107,6 @@ MonoBehaviour:
   ResultUI_wagyuGradingBoard: {fileID: 3212346114569443014}
   ResultUI_NextLevel: {fileID: 3212346112509695158}
   usingCustomMap: 1
-  mapAddress:
-  - Assets/Resources/MapLevel/Level1-1.map
-  - Assets/Resources/MapLevel/Level1-2.map
-  - Assets/Resources/MapLevel/Level1-3.map
-  - Assets/Resources/MapLevel/Level2-1.map
-  - Assets/Resources/MapLevel/Level2-2.map
-  - Assets/Resources/MapLevel/Level2-3.map
   satietySlider: {fileID: 1339423163}
   stepAllowed: 40
   resultCowImage: {fileID: 3212346114010509090}
@@ -3011,7 +2933,7 @@ SpriteRenderer:
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3beff378cbe127743873d3f77be79dc5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b2b2861c1c1433488f62f0f81e5a1d5, type: 3}
   m_Color: {r: 0.85882354, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3031,7 +2953,7 @@ Transform:
   m_GameObject: {fileID: 1980507012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 24.5, y: 24.5, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 3.85, y: 3.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
@@ -3868,14 +3790,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1387280360}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1387280363}
+        m_TargetAssemblyTypeName: TeachGameManager, Assembly-CSharp
         m_MethodName: LoadMainMap
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 1-2
           m_BoolArgument: 0
@@ -4344,8 +4266,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1387280360}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1387280363}
+        m_TargetAssemblyTypeName: TeachGameManager, Assembly-CSharp
         m_MethodName: BackToStartMenu
         m_Mode: 1
         m_Arguments:
@@ -4477,10 +4399,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1387280360}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1387280363}
+        m_TargetAssemblyTypeName: TeachGameManager, Assembly-CSharp
         m_MethodName: LoadMainMap
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

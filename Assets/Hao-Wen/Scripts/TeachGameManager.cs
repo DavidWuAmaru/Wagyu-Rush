@@ -1010,7 +1010,14 @@ public class TeachGameManager : MonoBehaviour
         else LoadRandomMap();
         m_enabled = true;
     }
-    
+    public void LoadMainMap(int level)
+    {
+        GameManager.currentWorld = 0;
+        GameManager.currentLevel = level;
+
+        //StartCoroutine("ChangeToEditor", 2);
+        SceneManager.LoadScene(2);
+    }
     public void BackToStartMenu()
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");

@@ -72,6 +72,11 @@ public class GameManager : MonoBehaviour
     private List<Color> portalColor;
     private int itemPortalOffset = 0;
 
+    //Cow sleep animation
+    [SerializeField] private float idleSleepTime = 5.0f; //unit : seconds
+    private bool isSleeping = false;
+    private float idleTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -121,29 +126,54 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isSleeping)
+        {
+            idleTime += Time.deltaTime;
+            if(idleTime >= idleSleepTime)
+            {
+                isSleeping = true;
+                for(int i = 0; i < characters.Count; ++i)
+                {
+                    characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetBool("isSleeping", true);
+                }
+            }
+        }
+
         if (!enable) return;
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             StartCoroutine(IE_move(Direction.Up));
+            wakeUpAllCows();
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             StartCoroutine(IE_move(Direction.Down));
+            wakeUpAllCows();
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             StartCoroutine(IE_move(Direction.Left));
+            wakeUpAllCows();
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             StartCoroutine(IE_move(Direction.Right));
+            wakeUpAllCows();
         }
         //Satiety update
         //AddSatiety(-0.005f);
         satiety = Mathf.Lerp(satiety, satietyTar, 0.05f);
         satietySlider.value = satiety;
     }
-
+    private void wakeUpAllCows()
+    {
+        isSleeping = false;
+        idleTime = 0.0f;
+        for (int i = 0; i < characters.Count; ++i)
+        {
+            characters[i].entity.transform.GetChild(0).GetComponent<Animator>().SetBool("isSleeping", false);
+        }
+    }
     private void ClearAllObjs()
     {
         //Clear objects

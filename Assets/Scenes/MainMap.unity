@@ -4425,6 +4425,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d018b60fdc5b1ee40800b15bba75fe18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  helpButton: {fileID: 147480484}
+  buttonList:
+  - {fileID: 834098636}
+  - {fileID: 1035324390}
+  - {fileID: 307443584}
+  - {fileID: 104157399}
+  introList:
+  - {fileID: 923231613}
+  - {fileID: 245479700}
+  - {fileID: 328541064}
+  - {fileID: 898714902}
 --- !u!1 &861718131
 GameObject:
   m_ObjectHideFlags: 0
@@ -7645,6 +7656,7 @@ MonoBehaviour:
   levelGradingNoob: 05000000080000000a0000000c0000000f000000
   targetBoardImage: {fileID: 1061383234}
   targetBoardText: {fileID: 1021368259}
+  itemIntroManager: {fileID: 859532279}
   closingPrefab: {fileID: 9127005262850940110, guid: 3d2db5c80f77ace45929d78e81fcea1c,
     type: 3}
 --- !u!4 &1387280361

@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Image targetBoardImage;
     [SerializeField] private TMP_Text targetBoardText;
+    [SerializeField] private ItemIntroManager itemIntroManager;
     #endregion
     [SerializeField] private GameObject closingPrefab;
 
@@ -248,6 +249,7 @@ public class GameManager : MonoBehaviour
         }
 
         updateTargetBoard();
+        updateHelpList();
     }
     private void LoadRandomMap()
     {
@@ -732,6 +734,18 @@ public class GameManager : MonoBehaviour
             targetBoardImage.GetComponent<Image>().sprite = destinationTypes[0].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
             targetBoardText.text = "";
         }
+    }
+    private void updateHelpList()
+    {
+        bool[] itemExist = new bool[] { false, false, false, false };
+        for(int i = 0; i < items.Count; ++i)
+        {
+            if (items[i].type == Item.Type.HayStack) itemExist[0] = true;
+            if (items[i].type == Item.Type.Trap) itemExist[1] = true;
+            if (items[i].type == Item.Type.HeadPhone) itemExist[2] = true;
+            if (items[i].type == Item.Type.Portal) itemExist[3] = true;
+        }
+        itemIntroManager.SetButtonActive(itemExist[0], itemExist[1], itemExist[2], itemExist[3]);
     }
     private void setUpAssistMap()
     {

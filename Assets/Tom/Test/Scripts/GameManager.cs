@@ -745,7 +745,9 @@ public class GameManager : MonoBehaviour
             if (items[i].type == Item.Type.HeadPhone) itemExist[2] = true;
             if (items[i].type == Item.Type.Portal) itemExist[3] = true;
         }
-        itemIntroManager.SetButtonActive(itemExist[0], itemExist[1], itemExist[2], itemExist[3]);
+        bool rotateBlockExist = false;
+        for (int i = 0; i < blocks.Count; ++i) if (blocks[i].type == Block.Type.RotateBlock) rotateBlockExist = true;
+        itemIntroManager.SetButtonActive(itemExist[0], itemExist[1], itemExist[2], itemExist[3], rotateBlockExist);
     }
     private void setUpAssistMap()
     {

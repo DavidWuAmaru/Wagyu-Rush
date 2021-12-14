@@ -181,7 +181,6 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
                 bgLayer.transform.position = bgLayerInitialPos + bgLayerDistance / bgMovePeriod * timeElapsed;
                 transform.position = cowInitialPos + cowDistance / bgMovePeriod * timeElapsed;
             }
-            
             yield return null;
         }
         bgLayer.transform.position = bgLayerInitialPos;

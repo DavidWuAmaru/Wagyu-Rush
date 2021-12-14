@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
     [SerializeField] private Text ResultUI_wagyuGradingBoard;
     [SerializeField] private Button ResultUI_NextLevel;
+    [SerializeField] private GameObject UnlockNewWorldObj;
+    [SerializeField] private TMP_Text UnlockNewWorldText;
     //Cow status
     [SerializeField] private Image resultCowImage;
     [SerializeField] private Sprite[] resultCowPics;
@@ -739,7 +741,11 @@ public class GameManager : MonoBehaviour
             if (currentWorld + 1 < DataManager.worldSize && currentLevel >= 2 && PlayerData.mapInfo.levelLocked[currentWorld + 1] <= 0)  //unlock next world
             {
                 PlayerData.mapInfo.levelLocked[currentWorld + 1] = 1;
+                UnlockNewWorldText.text = string.Format("Unlock New World!!!\n{0}", DataManager.worldNames[currentWorld + 1]);
+                UnlockNewWorldObj.gameObject.SetActive(true);
             }
+            else UnlockNewWorldObj.gameObject.SetActive(false);
+
             if (currentLevel + 1 < DataManager.levelsOfWorld[currentWorld] && PlayerData.mapInfo.levelLocked[currentWorld] < currentLevel + 2)  //unlock next level
             {
                 PlayerData.mapInfo.levelLocked[currentWorld] = currentLevel + 2;

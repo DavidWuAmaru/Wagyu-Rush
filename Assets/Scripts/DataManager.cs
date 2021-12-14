@@ -6,6 +6,7 @@ public class DataManager : MonoBehaviour
 {
     public static string[] wagyuGradings = { "1", "2", "3", "4", "5" };
     public static int worldSize = 6;
+    public static int customWorldInex = 5;
     public static string[] worldNames = { "beginner", "Rotation Block", "Dancing Wagyu", "Portal", "Doom", "Custom" };
     public static int[] levelsOfWorld = new int[] { 6, 6, 6, 6, 6, 6 };
     public static string[,] mapAddress= {

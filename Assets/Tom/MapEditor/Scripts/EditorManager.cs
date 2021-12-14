@@ -10,6 +10,7 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private GameObject blockPref;
     //[SerializeField] private GameObject grid;
     //[SerializeField] private GameObject blankObj;
+    [SerializeField] private bool isCustomEditing = false;
     [SerializeField] private Slider widthSlider;
     [SerializeField] private Slider heightSlider;
     [SerializeField] private TMP_Text sizeText;
@@ -27,6 +28,11 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private TMP_Text messageBanner;
     [SerializeField] private GameObject trashCan;
     [SerializeField] private TMP_Dropdown difficultyDropdown;
+    [SerializeField] private TMP_Dropdown levelDropdown;
+    [SerializeField] private GameObject saveFilePopUpMenu;
+    [SerializeField] private TMP_Text saveFilePopUpMenuText;
+    //for custom editing
+    [SerializeField] private GameObject fileObj, customFileObj;
     // [SerializeField] private float puttingArea = 0.5f;
     [SerializeField] private float acceptableArea = 0.7f;
     [SerializeField] private float rightClickArea = 0.6f;
@@ -34,7 +40,7 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private GameObject closingPrefab;
 
 
-
+    private bool edited = false;
     public int width = 4, height = 4;
     private float offsetX, offsetY;
     private float edgeLength = 4.0f;
@@ -58,6 +64,11 @@ public class EditorManager : MonoBehaviour
 
     void Start()
     {
+        edited = false;
+        fileObj.gameObject.SetActive(!isCustomEditing);
+        customFileObj.gameObject.SetActive(isCustomEditing);
+        saveFilePopUpMenu.gameObject.SetActive(false);
+
         draggable.dragEndedCallback = OnDragEnded_block;
         for (int i = 0; i < blocks.Count; ++i) blocks[i].dragEndedCallback = OnDragEnded_block;
         for (int i = 0; i < characters.Count; ++i) characters[i].dragEndedCallback = OnDragEnded_character;
@@ -83,11 +94,17 @@ public class EditorManager : MonoBehaviour
         portalObj = items[items.Count - 1].gameObject;
 
         CreateMap();
+
+        if (isCustomEditing)
+        {
+            LoadMap();   
+        }
         sizeText.text = "Size : " + width.ToString() + " , " + height.ToString();
         filenameInputField.text = "1-1";
     }
     void Update()
     {
+        Debug.Log(edited);
         if (Input.GetMouseButtonDown(1))
         {
             SetRotateMap(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
@@ -109,6 +126,10 @@ public class EditorManager : MonoBehaviour
         int i = Random.Range(1, 4);
         FindObjectOfType<AudioManager>().PlaySound("PlaceBlock" + i.ToString());
     }
+    public void buttonClickSoundEffect()
+    {
+        FindObjectOfType<AudioManager>().PlaySound("Click");
+    }
     // placing items
     private void OnDragEnded_block(Vector2 position, int type)
     {
@@ -118,12 +139,12 @@ public class EditorManager : MonoBehaviour
         map[pos.x, pos.y].tag = "Block";
         map[pos.x, pos.y].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = blockSprites[type];
         map[pos.x, pos.y].transform.GetChild(0).transform.localScale = new Vector3(edgeLength - 0.5f, edgeLength - 0.5f, 0) * blockScales[type];
+        map[pos.x, pos.y].transform.GetChild(0).transform.eulerAngles = new Vector3(0, 0, 0);
+        rotationMap[pos.x, pos.y] = 0;
         typeMap[pos.x, pos.y] = type;
 
         if (type < 0 || type > 4)
         {
-            map[pos.x, pos.y].transform.GetChild(0).transform.eulerAngles = new Vector3(0, 0, 0);
-            rotationMap[pos.x, pos.y] = 0;
             //clear obj
             map[pos.x, pos.y].transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = blankSprite;
             itemMap[pos.x, pos.y] = -1;
@@ -285,6 +306,7 @@ public class EditorManager : MonoBehaviour
     private void DragEndedEvent()
     {
         UpdatePortalIndex();
+        edited = true;
     }
     private void UpdatePortalIndex()
     {
@@ -353,7 +375,11 @@ public class EditorManager : MonoBehaviour
     {
         int w = (int)widthSlider.value;
         int h = (int)heightSlider.value;
-        if(w != width || h != height) UpdateMap(w, h);
+        if (w != width || h != height)
+        {
+            UpdateMap(w, h);
+            edited = true;
+        }
     }
     void UpdateMap(int _width, int _height)
     {
@@ -425,6 +451,7 @@ public class EditorManager : MonoBehaviour
             rotationMap[tarX, tarY] = (rotationMap[tarX, tarY] + 1) % 4;
             //Play sound effect
             FindObjectOfType<AudioManager>().PlaySound("BlockRotate");
+            edited = true;
         }
     }
     public void ResetMap()
@@ -448,10 +475,10 @@ public class EditorManager : MonoBehaviour
         }
 
         UpdatePortalIndex();
+        edited = true;
     }
-    public void SaveMap()
+    public bool SaveMap()  //return if map is successfully saved
     {
-        FindObjectOfType<AudioManager>().PlaySound("Click");
         int charNum = 0, itemNum = 0, destNum = 0, portalNum = 0;
         int[] blocks = new int[width * height];
         int[] rotations = new int[width * height];
@@ -470,7 +497,7 @@ public class EditorManager : MonoBehaviour
             StopAllCoroutines();
             messageBanner.text = "No cow or van is placed!!";
             StartCoroutine(IE_bannerShow(0.5f, 0.3f));
-            return;
+            return false;
         }
 
         //portal check
@@ -482,7 +509,7 @@ public class EditorManager : MonoBehaviour
             StopAllCoroutines();
             messageBanner.text = "Portal doesn't pair up!!";
             StartCoroutine(IE_bannerShow(0.5f, 0.3f));
-            return;
+            return false;
         }
 
         
@@ -530,16 +557,75 @@ public class EditorManager : MonoBehaviour
         }
 
         MapData map = new MapData(difficultyDropdown.value, width, height, blocks, rotations, charNum, charTypes, charPos, itemNum, itemTypes, itemPos, portalNum, portalPos, destNum, destTypes, destPos);
-        if (filenameInputField.text.IndexOf("/") == -1) SaveSystem.SaveMap(map, "Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
-        else SaveSystem.SaveMap(map, filenameInputField.text);
+        if (isCustomEditing)
+        {
+            SaveSystem.SaveMap(map, DataManager.mapAddress[DataManager.customWorldInex, levelDropdown.value]);
+        }
+        else
+        {
+            if (filenameInputField.text.IndexOf("/") == -1) SaveSystem.SaveMap(map, "Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
+            else SaveSystem.SaveMap(map, filenameInputField.text);
+        }
+       
         Debug.Log("Successful!!");
+        edited = false;
+        return true;
     }
-    public void LoadMap()
+
+    private int lastIndex = 0;
+    private bool onLeaving = false;
+    public void OnDropdownValueChanged()
     {
-        FindObjectOfType<AudioManager>().PlaySound("Click");
+        if (edited)
+        {
+            onLeaving = false;
+            saveFilePopUpMenuText.text = string.Format("want to save your changes to current map \"Level 6 - {0}\"?", lastIndex + 1);
+            saveFilePopUpMenu.gameObject.SetActive(true);
+        }
+        else
+        {
+            LoadMap();
+            lastIndex = levelDropdown.value;
+        }
+    }
+    public void SaveFileDialogResponse(bool isYes)
+    {
+        if (isYes)
+        {
+            int tmp = levelDropdown.value;
+            levelDropdown.value = lastIndex;
+            if(SaveMap() == false)
+            {
+                saveFilePopUpMenu.gameObject.SetActive(false);
+                return;
+            }
+            levelDropdown.value = tmp;
+        }
+        if (onLeaving) loadStartMenu();
+        else LoadMap();
+        saveFilePopUpMenu.gameObject.SetActive(false);
+        lastIndex = levelDropdown.value;
+    }
+    public void SaveFileDialogClose()
+    {
+        levelDropdown.value = lastIndex;
+        saveFilePopUpMenu.gameObject.SetActive(false);
+        lastIndex = levelDropdown.value;
+    }
+
+    public void LoadMap()  //for noncuston load map
+    {
         MapData mapData;
-        if (filenameInputField.text.IndexOf("/") == -1) mapData = SaveSystem.LoadMap("Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
-        else mapData = SaveSystem.LoadMap(filenameInputField.text);
+        if (isCustomEditing)
+        {
+            mapData = SaveSystem.LoadMap(DataManager.mapAddress[DataManager.customWorldInex, levelDropdown.value]);
+        }
+        else
+        {
+            if (filenameInputField.text.IndexOf("/") == -1) mapData = SaveSystem.LoadMap("Assets/Resources/MapLevel/Level" + filenameInputField.text + ".map");
+            else mapData = SaveSystem.LoadMap(filenameInputField.text);
+        }
+
         difficultyDropdown.value = mapData.difficulty;
         widthSlider.value = mapData.width;
         heightSlider.value = mapData.height;
@@ -588,6 +674,20 @@ public class EditorManager : MonoBehaviour
         }
 
         UpdatePortalIndex();
+        edited = false;
+    }
+    public void CloseWindow()
+    {
+        if (edited)
+        {
+            onLeaving = true;
+            saveFilePopUpMenuText.text = string.Format("want to save your changes to current map \"Level 6 - {0}\"?", lastIndex + 1);
+            saveFilePopUpMenu.gameObject.SetActive(true);
+        }
+        else
+        {
+            loadStartMenu();
+        }
     }
     public void loadStartMenu()
     {
@@ -603,7 +703,6 @@ public class EditorManager : MonoBehaviour
 
         SceneManager.LoadScene(sceneId);
     }
-
     IEnumerator IE_bannerShow(float fadingDuration, float pauseDuration)
     {
         float counter = 0;

@@ -38,6 +38,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         }
         positionIndex = 0;
         page = 0;
+        Debug.Log(bgLayer.GetComponent<RectTransform>().localPosition.x);
 
         initializaed = true;
     }

@@ -38,7 +38,6 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         }
         positionIndex = 0;
         page = 0;
-        Debug.Log(bgLayer.GetComponent<RectTransform>().localPosition.x);
 
         initializaed = true;
     }
@@ -166,7 +165,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     {
         controlenable = false;
         float timeElapsed = 0.0f;
-        Vector3 bgLayerInitialPos = bgLayer.transform.position;
+        Vector3 bgLayerInitialPos = bgLayer.GetComponent<RectTransform>().localPosition;
         Vector3 cowInitialPos = transform.position;
         Vector3 cowDistance = new Vector3(2 * moveAmount, 0, 0);
         while(timeElapsed <= bgMovePeriod)
@@ -174,17 +173,17 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             timeElapsed += Time.deltaTime;
             if(isleft == false)
             {
-                bgLayer.transform.position = bgLayerInitialPos - bgLayerDistance / bgMovePeriod * timeElapsed;
+                bgLayer.GetComponent<RectTransform>().localPosition = bgLayerInitialPos - bgLayerDistance / bgMovePeriod * timeElapsed;
                 transform.position = cowInitialPos - cowDistance / bgMovePeriod * timeElapsed;
             }
             else
             {
-                bgLayer.transform.position = bgLayerInitialPos + bgLayerDistance / bgMovePeriod * timeElapsed;
+                bgLayer.GetComponent<RectTransform>().localPosition = bgLayerInitialPos + bgLayerDistance / bgMovePeriod * timeElapsed;
                 transform.position = cowInitialPos + cowDistance / bgMovePeriod * timeElapsed;
             }
             yield return null;
         }
-        bgLayer.transform.position = bgLayerInitialPos;
+        bgLayer.GetComponent<RectTransform>().localPosition = bgLayerInitialPos;
         if(isleft == false)
         {
             transform.position = startposition;

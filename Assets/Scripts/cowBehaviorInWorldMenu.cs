@@ -100,41 +100,16 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            switch (positionIndex)
+            if (positionIndex < DataManager.worldSize)
             {
-                case 0:
-                    WorldTitle.text = "1.beginner";
-                    MenuButtonFunction.ChapterNumber = 0;
-                    buttonMaskManager.currentWorld = 0;
-                    break;
-                case 1:
-                    WorldTitle.text = "2.Rotation Block";
-                    MenuButtonFunction.ChapterNumber = 1;
-                    buttonMaskManager.currentWorld = 1;
-                    break;
-                case 2:
-                    WorldTitle.text = "3.Dancing Wagyu";
-                    MenuButtonFunction.ChapterNumber = 2;
-                    buttonMaskManager.currentWorld = 2;
-                    break;
-                case 3:
-                    WorldTitle.text = "4.Portal";
-                    MenuButtonFunction.ChapterNumber = 3;
-                    buttonMaskManager.currentWorld = 3;
-                    break;
-                case 4:
-                    WorldTitle.text = "5.Doom";
-                    MenuButtonFunction.ChapterNumber = 4;
-                    buttonMaskManager.currentWorld = 4;
-                    break;
-                case 5:
-                    WorldTitle.text = "6.Custom";
-                    MenuButtonFunction.ChapterNumber = 5;
-                    buttonMaskManager.currentWorld = 5;
-                    break;
-                default:
-                    Debug.Log("World Title Text Error");
-                    return;
+                WorldTitle.text = string.Format("{0}.{1}", positionIndex + 1, DataManager.worldNames[positionIndex]);
+                MenuButtonFunction.ChapterNumber = positionIndex;
+                buttonMaskManager.currentWorld = positionIndex;
+            }
+            else
+            {
+                Debug.LogError("World Title Text Error");
+                return;
             }
 
             LevelMenu.gameObject.SetActive(true);

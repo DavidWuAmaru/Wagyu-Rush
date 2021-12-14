@@ -11,8 +11,11 @@ public class MapInfo
     public int[,] historyBest;
     public MapInfo()
     {
-        levelLocked = new int[3] { 3, 0, 0 };
-        historyBest = new int[3, 6] { { -1, -1, -1, -1, -1, -1 },
+        levelLocked = new int[6] { 3, 0, 0, 0, 0, 0 };
+        historyBest = new int[6, 6] { { -1, -1, -1, -1, -1, -1 },
+                                      { -1, -1, -1, -1, -1, -1 },
+                                      { -1, -1, -1, -1, -1, -1 },
+                                      { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 } };
     }

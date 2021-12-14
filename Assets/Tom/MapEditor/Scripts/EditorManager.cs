@@ -678,7 +678,7 @@ public class EditorManager : MonoBehaviour
     }
     public void CloseWindow()
     {
-        if (edited)
+        if (isCustomEditing && edited)
         {
             onLeaving = true;
             saveFilePopUpMenuText.text = string.Format("want to save your changes to current map \"Level 6 - {0}\"?", lastIndex + 1);

@@ -8594,7 +8594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPref: {fileID: 6264869341468958878, guid: 199d4f6a2d504ce4e85acbd5bf90da81,
     type: 3}
-  isCustomEditing: 1
+  isCustomEditing: 0
   widthSlider: {fileID: 1756803563}
   heightSlider: {fileID: 207920558}
   sizeText: {fileID: 800975744}

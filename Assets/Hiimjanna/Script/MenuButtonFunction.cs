@@ -19,6 +19,7 @@ public class MenuButtonFunction : MonoBehaviour
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject levelMenuCanvas;
     [SerializeField] private GameObject cow;
+    [SerializeField] private cowBehaviorInWorldMenu cowScript;
     [SerializeField] private GameObject scalingTeam;
 
     // Start is called before the first frame update
@@ -126,6 +127,8 @@ public class MenuButtonFunction : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         levelMenuCanvas.SetActive(false);
+        cowScript.enabled = true;
+
         //worldMenuCanvas.SetActive(true);
     }
 

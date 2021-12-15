@@ -120,6 +120,8 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             //WorldMenu.gameObject.SetActive(false);
             scalingTeam.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetEase(Ease.InOutSine);
             FindObjectOfType<AudioManager>().PlaySound("Click");
+
+            this.enabled = false;
         }
 
     }

@@ -57,7 +57,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text targetBoardText;
     [SerializeField] private ItemIntroManager itemIntroManager;
     #endregion
+    
+    //Added by Hao-Wen
     [SerializeField] private GameObject closingPrefab;
+    [SerializeField] private GameObject openingPrefab;
+    //End of Hao-Wen's Section
 
     private List<bool[]> oriBlockAccessible;
     private float mainMapLength = 48.0f;
@@ -1013,6 +1017,24 @@ public class GameManager : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");
 
+        //Modified by Hao-Wen
+        StartCoroutine("ReloadTransition");
+        //End of Hao-Wen's section
+        /*initialUI.gameObject.SetActive(true);
+        ResultUI.gameObject.SetActive(false);
+        if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[currentWorld, currentLevel]);
+        else LoadRandomMap();
+        levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
+        enable = true;*/
+    }
+
+    //Added by hao-Wen
+    IEnumerator ReloadTransition()
+    {
+        GameObject temp = Instantiate(closingPrefab);
+        yield return new WaitForSeconds(1);
+        Instantiate(openingPrefab);
+        Destroy(temp);
         initialUI.gameObject.SetActive(true);
         ResultUI.gameObject.SetActive(false);
         if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[currentWorld, currentLevel]);
@@ -1020,6 +1042,8 @@ public class GameManager : MonoBehaviour
         levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
         enable = true;
     }
+    //End of Hao-Wen's Section
+
     public void ReloadMap(string filename)
     {
         FindObjectOfType<AudioManager>().PlaySound("Click");

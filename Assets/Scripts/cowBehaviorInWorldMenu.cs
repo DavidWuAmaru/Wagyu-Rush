@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 public class cowBehaviorInWorldMenu : MonoBehaviour
 {
     [SerializeField] private Sprite cowleft, cowright;
@@ -14,6 +15,9 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private GameObject bgLayer;
     [SerializeField] private TextMeshProUGUI WorldTitle;
     [SerializeField] private Sprite[] bubbleImg;
+
+    [SerializeField] private GameObject scalingTeam;
+
     private float moveAmount;
     private float[] alpha;
     private bool controlenable;
@@ -28,7 +32,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     void Start()
     {
         //²¾°Êªº¶ZÂ÷
-        startposition = transform.position;
+        startposition = this.gameObject.transform.position;
 
         controlenable = true;
         alpha = new float[bubbles.Length];
@@ -113,7 +117,8 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             }
 
             LevelMenu.gameObject.SetActive(true);
-            WorldMenu.gameObject.SetActive(false);
+            //WorldMenu.gameObject.SetActive(false);
+            scalingTeam.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetEase(Ease.InOutSine);
             FindObjectOfType<AudioManager>().PlaySound("Click");
         }
 
@@ -207,8 +212,10 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         }
         alpha[0] = 1;
         bubbles[0].GetComponent<Image>().color = new Vector4(1, 1, 1, alpha[0]);
-        gameObject.transform.position = startposition;
+        this.gameObject.transform.position = startposition;
         controlenable = true;
         updateBubbleImg();
     }
+
+   
 }

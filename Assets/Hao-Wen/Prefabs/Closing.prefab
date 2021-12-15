@@ -190,5 +190,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionMask: {fileID: 9127005261385398295}
   targetColor: {r: 0, g: 0, b: 0, a: 1}
-  duration: 1
+  duration: 0.5
   isClosing: 1

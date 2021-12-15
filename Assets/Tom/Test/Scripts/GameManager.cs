@@ -1032,7 +1032,9 @@ public class GameManager : MonoBehaviour
     IEnumerator ReloadTransition()
     {
         GameObject temp = Instantiate(closingPrefab);
-        yield return new WaitForSeconds(1);
+
+        yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
+
         Instantiate(openingPrefab);
         Destroy(temp);
         initialUI.gameObject.SetActive(true);

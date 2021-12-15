@@ -13,7 +13,13 @@ public class MenuButtonFunction : MonoBehaviour
     private string[] scenePaths;
 
     [SerializeField] private GameObject closingPrefab;
+    [SerializeField] private GameObject openingPrefab;
     [SerializeField] private GameObject settingsMenuObj;
+    [SerializeField] private GameObject worldMenuCanvas;
+    [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject levelMenuCanvas;
+    [SerializeField] private GameObject cow;
+    [SerializeField] private GameObject scalingTeam;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,13 @@ public class MenuButtonFunction : MonoBehaviour
         
     }
     public void callSetting()
+    {
+        settingsMenuObj.SetActive(true);
+
+        settingsMenuObj.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetEase(Ease.InOutSine);
+    }
+
+    public void OpenLevelSelect()
     {
         settingsMenuObj.SetActive(true);
 
@@ -88,9 +101,32 @@ public class MenuButtonFunction : MonoBehaviour
         FindObjectOfType<AudioManager>().PlaySound("Click");
     }
 
+    public void StartGame()
+    {
+        StartCoroutine("StartGameTransition",true);
+    }
+    public void BackToMenu()
+    {
+        StartCoroutine("StartGameTransition",false);
+    }
+
     private void OnShrinkComplete()
     {
         settingsMenuObj.SetActive(false);
+    }
+
+    public void ResetScale()
+    {
+        StartCoroutine("BackToWorldMenu");     
+    }
+
+    IEnumerator BackToWorldMenu()
+    {
+        scalingTeam.transform.DOScale(new Vector3(0f, 0f, 0f), 0.5f).SetEase(Ease.InOutSine);
+        yield return new WaitForSeconds(0.5f);
+
+        levelMenuCanvas.SetActive(false);
+        //worldMenuCanvas.SetActive(true);
     }
 
     IEnumerator ChangeToEditor(int sceneId)
@@ -99,5 +135,21 @@ public class MenuButtonFunction : MonoBehaviour
         yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
 
         SceneManager.LoadScene(sceneId);
+    }
+
+    IEnumerator StartGameTransition(bool isStart)
+    {
+        GameObject temp = Instantiate(closingPrefab);
+
+        yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
+
+        worldMenuCanvas.SetActive(isStart);
+        mainMenuCanvas.SetActive(!isStart);
+        if (isStart)
+        {
+            cow.GetComponent<cowBehaviorInWorldMenu>().Reset();
+        }
+        Instantiate(openingPrefab);
+        Destroy(temp);
     }
 }

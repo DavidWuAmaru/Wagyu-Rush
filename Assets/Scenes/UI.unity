@@ -690,6 +690,7 @@ MonoBehaviour:
   mainMenuCanvas: {fileID: 580723341}
   levelMenuCanvas: {fileID: 620385623}
   cow: {fileID: 1983044781}
+  cowScript: {fileID: 1983044783}
   scalingTeam: {fileID: 1056876744}
 --- !u!1 &140984655
 GameObject:

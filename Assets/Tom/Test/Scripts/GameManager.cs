@@ -803,7 +803,14 @@ public class GameManager : MonoBehaviour
         }
         bool rotateBlockExist = false;
         for (int i = 0; i < blocks.Count; ++i) if (blocks[i].type == Block.Type.RotateBlock) rotateBlockExist = true;
-        itemIntroManager.SetButtonActive(itemExist[0], itemExist[1], itemExist[2], itemExist[3], rotateBlockExist);
+
+        int activeIndex = -1;
+        if (rotateBlockExist && PlayerData.mapInfo.seenBlock == false) activeIndex = itemExist.Length;
+        for(int i = itemExist.Length - 1;i >= 0; --i)
+        {
+            if (itemExist[i] == true && PlayerData.mapInfo.seenItem[i] == false) activeIndex = i;
+        }
+        itemIntroManager.SetButtonActive(itemExist[0], itemExist[1], itemExist[2], itemExist[3], rotateBlockExist, activeIndex);
     }
     private void setUpAssistMap()
     {

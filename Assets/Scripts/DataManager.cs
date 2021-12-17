@@ -59,6 +59,4 @@ public class DataManager : MonoBehaviour
     {  8, 11, 14, 17, 20},
     {  6,  9, 12, 15, 18} };
 
-
-
 }

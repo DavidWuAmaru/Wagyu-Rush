@@ -7,9 +7,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 [System.Serializable]
 public class MapInfo
 {
+    //For Teaching map
     public bool isTrainingLevelFinished;
+    //For Map controller
     public int[] levelLocked;
     public int[,] historyBest;
+    //For Help list
+    public bool[] seenItem;
+    public bool seenBlock;
     public MapInfo()
     {
         isTrainingLevelFinished = false;
@@ -20,6 +25,8 @@ public class MapInfo
                                       { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 } };
+        seenItem = new bool[4] { false, false, false, false };
+        seenBlock = false;
     }
     public void Show()
     {
@@ -84,6 +91,13 @@ public class PlayerData
                     mapInfo.historyBest[i, j] = _mapInfo.historyBest[i, j];
                 }
             }
+
+            mapInfo.seenItem = new bool[_mapInfo.seenItem.Length];
+            for (int i = 0; i < _mapInfo.seenItem.Length; ++i)
+            {
+                mapInfo.seenItem[i] = _mapInfo.seenItem[i];
+            }
+            mapInfo.seenBlock = _mapInfo.seenBlock; 
         }
         else
         {

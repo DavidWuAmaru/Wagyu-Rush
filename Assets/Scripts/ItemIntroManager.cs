@@ -13,7 +13,7 @@ public class ItemIntroManager : MonoBehaviour
     float originalWidth = 45, originalHeight = 170;  //base -> 10 (+ 4 * 40)
     bool isOn = false;
 
-    public void SetButtonActive(bool isHayStack, bool isTrap, bool isHeadphone, bool isPortal, bool isRotateBlock)
+    public void SetButtonActive(bool isHayStack, bool isTrap, bool isHeadphone, bool isPortal, bool isRotateBlock, int activeButton = -1)
     {
         for (int i = 0; i < introList.Length; ++i) introList[i].gameObject.SetActive(false);
         if (isHayStack == false && isTrap == false && isHeadphone==false && isPortal == false && isRotateBlock == false)
@@ -28,6 +28,12 @@ public class ItemIntroManager : MonoBehaviour
         {
             if (buttonActives[i])
             {
+                if(activeButton == i)
+                {
+                    helpButton.gameObject.SetActive(false);
+                    introList[i].gameObject.SetActive(true);
+                    updateSeenItem(activeButton);
+                }
                 buttonList[i].gameObject.SetActive(true);
                 buttonList[i].GetComponent<RectTransform>().localPosition = new Vector3(0, -25 - buttonHeight * index, 0);
                 index++;
@@ -46,6 +52,15 @@ public class ItemIntroManager : MonoBehaviour
         }
     }
 
+    public void updateSeenItem(int index)
+    {
+        PlayerData.Load();
+        if (index < 4)
+            PlayerData.mapInfo.seenItem[index] = true;
+        else
+            PlayerData.mapInfo.seenBlock = true;
+        PlayerData.Save();
+    }
 
     public void ToggleOff()
     {

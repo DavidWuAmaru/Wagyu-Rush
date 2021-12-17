@@ -35,4 +35,14 @@ public class Page : MonoBehaviour
             //if (currentPage == 0) leftButton.SetActive(false);
         }
     }
+
+    private void OnEnable()
+    {
+        //reset properties
+        currentPage = 0;
+        pages[currentPage].SetActive(true);
+        for (int p = 1; p < pages.Count; ++p) pages[p].SetActive(false);
+        rightButton.GetComponent<SpriteRenderer>().color = new Vector4(1, 1, 1, 1);
+        leftButton.GetComponent<SpriteRenderer>().color = new Vector4(1, 1, 1, 0.5f);
+    }
 }

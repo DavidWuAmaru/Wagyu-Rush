@@ -80,6 +80,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //change bgm
+
+
         //initialization
         blocks = new List<Block>();
         characters = new List<Character>();
@@ -712,9 +715,9 @@ public class GameManager : MonoBehaviour
             SettingUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
             ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
-            
+
             //update result picture
-            int grading = 0;
+            int grading = DataManager.levelGradingCount - 1;
             for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
                 {
                     grading = i;

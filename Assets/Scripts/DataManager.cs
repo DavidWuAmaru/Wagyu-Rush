@@ -9,7 +9,7 @@ public class DataManager : MonoBehaviour
     public static int customWorldInex = 5;
     public static string[] worldNames = { "beginner", "Rotation Block", "Dancing Wagyu", "Portal", "Doom", "Custom" };
     public static int[] levelsOfWorld = new int[] { 6, 6, 6, 6, 6, 6 };
-    public static string[,] mapAddress= {
+    public static string[,] mapAddress = {
        {"Assets/Resources/MapLevel/Level1-1.map",
         "Assets/Resources/MapLevel/Level1-2.map",
         "Assets/Resources/MapLevel/Level1-3.map",
@@ -47,6 +47,16 @@ public class DataManager : MonoBehaviour
         "Assets/Resources/MapLevel/Level6-5.map",
         "Assets/Resources/MapLevel/Level6-6.map"}
     };
+
+    //game difficulties
+    public static int difficultyCount = 5;
+    public static string[] difficultyNames = { "Chaos", "Hard", "Normal", "Easy", "Noob" };
+    public static int[,] levelGradings = new int[5, 5]{
+    { 15, 20, 30, 40, 50},
+    { 12, 15, 20, 30, 40},
+    { 10, 12, 15, 20, 30},
+    {  8, 10, 12, 15, 20},
+    {  5,  8, 10, 12, 15} };
 
 
 

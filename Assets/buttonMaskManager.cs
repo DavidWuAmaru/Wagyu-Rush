@@ -9,6 +9,7 @@ public class buttonMaskManager : MonoBehaviour
     [SerializeField] private GameObject[] buttons;
     [SerializeField] private GameObject mapPreview;
     [SerializeField] private GameObject buttonManager;
+    [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text bestText;
     public static int currentWorld = 0;
     private int currentLevel = 0;
@@ -57,6 +58,8 @@ public class buttonMaskManager : MonoBehaviour
         if (currentLevel >= PlayerData.mapInfo.levelLocked[currentWorld]) mapPreview.GetComponent<MapLoader>().UpdateMap("Locked");
         else mapPreview.GetComponent<MapLoader>().UpdateMap(DataManager.mapAddress[currentWorld, currentLevel]);
 
+        if(levelText != null) levelText.text = string.Format("Level : {0}-{1}", currentWorld + 1, currentLevel + 1);
+        
         if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1) bestText.text = "No record";
         else bestText.text = "Best : " + DataManager.wagyuGradings[PlayerData.mapInfo.historyBest[currentWorld, currentLevel]];
     }
@@ -98,6 +101,8 @@ public class buttonMaskManager : MonoBehaviour
         currentLevel = 0;
         if (currentLevel >= PlayerData.mapInfo.levelLocked[currentWorld]) mapPreview.GetComponent<MapLoader>().UpdateMap("Locked");
         else mapPreview.GetComponent<MapLoader>().UpdateMap(DataManager.mapAddress[currentWorld, currentLevel]);
+
+        if (levelText != null) levelText.text = string.Format("Level : {0}-{1}", currentWorld + 1, currentLevel + 1);
 
         if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1) bestText.text = "No record";
         else bestText.text = "Best : " + DataManager.wagyuGradings[PlayerData.mapInfo.historyBest[currentWorld, currentLevel]];

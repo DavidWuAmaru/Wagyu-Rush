@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     private int stepCount = 0, stepMax = 40;
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
+    /*
     //difficulty
     [SerializeField] private int[] levelGradingChaos;       //small -> large
     [SerializeField] private int[] levelGradingHard;         //small -> large
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int[] levelGradingEasy;           //small -> large
     [SerializeField] private int[] levelGradingNoob;        //small -> large
     private List<int[]> levelGradings;
-
+    */
     [SerializeField] private Image targetBoardImage;
     [SerializeField] private TMP_Text targetBoardText;
     [SerializeField] private ItemIntroManager itemIntroManager;
@@ -100,7 +101,7 @@ public class GameManager : MonoBehaviour
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         oriBlockAccessible.Add(new bool[4] { false, false, false, false });
         itemReusability = new bool[] { false, false, false, false, true };
-
+        /*
         //difficulty
         levelGradings = new List<int[]>();
         levelGradings.Add(levelGradingChaos);
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour
         levelGradings.Add(levelGradingNormal);
         levelGradings.Add(levelGradingEasy);
         levelGradings.Add(levelGradingNoob);
+        */
 
         //portal colors definition
         portalColor = new List<Color>();
@@ -201,8 +203,8 @@ public class GameManager : MonoBehaviour
         ClearAllObjs();
         MapData mapData = SaveSystem.LoadMap(filename);
         difficulty = mapData.difficulty;
-        stepMax = levelGradings[difficulty][4];
-        for (int i = 0; i < 4; ++i) if (stepMax < levelGradings[difficulty][i]) stepMax = levelGradings[difficulty][i];
+        stepMax = DataManager.levelGradings[difficulty, 4];
+        for (int i = 0; i < 4; ++i) if (stepMax < DataManager.levelGradings[difficulty, i]) stepMax = DataManager.levelGradings[difficulty, i];
         mapSize.x = mapData.width; mapSize.y = mapData.height;
         assistMap = new int[mapSize.x, mapSize.y];
         //update edge length
@@ -292,8 +294,8 @@ public class GameManager : MonoBehaviour
         ClearAllObjs();
         assistMap = new int[mapSize.x, mapSize.y];
         difficulty = 2;
-        stepMax = levelGradings[difficulty][4];
-        for (int i = 0; i < 4; ++i) if (stepMax < levelGradings[difficulty][i]) stepMax = levelGradings[difficulty][i];
+        stepMax = DataManager.levelGradings[difficulty, 4];
+        for (int i = 0; i < 4; ++i) if (stepMax < DataManager.levelGradings[difficulty, i]) stepMax = DataManager.levelGradings[difficulty, i];
         //update edge length
         blockEdgeLength = mainMapLength / Mathf.Max(mapSize.x, mapSize.y);
         mapOffsetX = blockEdgeLength * 0.5f + 0.5f;
@@ -723,7 +725,7 @@ public class GameManager : MonoBehaviour
             
             //update result picture
             int grading = 0;
-            for (int i = 0; i < 5; ++i) if (stepCount <= levelGradings[difficulty][i])
+            for (int i = 0; i < 5; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
                 {
                     grading = 4 - i;
                     break;
@@ -1129,7 +1131,7 @@ public class GameManager : MonoBehaviour
         //update satiety bar
         SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
         //update emoji
-        for(int i = 0;i < 5; ++i) if(stepCount <= levelGradings[difficulty][i])
+        for(int i = 0;i < 5; ++i) if(stepCount <= DataManager.levelGradings[difficulty, i])
             {
                 cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(4 - i) / 2];
                 return;
@@ -1144,7 +1146,7 @@ public class GameManager : MonoBehaviour
         //update satiety bar
         SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
         //update emoji
-        for (int i = 0; i < 5; ++i) if (stepCount <= levelGradings[difficulty][i])
+        for (int i = 0; i < 5; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
             {
                 cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(4 - i) / 2];
                 return;

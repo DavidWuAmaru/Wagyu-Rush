@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MapLoader : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class MapLoader : MonoBehaviour
     [SerializeField] private List<Sprite> itemSprites;
     [SerializeField] private List<Sprite> destSprites;
     [SerializeField] private Sprite lockedImage;
+    [SerializeField] private TMP_Text difficultyText = null;
+    [SerializeField] private Color[] difficultyColors;
 
     Image[,] baseMap = null, topMap = null;
     private int width = 0, height = 0;
@@ -82,6 +85,13 @@ public class MapLoader : MonoBehaviour
         {
             return;
         }
+
+        if(difficultyText != null)
+        {
+            difficultyText.text = DataManager.difficultyNames[mapData.difficulty];
+            difficultyText.color = difficultyColors[mapData.difficulty];
+        }
+
         ClearMap();
         width = mapData.width;
         height = mapData.height;

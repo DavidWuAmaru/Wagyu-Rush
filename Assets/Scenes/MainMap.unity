@@ -9007,6 +9007,8 @@ MonoBehaviour:
   mainMenuCanvas: {fileID: 0}
   levelMenuCanvas: {fileID: 0}
   cow: {fileID: 0}
+  cowScript: {fileID: 0}
+  scalingTeam: {fileID: 0}
 --- !u!1 &1389658884
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class settingMenu : MonoBehaviour
 {
     [SerializeField] private Slider SESlider, MusicSlider;
     [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private Canvas MsgBoxCanvas;
     public static int currentResolutionIndex = -1;
     private List<Resolution> resolutions;
     
@@ -67,5 +69,17 @@ public class settingMenu : MonoBehaviour
             Screen.SetResolution(resolution.width, resolution.height, false);
         }
         currentResolutionIndex = resolutionIndex;
+    }
+
+    
+    public void ResetPlayerDataMsg()
+    {
+        MsgBoxCanvas.gameObject.SetActive(true);
+    }
+
+    public void ResetPlayerData()
+    {
+        PlayerData.Reset();
+        PlayerData.Save();
     }
 }

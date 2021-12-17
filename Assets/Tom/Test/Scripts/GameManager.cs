@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private Vector2Int[] movement = new Vector2Int[4] { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
     private int[] movementX = new int[4] { 0, 0, -1, 1 };
     private int[] movementY = new int[4] { 1, -1, 0, 0 };
+
     //class definition
     #region SerializeField
     [SerializeField] private List<GameObject> blockTypes;
@@ -33,27 +34,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject UnlockNewWorldObj;
     [SerializeField] private TMP_Text UnlockNewWorldText;
     //Cow status
-    [SerializeField] private Image resultCowImage;
-    [SerializeField] private Sprite[] resultCowPics;
+    [SerializeField] private Image resultImage;
+    [SerializeField] private Sprite[] resultPics;
     [SerializeField] private Image cowEmojiImage;
     [SerializeField] private Sprite[] cowEmojiPics;
     //test
     [SerializeField] private bool usingCustomMap = true;
-    private bool[] itemReusability;
     //satiety
     [SerializeField] private Slider satietySlider;
     private int stepCount = 0, stepMax = 40;
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
-    /*
-    //difficulty
-    [SerializeField] private int[] levelGradingChaos;       //small -> large
-    [SerializeField] private int[] levelGradingHard;         //small -> large
-    [SerializeField] private int[] levelGradingNormal;      //small -> large
-    [SerializeField] private int[] levelGradingEasy;           //small -> large
-    [SerializeField] private int[] levelGradingNoob;        //small -> large
-    private List<int[]> levelGradings;
-    */
+
     [SerializeField] private Image targetBoardImage;
     [SerializeField] private TMP_Text targetBoardText;
     [SerializeField] private ItemIntroManager itemIntroManager;
@@ -78,6 +70,7 @@ public class GameManager : MonoBehaviour
     private int difficulty = 2;
     private List<Color> portalColor;
     private int itemPortalOffset = 0;
+    private bool[] itemReusability;
 
     //Cow sleep animation
     [SerializeField] private float idleSleepTime = 5.0f; //unit : seconds
@@ -203,8 +196,7 @@ public class GameManager : MonoBehaviour
         ClearAllObjs();
         MapData mapData = SaveSystem.LoadMap(filename);
         difficulty = mapData.difficulty;
-        stepMax = DataManager.levelGradings[difficulty, 4];
-        for (int i = 0; i < 4; ++i) if (stepMax < DataManager.levelGradings[difficulty, i]) stepMax = DataManager.levelGradings[difficulty, i];
+        stepMax = DataManager.levelGradings[difficulty, DataManager.levelGradingCount];
         mapSize.x = mapData.width; mapSize.y = mapData.height;
         assistMap = new int[mapSize.x, mapSize.y];
         //update edge length
@@ -294,8 +286,7 @@ public class GameManager : MonoBehaviour
         ClearAllObjs();
         assistMap = new int[mapSize.x, mapSize.y];
         difficulty = 2;
-        stepMax = DataManager.levelGradings[difficulty, 4];
-        for (int i = 0; i < 4; ++i) if (stepMax < DataManager.levelGradings[difficulty, i]) stepMax = DataManager.levelGradings[difficulty, i];
+        stepMax = DataManager.levelGradings[difficulty, DataManager.levelGradingCount];
         //update edge length
         blockEdgeLength = mainMapLength / Mathf.Max(mapSize.x, mapSize.y);
         mapOffsetX = blockEdgeLength * 0.5f + 0.5f;
@@ -695,7 +686,6 @@ public class GameManager : MonoBehaviour
 
         if(!isSwapping) moveEndEvent();
     }
-    
     private void moveEndEvent()
     {
         for (int i = itemPortalOffset; i < items.Count; i ++)
@@ -725,13 +715,13 @@ public class GameManager : MonoBehaviour
             
             //update result picture
             int grading = 0;
-            for (int i = 0; i < 5; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
+            for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
                 {
-                    grading = 4 - i;
+                    grading = i;
                     break;
                 }
             ResultUI_wagyuGradingBoard.text = DataManager.wagyuGradings[grading];
-            resultCowImage.GetComponent<Image>().sprite = resultCowPics[grading / 2];
+            resultImage.GetComponent<Image>().sprite = resultPics[grading];
 
             if (currentLevel + 1 >= DataManager.levelsOfWorld[currentWorld]) ResultUI_NextLevel.gameObject.SetActive(false);
             else ResultUI_NextLevel.gameObject.SetActive(true);
@@ -1131,9 +1121,9 @@ public class GameManager : MonoBehaviour
         //update satiety bar
         SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
         //update emoji
-        for(int i = 0;i < 5; ++i) if(stepCount <= DataManager.levelGradings[difficulty, i])
+        for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
             {
-                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(4 - i) / 2];
+                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[i];
                 return;
             }
     }
@@ -1146,9 +1136,9 @@ public class GameManager : MonoBehaviour
         //update satiety bar
         SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
         //update emoji
-        for (int i = 0; i < 5; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
+        for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
             {
-                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(4 - i) / 2];
+                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[i];
                 return;
             }
     }

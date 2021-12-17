@@ -41,6 +41,10 @@ public class MapInfo
 public class PlayerData
 {
     public static MapInfo mapInfo = new MapInfo();
+    public static void Reset()
+    {
+        mapInfo = new MapInfo();
+    }
     public static void Save()
     {
         string filename = Application.persistentDataPath + "/playerData.pda";

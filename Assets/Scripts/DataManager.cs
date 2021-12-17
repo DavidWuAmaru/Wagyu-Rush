@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public static string[] wagyuGradings = { "1", "2", "3", "4", "5" };
+    public static int levelGradingCount = 4;
+    public static string[] wagyuGradings = { "Gold", "Silver", "Copper", "Trash" };
     public static int worldSize = 6;
     public static int customWorldInex = 5;
     public static string[] worldNames = { "beginner", "Rotation Block", "Dancing Wagyu", "Portal", "Doom", "Custom" };
@@ -52,11 +53,11 @@ public class DataManager : MonoBehaviour
     public static int difficultyCount = 5;
     public static string[] difficultyNames = { "Chaos", "Hard", "Normal", "Easy", "Noob" };
     public static int[,] levelGradings = new int[5, 5]{
-    { 15, 20, 30, 40, 50},
-    { 12, 15, 20, 30, 40},
-    { 10, 12, 15, 20, 30},
-    {  8, 10, 12, 15, 20},
-    {  5,  8, 10, 12, 15} };
+    { 15, 20, 25, 30, 40},
+    { 12, 16, 20, 24, 30},
+    { 10, 13, 16, 20, 24},
+    {  8, 11, 14, 17, 20},
+    {  6,  9, 12, 15, 18} };
 
 
 

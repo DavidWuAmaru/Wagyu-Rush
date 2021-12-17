@@ -78,7 +78,7 @@ public class MenuButtonFunction : MonoBehaviour
         GameManager.currentWorld = ChapterNumber;
         GameManager.currentLevel = LevelNumber;
 
-        if (ChapterNumber == 0 && LevelNumber == 0) StartCoroutine("ChangeToEditor", 3);
+        if (ChapterNumber == 0 && LevelNumber == 0 && PlayerData.mapInfo.isTrainingLevelFinished == false) StartCoroutine("ChangeToEditor", 3);
         else StartCoroutine("ChangeToEditor", 2);
         /*if(levelInfoFromUItoMainGame == "1-1") SceneManager.LoadScene(3);
         else SceneManager.LoadScene(2);*/
@@ -92,7 +92,7 @@ public class MenuButtonFunction : MonoBehaviour
         GameManager.currentWorld = ChapterNumber;
         GameManager.currentLevel = LevelNumber;
 
-        if (ChapterNumber == 0 && LevelNumber == 0) StartCoroutine("ChangeToEditor", 3);
+        if (ChapterNumber == 0 && LevelNumber == 0 && PlayerData.mapInfo.isTrainingLevelFinished == false) StartCoroutine("ChangeToEditor", 3);
         else StartCoroutine("ChangeToEditor", 2);
         /*if(levelInfoFromUItoMainGame == "1-1") SceneManager.LoadScene(3);
         else SceneManager.LoadScene(2);*/

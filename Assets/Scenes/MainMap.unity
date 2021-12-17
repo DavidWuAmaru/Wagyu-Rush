@@ -9110,6 +9110,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: de75dd35382fcc34494619ecb31d5514, type: 3}
   - {fileID: 21300000, guid: e94aa34dbb54f1f489de3a76e6c7f569, type: 3}
   - {fileID: 21300000, guid: 2712103222ffe174ba6f15e4cf644804, type: 3}
+  scoringBoards:
+  - {fileID: 2102656858}
+  - {fileID: 2119018050}
+  - {fileID: 24968183}
+  - {fileID: 768869275}
+  - {fileID: 1624667110}
+  scoringPics:
+  - {fileID: 21300000, guid: 16ddaeb916d2f3346bd05d2ccc31c4d3, type: 3}
+  - {fileID: 21300000, guid: 74a2d794bd9ccda40824b5ea0d2fb3bf, type: 3}
+  - {fileID: 21300000, guid: 2f9d53a53465199479559d35a5527036, type: 3}
+  - {fileID: 21300000, guid: bdf20eb488051bc45ab5e0029e75cc21, type: 3}
+  - {fileID: 21300000, guid: 9aa611cd8b7930a458f7b019bad1abdf, type: 3}
+  - {fileID: 21300000, guid: 506145e3e86e42b46bf17793382f029a, type: 3}
+  - {fileID: 21300000, guid: aaa55e82ccd157144b87ed4b1191d40e, type: 3}
+  - {fileID: 21300000, guid: 57a28396e2372164d9da8db17c9db228, type: 3}
+  - {fileID: 21300000, guid: 26ead906384d5ad42b7abec76859bfb2, type: 3}
+  - {fileID: 21300000, guid: 0f771b24a45f92047be20f663ddbc3e8, type: 3}
+  - {fileID: 21300000, guid: 4b83708ec45caba449aff6ac29dcd194, type: 3}
   usingCustomMap: 1
   satietySlider: {fileID: 1339423163}
   targetBoardImage: {fileID: 1061383234}

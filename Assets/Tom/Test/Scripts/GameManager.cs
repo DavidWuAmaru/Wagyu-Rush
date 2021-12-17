@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] resultPics;
     [SerializeField] private Image cowEmojiImage;
     [SerializeField] private Sprite[] cowEmojiPics;
+    //Grading boards
+    [SerializeField] private Image[] scoringBoards;
+    [SerializeField] private Sprite[] scoringPics;
     //test
     [SerializeField] private bool usingCustomMap = true;
     //satiety
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
     private int stepCount = 0, stepMax = 40;
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
-
+    
     [SerializeField] private Image targetBoardImage;
     [SerializeField] private TMP_Text targetBoardText;
     [SerializeField] private ItemIntroManager itemIntroManager;
@@ -81,7 +84,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //change bgm
-
+        FindObjectOfType<AudioManager>().StopMusic("BGM");
+        FindObjectOfType<AudioManager>().PlayMusic("BGM_game");
 
         //initialization
         blocks = new List<Block>();
@@ -578,10 +582,17 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    //temp var
+    //temp var for movement
     float distTolerance = 0.3f;
     float rotTolerance = 0.3f;
     bool validMove = false;
+    //temp var for grading properties
+    int[,] gradingProbs = new int[4, 11] {
+        {0, 0, 0, 0, 0, 0, 0, 0, 5, 40, 100 },
+        {0, 0, 0, 0, 0, 0, 5, 40, 95, 100, 0 },
+        {0, 0, 0, 0, 5, 25, 80, 100, 0, 0, 0 },
+        {60, 95, 100, 0, 0, 0, 0, 0, 0, 0, 0 },
+    };
     IEnumerator IE_move(Direction dir)
     {
         enable = false;
@@ -725,6 +736,16 @@ public class GameManager : MonoBehaviour
                 }
             ResultUI_wagyuGradingBoard.text = DataManager.wagyuGradings[grading];
             resultImage.GetComponent<Image>().sprite = resultPics[grading];
+            
+            for(int i = 0;i < scoringBoards.Length; ++i)
+            {
+                int ran = Random.Range(0, 100);
+                for(int j = 0;j <= 10; ++j) if(ran < gradingProbs[grading, j])
+                    {
+                        scoringBoards[i].GetComponent<Image>().sprite = scoringPics[j];
+                        break;
+                    }
+            }
 
             if (currentLevel + 1 >= DataManager.levelsOfWorld[currentWorld]) ResultUI_NextLevel.gameObject.SetActive(false);
             else ResultUI_NextLevel.gameObject.SetActive(true);
@@ -762,7 +783,7 @@ public class GameManager : MonoBehaviour
         if (ticketCount > 0)
         {
             targetBoardImage.GetComponent<Image>().sprite = itemTypes[(int)(Item.Type.Key)].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
-            targetBoardText.text = "x" + ticketCount.ToString();
+            //targetBoardText.text = "x" + ticketCount.ToString();
         }
         else
         {
@@ -1097,6 +1118,8 @@ public class GameManager : MonoBehaviour
         GameObject temp = Instantiate(closingPrefab);
         yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
 
+        FindObjectOfType<AudioManager>().StopMusic("BGM_game");
+        FindObjectOfType<AudioManager>().PlayMusic("BGM");
         SceneManager.LoadScene(sceneId);
     }
     public void OpenSettingMenu()

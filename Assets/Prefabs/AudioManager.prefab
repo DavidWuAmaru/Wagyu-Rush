@@ -99,7 +99,9 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  SESlider: {fileID: 0}
-  musicSlider: {fileID: 0}
-  SEAmplifier: 1
-  MusicAmplifier: 1
+  - name: BGM_game
+    clip: {fileID: 8300000, guid: 36caed7dc23d53c468e2d80db7fe6a4c, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}

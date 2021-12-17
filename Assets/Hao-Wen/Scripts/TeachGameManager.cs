@@ -31,10 +31,15 @@ public class TeachGameManager : MonoBehaviour
     [SerializeField] private TMP_Text ResultUI_satietyBoard;
     [SerializeField] private Text ResultUI_wagyuGradingBoard;
     [SerializeField] private Button ResultUI_NextLevel;
+    [SerializeField] private GameObject UnlockNewWorldObj;
+    [SerializeField] private TMP_Text UnlockNewWorldText;
+    [SerializeField] private Button settingButton;
     //test
     [SerializeField] private bool usingCustomMap = true;
     private bool[] itemReusability;
     private List<Sprite> cowSprites;
+
+    private int currentWorld = 0;
     private int currentLevel = 0;
     //satiety
     [SerializeField] private Slider satietySlider;
@@ -42,10 +47,18 @@ public class TeachGameManager : MonoBehaviour
     private float satietyMax = 1000.0f;
     private float satiety = 1000.0f, satietyTar = 1000.0f;
 
+    //Target Indicator
+    [SerializeField] private Image targetBoardImage;
+    [SerializeField] private TMP_Text targetBoardText;
+    //Cow status
     [SerializeField] private Image resultCowImage;
     [SerializeField] private Sprite[] resultCowPics;
     [SerializeField] private Image cowEmojiImage;
     [SerializeField] private Sprite[] cowEmojiPics;
+
+    //Grading boards
+    [SerializeField] private Image[] scoringBoards;
+    [SerializeField] private Sprite[] scoringPics;
 
     [SerializeField] private Text dialogTxt;
     [SerializeField] [Multiline]private string[] dialogs;
@@ -58,7 +71,6 @@ public class TeachGameManager : MonoBehaviour
     [SerializeField] private GameObject canvasMask;
 
     [SerializeField] private GameObject closingPrefab;
-
 
     #endregion
 
@@ -78,6 +90,8 @@ public class TeachGameManager : MonoBehaviour
     private bool needPressRight;
     private bool needPressDown;
     private bool isTraining;
+    private int difficulty;
+    private int stepCount = 0, stepMax = 40;
 
     // Start is called before the first frame update
     void Start()
@@ -99,8 +113,12 @@ public class TeachGameManager : MonoBehaviour
         if (usingCustomMap) LoadExistingMap(DataManager.mapAddress[0, 0]);
         else LoadRandomMap();
 
+        //change BGM
+        FindObjectOfType<AudioManager>().StopMusic("BGM");
+        FindObjectOfType<AudioManager>().PlayMusic("BGM_game");
 
         levelBoard.text = "Level : 1-1";
+        difficulty = 4;
 
         //load cow sprites
         cowSprites = new List<Sprite>();
@@ -217,13 +235,10 @@ public class TeachGameManager : MonoBehaviour
             isTraining = false;
             m_enabled = true;
 
+            settingButton.gameObject.SetActive(true);
+
             stepIndicator++;
         }
-
-
-
-
-
 
 
 
@@ -277,12 +292,14 @@ public class TeachGameManager : MonoBehaviour
         items.Clear();
         destinations.Clear();
         m_enabled = true;
-        SetSatiety(satietyMax);
+        SetStep(0);
     }
     private void LoadExistingMap(string filename)
     {
         ClearAllObjs();
         MapData mapData = SaveSystem.LoadMap(filename);
+        difficulty = mapData.difficulty;
+        stepMax = DataManager.levelGradings[difficulty, DataManager.levelGradingCount];
         mapSize.x = mapData.width; mapSize.y = mapData.height;
         assistMap = new int[mapSize.x, mapSize.y];
         //update edge length
@@ -328,6 +345,7 @@ public class TeachGameManager : MonoBehaviour
         items.Clear();
         for (int i = 0; i < mapData.itemNum; ++i)
         {
+            if ((Item.Type)mapData.items[i] == Item.Type.Portal) continue;
             Item newItem = new Item();
             newItem.type = (Item.Type)mapData.items[i];
             newItem.position = new Vector2Int(mapData.itemPosition[i * 2], mapData.itemPosition[i * 2 + 1]);
@@ -348,7 +366,26 @@ public class TeachGameManager : MonoBehaviour
             newDest.destination = newDest.entity.transform.position;
             destinations.Add(newDest);
         }
+
+        updateTargetBoard();
     }
+
+    private void updateTargetBoard()
+    {
+        int ticketCount = 0;
+        for (int i = 0; i < items.Count; ++i) if (items[i].type == Item.Type.Key) ticketCount++;
+        if (ticketCount > 0)
+        {
+            targetBoardImage.GetComponent<Image>().sprite = itemTypes[(int)(Item.Type.Key)].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            //targetBoardText.text = "x" + ticketCount.ToString();
+        }
+        else
+        {
+            targetBoardImage.GetComponent<Image>().sprite = destinationTypes[0].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            targetBoardText.text = "";
+        }
+    }
+
     private void LoadRandomMap()
     {
         ClearAllObjs();
@@ -452,11 +489,11 @@ public class TeachGameManager : MonoBehaviour
                     }
                     else if (items[i].type == Item.Type.HayStack)
                     {
-                        AddSatiety(5 * (satietyMax / stepAllowed));
+                        AddStep(-5);
                     }
                     else if (items[i].type == Item.Type.Trap)
                     {
-                        AddSatiety(-5 * (satietyMax / stepAllowed));
+                        AddStep(5);
                     }
                     else if (items[i].type == Item.Type.HeadPhone)
                     {
@@ -522,6 +559,7 @@ public class TeachGameManager : MonoBehaviour
                     break;
                 }
         }
+        updateTargetBoard();
     }
     IEnumerator IE_swap(Character ch, Vector2Int destPos)
     {
@@ -630,6 +668,13 @@ public class TeachGameManager : MonoBehaviour
     float distTolerance = 0.3f;
     float rotTolerance = 0.3f;
     bool validMove = false;
+    //temp var for grading properties
+    int[,] gradingProbs = new int[4, 11] {
+        {0, 0, 0, 0, 0, 0, 0, 0, 5, 40, 100 },
+        {0, 0, 0, 0, 0, 0, 5, 40, 95, 100, 0 },
+        {0, 0, 0, 0, 5, 25, 80, 100, 0, 0, 0 },
+        {60, 95, 100, 0, 0, 0, 0, 0, 0, 0, 0 },
+    };
     IEnumerator IE_move(Direction dir)
     {
         m_enabled = false;
@@ -737,7 +782,6 @@ public class TeachGameManager : MonoBehaviour
 
         moveEndEvent();
     }
-
     private void moveEndEvent()
     {
         for (int i = 0; i < characters.Count; ++i)
@@ -762,7 +806,7 @@ public class TeachGameManager : MonoBehaviour
         }
 
         //Update satiety
-        if (validMove) AddSatiety(-1 * satietyMax / stepAllowed);
+        if (validMove) AddStep(1);
 
         //see if all cows are on the car
         if (characters.Count == 0)  //win
@@ -776,19 +820,56 @@ public class TeachGameManager : MonoBehaviour
             SettingUI.gameObject.SetActive(false);
             ResultUI.gameObject.SetActive(true);
             ResultUI_satietyBoard.text = "Satiety : " + (int)(satiety / satietyMax * 100) + "%";
-            //temporary
-            string[] wagyuGradings = new string[] { "A1", "A2", "A3", "A4", "A5" };
-            if (satietyTar < 0) satietyTar = 0;
-            if (satietyTar >= 1000) satietyTar = 999;
-            ResultUI_wagyuGradingBoard.text = wagyuGradings[(int)(satietyTar / 200.0f)];
-            resultCowImage.GetComponent<Image>().sprite = resultCowPics[(int)(satietyTar / 200.0f) / 2];
 
-            ResultUI_NextLevel.gameObject.SetActive(true);
+            //update result picture
+            int grading = DataManager.levelGradingCount - 1;
+            for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
+                {
+                    grading = i;
+                    break;
+                }
+            ResultUI_wagyuGradingBoard.text = DataManager.wagyuGradings[grading];
+            resultCowImage.GetComponent<Image>().sprite = resultCowPics[grading];
 
+            for (int i = 0; i < scoringBoards.Length; ++i)
+            {
+                int ran = Random.Range(0, 100);
+                for (int j = 0; j <= 10; ++j) if (ran < gradingProbs[grading, j])
+                    {
+                        scoringBoards[i].GetComponent<Image>().sprite = scoringPics[j];
+                        break;
+                    }
+            }
+
+            if (currentLevel + 1 >= DataManager.levelsOfWorld[currentWorld]) ResultUI_NextLevel.gameObject.SetActive(false);
+            else ResultUI_NextLevel.gameObject.SetActive(true);
+
+            //update history best
+            levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
+
+            PlayerData.Load();
+            if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1 || PlayerData.mapInfo.historyBest[currentWorld, currentLevel] < grading)  //update best score
+            {
+                PlayerData.mapInfo.historyBest[currentWorld, currentLevel] = grading;
+            }
+            if (currentWorld + 1 < DataManager.worldSize && currentLevel >= 2 && PlayerData.mapInfo.levelLocked[currentWorld + 1] <= 0)  //unlock next world
+            {
+                PlayerData.mapInfo.levelLocked[currentWorld + 1] = 1;
+                UnlockNewWorldText.text = string.Format("Unlock New World!!!\n{0}", DataManager.worldNames[currentWorld + 1]);
+                UnlockNewWorldObj.gameObject.SetActive(true);
+            }
+            else UnlockNewWorldObj.gameObject.SetActive(false);
+
+            if (currentLevel + 1 < DataManager.levelsOfWorld[currentWorld] && PlayerData.mapInfo.levelLocked[currentWorld] < currentLevel + 2)  //unlock next level
+            {
+                PlayerData.mapInfo.levelLocked[currentWorld] = currentLevel + 2;
+            }
+            PlayerData.Save();
             return;
         }
 
         m_enabled = true;
+        updateTargetBoard();
     }
     private void setUpAssistMap()
     {
@@ -803,7 +884,6 @@ public class TeachGameManager : MonoBehaviour
             assistMap[blocks[i].position.x, blocks[i].position.y] = val;
         }
     }
-
     private void moveMap(Direction dir)
     {
         int mx = movementX[(int)dir], my = movementY[(int)dir];
@@ -1016,6 +1096,13 @@ public class TeachGameManager : MonoBehaviour
         GameManager.currentLevel = level;
 
         //StartCoroutine("ChangeToEditor", 2);
+
+        PlayerData.Load();
+        PlayerData.mapInfo.isTrainingLevelFinished = true;
+        PlayerData.Save();
+
+        FindObjectOfType<AudioManager>().StopMusic("BGM_game");
+        FindObjectOfType<AudioManager>().PlayMusic("BGM");
         SceneManager.LoadScene(2);
     }
     public void BackToStartMenu()
@@ -1031,6 +1118,8 @@ public class TeachGameManager : MonoBehaviour
         GameObject temp = Instantiate(closingPrefab);
         yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
 
+        FindObjectOfType<AudioManager>().StopMusic("BGM_game");
+        FindObjectOfType<AudioManager>().PlayMusic("BGM");
         SceneManager.LoadScene(sceneId);
     }
 
@@ -1051,23 +1140,50 @@ public class TeachGameManager : MonoBehaviour
         SettingUI.gameObject.SetActive(false);
         ResultUI.gameObject.SetActive(false);
     }
+
+    private void SetStep(int val)
+    {
+        stepCount = val;
+        //correction
+        if (stepCount < 0) stepCount = 0;
+        if (stepCount > stepMax) stepCount = stepMax;
+        //update satiety bar
+        SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
+        //update emoji
+        for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
+            {
+                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[i];
+                return;
+            }
+    }
+    private void AddStep(int increment)
+    {
+        stepCount += increment;
+        //correction
+        if (stepCount < 0) stepCount = 0;
+        if (stepCount > stepMax) stepCount = stepMax;
+        //update satiety bar
+        SetSatiety(satietyMax * (float)(stepMax - stepCount) / (float)stepMax);
+        //update emoji
+        for (int i = 0; i < DataManager.levelGradingCount; ++i) if (stepCount <= DataManager.levelGradings[difficulty, i])
+            {
+                cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[i];
+                return;
+            }
+    }
+    
     private void SetSatiety(float val)
     {
         if (val < 0) val = 0;
-        if (val > satietyMax) val = satietyMax - 1;
+        if (val > satietyMax) val = satietyMax;
         satiety = val;
         satietyTar = val;
         satietySlider.value = satiety;
-
-        cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(int)(satietyTar / 200.0f) / 2];
     }
     private void AddSatiety(float increment)
     {
         satietyTar += increment;
         if (satietyTar < 0) satietyTar = 0;
-        if (satietyTar > satietyMax) satietyTar = satietyMax - 1;
-
-        cowEmojiImage.GetComponent<Image>().sprite = cowEmojiPics[(int)(satietyTar / 200.0f) / 2];
+        if (satietyTar > satietyMax) satietyTar = satietyMax;
     }
-
 }

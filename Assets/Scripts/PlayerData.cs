@@ -7,10 +7,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 [System.Serializable]
 public class MapInfo
 {
+    public bool isTrainingLevelFinished;
     public int[] levelLocked;
     public int[,] historyBest;
     public MapInfo()
     {
+        isTrainingLevelFinished = false;
         levelLocked = new int[6] { 3, 0, 0, 0, 0, 0 };
         historyBest = new int[6, 6] { { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },
@@ -41,6 +43,7 @@ public class MapInfo
 public class PlayerData
 {
     public static MapInfo mapInfo = new MapInfo();
+
     public static void Reset()
     {
         mapInfo = new MapInfo();
@@ -64,6 +67,8 @@ public class PlayerData
 
             MapInfo _mapInfo = formatter.Deserialize(fs) as MapInfo;
             fs.Close();
+
+            mapInfo.isTrainingLevelFinished = _mapInfo.isTrainingLevelFinished;
 
             mapInfo.levelLocked = new int[_mapInfo.levelLocked.Length];
             for(int i = 0;i < mapInfo.levelLocked.Length; ++i)

@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviour
     public static string[] wagyuGradings = { "Gold", "Silver", "Copper", "Trash" };
     public static int worldSize = 6;
     public static int customWorldInex = 5;
-    public static string[] worldNames = { "beginner", "Rotation Block", "Dancing Wagyu", "Portal", "Doom", "Custom" };
+    public static string[] worldNames = { "Beginner", "Rotation Block", "Dancing Wagyu", "Portal", "Doom", "Custom" };
     public static int[] levelsOfWorld = new int[] { 6, 6, 6, 6, 6, 6 };
     public static string[,] mapAddress = {
        {"Assets/Resources/MapLevel/Level1-1.map",

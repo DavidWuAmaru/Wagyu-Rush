@@ -396,6 +396,9 @@ public class GameManager : MonoBehaviour
                         //play sound effect
                         FindObjectOfType<AudioManager>().PlaySound("CollectTag");
 
+                        srcGameObject.transform.GetChild(3).gameObject.SetActive(false);
+                        srcGameObject.transform.GetChild(3).gameObject.SetActive(true);
+
                         Debug.Log("Collect a key");
                     }
                     else if (items[i].type == Item.Type.HayStack)

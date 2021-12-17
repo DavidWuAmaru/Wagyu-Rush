@@ -11,6 +11,10 @@ public class buttonMaskManager : MonoBehaviour
     [SerializeField] private GameObject buttonManager;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text bestText;
+    [SerializeField] private Image medalImg;
+    [SerializeField] private Sprite[] medals;
+
+
     public static int currentWorld = 0;
     private int currentLevel = 0;
     // Start is called before the first frame update
@@ -59,9 +63,18 @@ public class buttonMaskManager : MonoBehaviour
         else mapPreview.GetComponent<MapLoader>().UpdateMap(DataManager.mapAddress[currentWorld, currentLevel]);
 
         if(levelText != null) levelText.text = string.Format("Level {0}-{1}", currentWorld + 1, currentLevel + 1);
-        
-        if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1) bestText.text = "No record";
-        else bestText.text = "Best : " + DataManager.wagyuGradings[PlayerData.mapInfo.historyBest[currentWorld, currentLevel]];
+
+        if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1)
+        {
+            bestText.text = "No record";
+            medalImg.GetComponent<Image>().color = new Vector4(1.0f, 1.0f, 1.0f, 0.0f);
+        }
+        else
+        {
+            bestText.text = "Best Score";
+            medalImg.GetComponent<Image>().sprite = medals[PlayerData.mapInfo.historyBest[currentWorld, currentLevel]];
+            medalImg.GetComponent<Image>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        }
     }
 
     IEnumerator buttonMove(float distance)
@@ -104,8 +117,18 @@ public class buttonMaskManager : MonoBehaviour
 
         if (levelText != null) levelText.text = string.Format("Level {0}-{1}", currentWorld + 1, currentLevel + 1);
 
-        if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1) bestText.text = "No record";
-        else bestText.text = "Best : " + DataManager.wagyuGradings[PlayerData.mapInfo.historyBest[currentWorld, currentLevel]];
+        if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1)
+        {
+            bestText.text = "No record";
+            medalImg.GetComponent<Image>().sprite = null;
+            medalImg.GetComponent<Image>().color = new Vector4(1.0f, 1.0f, 1.0f, 0.0f);
+        }
+        else
+        {
+            bestText.text = "Best Score";
+            medalImg.GetComponent<Image>().sprite = medals[PlayerData.mapInfo.historyBest[currentWorld, currentLevel]];
+            medalImg.GetComponent<Image>().color = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+        }
 
         //update buttons icon
         for (int i = 0; i < PlayerData.mapInfo.levelLocked[currentWorld]; ++i)

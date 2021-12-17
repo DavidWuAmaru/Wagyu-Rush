@@ -15,6 +15,8 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private GameObject bgLayer;
     [SerializeField] private TextMeshProUGUI WorldTitle;
     [SerializeField] private Sprite[] bubbleImg;
+    [SerializeField] private Image themeImg;
+    [SerializeField] private Sprite[] themes;
 
     [SerializeField] private GameObject scalingTeam;
 
@@ -109,6 +111,8 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
                 WorldTitle.text = string.Format("{0}.{1}", positionIndex + 1, DataManager.worldNames[positionIndex]);
                 MenuButtonFunction.ChapterNumber = positionIndex;
                 buttonMaskManager.currentWorld = positionIndex;
+                //update levelMenu
+                themeImg.GetComponent<Image>().sprite = themes[positionIndex];
             }
             else
             {

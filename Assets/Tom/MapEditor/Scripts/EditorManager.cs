@@ -477,6 +477,12 @@ public class EditorManager : MonoBehaviour
         UpdatePortalIndex();
         edited = true;
     }
+
+    public void CallSaveMap()
+    {
+        SaveMap();
+    }
+
     public bool SaveMap()  //return if map is successfully saved
     {
         int charNum = 0, itemNum = 0, destNum = 0, portalNum = 0;

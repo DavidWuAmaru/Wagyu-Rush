@@ -25,6 +25,7 @@ public class EditorManager : MonoBehaviour
     [SerializeField] private List<float> destScales;
     [SerializeField] private Sprite plainSprite;
     [SerializeField] private Sprite blankSprite;
+    [SerializeField] private GameObject bannerObj;
     [SerializeField] private TMP_Text messageBanner;
     [SerializeField] private GameObject trashCan;
     [SerializeField] private TMP_Dropdown difficultyDropdown;
@@ -502,7 +503,8 @@ public class EditorManager : MonoBehaviour
             Debug.LogWarning("[Warning] cow or van are none!!");
             StopAllCoroutines();
             messageBanner.text = "No cow or van is placed!!";
-            StartCoroutine(IE_bannerShow(0.5f, 0.3f));
+            bannerObj.SetActive(false);
+            bannerObj.SetActive(true);
             return false;
         }
 
@@ -514,7 +516,8 @@ public class EditorManager : MonoBehaviour
             Debug.LogWarning("[Warning] portal doesn't pair up!!");
             StopAllCoroutines();
             messageBanner.text = "Portal doesn't pair up!!";
-            StartCoroutine(IE_bannerShow(0.5f, 0.3f));
+            bannerObj.SetActive(false);
+            bannerObj.SetActive(true);
             return false;
         }
 
@@ -708,33 +711,5 @@ public class EditorManager : MonoBehaviour
         yield return new WaitForSeconds(temp.GetComponent<TransitionControl>().GetDuration());
 
         SceneManager.LoadScene(sceneId);
-    }
-    IEnumerator IE_bannerShow(float fadingDuration, float pauseDuration)
-    {
-        float counter = 0;
-        while(counter < fadingDuration)
-        {
-            counter += Time.deltaTime;
-            if (counter > fadingDuration) counter = fadingDuration;
-            messageBanner.GetComponent<CanvasGroup>().alpha = counter / fadingDuration;
-            yield return null;
-        }
-
-        counter = 0;
-        while(counter < pauseDuration)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        counter = 0;
-        while (counter < fadingDuration)
-        {
-            counter += Time.deltaTime;
-            if (counter > fadingDuration) counter = fadingDuration;
-            messageBanner.GetComponent<CanvasGroup>().alpha = 1 - counter / fadingDuration;
-            yield return null;
-        }
-        messageBanner.GetComponent<CanvasGroup>().alpha = 0;
     }
 }

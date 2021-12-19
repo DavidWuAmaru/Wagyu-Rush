@@ -18,6 +18,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private Image themeImg;
     [SerializeField] private Sprite[] themes;
     [SerializeField] private RectTransform cowInitialPos;
+    [SerializeField] private TMP_Text[] medalNumTexts;
 
     [SerializeField] private GameObject scalingTeam;
 
@@ -45,6 +46,8 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         page = 0;
 
         initialized = true;
+        //update medal count
+        updateMedalCount();
     }
 
     // Update is called once per frame
@@ -129,6 +132,23 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
 
     }
 
+    private void updateMedalCount()
+    {
+        PlayerData.Load();
+        int[] medalCount = new int[3] { 0, 0, 0 };
+        for (int w = 0; w < DataManager.worldSize; ++w)
+        {
+            for (int l = 0; l < DataManager.levelsOfWorld[w]; ++l)
+            {
+                if (PlayerData.mapInfo.historyBest[w, l] >= 0 && PlayerData.mapInfo.historyBest[w, l] < DataManager.levelGradingCount - 1)
+                    medalCount[PlayerData.mapInfo.historyBest[w, l]]++;
+            }
+        }
+        for (int i = 0; i < DataManager.levelGradingCount - 1; ++i)
+        {
+            medalNumTexts[i].text = string.Format("x{0}", medalCount[i]);
+        }
+    }
     IEnumerator IECowMove()
     {
         controlenable = false;
@@ -221,7 +241,6 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         GetComponent<RectTransform>().localPosition = cowInitialPos.localPosition;
         controlenable = true;
         updateBubbleImg();
+        updateMedalCount();
     }
-
-   
 }

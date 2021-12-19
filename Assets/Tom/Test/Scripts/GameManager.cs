@@ -760,7 +760,7 @@ public class GameManager : MonoBehaviour
             levelBoard.text = "Level : " + (currentWorld + 1).ToString() + "-" + (currentLevel + 1).ToString();
             
             PlayerData.Load();
-            if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1 || PlayerData.mapInfo.historyBest[currentWorld, currentLevel] < grading)  //update best score
+            if (PlayerData.mapInfo.historyBest[currentWorld, currentLevel] == -1 || PlayerData.mapInfo.historyBest[currentWorld, currentLevel] > grading)  //update best score
             {
                 PlayerData.mapInfo.historyBest[currentWorld, currentLevel] = grading;
             }

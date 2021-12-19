@@ -287,6 +287,7 @@ public class GameManager : MonoBehaviour
 
         updateTargetBoard();
         updateHelpList();
+        wakeUpAllCows();
     }
     private void LoadRandomMap()
     {
@@ -428,6 +429,7 @@ public class GameManager : MonoBehaviour
                     {
                         for (int k = itemPortalOffset; k < items.Count; ++k)
                         {
+                            Debug.Log(k);
                             if (items[i].id == items[k].id && i != k)
                             {
                                 isSwapping = true;
@@ -443,6 +445,7 @@ public class GameManager : MonoBehaviour
                     {
                         Destroy(items[i].entity);
                         items.RemoveAt(i);
+                        itemPortalOffset--;
                     }
                     break;
                 }

@@ -485,14 +485,27 @@ public class TeachGameManager : MonoBehaviour
                         //play sound effect
                         FindObjectOfType<AudioManager>().PlaySound("CollectTag");
 
+                        srcGameObject.transform.GetChild(3).gameObject.SetActive(false);
+                        srcGameObject.transform.GetChild(3).gameObject.SetActive(true);
+
                         Debug.Log("Collect a key");
                     }
                     else if (items[i].type == Item.Type.HayStack)
                     {
+                        //play particle system
+                        srcGameObject.transform.position = tarGameObject.transform.position;
+                        srcGameObject.transform.GetChild(2).gameObject.SetActive(false);
+                        srcGameObject.transform.GetChild(2).gameObject.SetActive(true);
+
                         AddStep(-5);
                     }
                     else if (items[i].type == Item.Type.Trap)
                     {
+                        //play particle system
+                        srcGameObject.transform.position = tarGameObject.transform.position;
+                        srcGameObject.transform.GetChild(1).gameObject.SetActive(false);
+                        srcGameObject.transform.GetChild(1).gameObject.SetActive(true);
+
                         AddStep(5);
                     }
                     else if (items[i].type == Item.Type.HeadPhone)
@@ -828,6 +841,9 @@ public class TeachGameManager : MonoBehaviour
                     grading = i;
                     break;
                 }
+
+            Debug.Log(grading);
+
             ResultUI_wagyuGradingBoard.text = DataManager.wagyuGradings[grading];
             resultCowImage.GetComponent<Image>().sprite = resultCowPics[grading];
 

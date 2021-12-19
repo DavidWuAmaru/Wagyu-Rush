@@ -17,25 +17,24 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private Sprite[] bubbleImg;
     [SerializeField] private Image themeImg;
     [SerializeField] private Sprite[] themes;
+    [SerializeField] private RectTransform cowInitialPos;
 
     [SerializeField] private GameObject scalingTeam;
 
     private float moveAmount;
     private float[] alpha;
     private bool controlenable;
-    private Vector3 startposition;
+    //private Vector3 startposition;
     private int positionIndex, page;
     private const int itemsNumber = 3;
     float cowMovePeriod = 0.35f;
     float bgMovePeriod = 0.5f;
     private const int maxPages = 2;
-    bool initializaed = false;
+    bool initialized = false;
     // Start is called before the first frame update
     void Start()
     {
         //²¾°Êªº¶ZÂ÷
-        startposition = this.gameObject.transform.position;
-
         controlenable = true;
         alpha = new float[bubbles.Length];
         for (int i = 0; i < bubbles.Length; ++i)
@@ -45,13 +44,13 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         positionIndex = 0;
         page = 0;
 
-        initializaed = true;
+        initialized = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveAmount = buttons[1].gameObject.transform.position.x - buttons[0].gameObject.transform.position.x;
+        moveAmount = buttons[1].GetComponent<RectTransform>().localPosition.x - buttons[0].GetComponent<RectTransform>().localPosition.x;
 
         for (int i = 0; i < itemsNumber; ++i)
         {
@@ -132,27 +131,28 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
 
     IEnumerator IECowMove()
     {
-        //Debug.Log(moveAmount + " " + positionIndex);
-        Vector3 target = new Vector3((positionIndex % itemsNumber) * moveAmount, 0, 0) + startposition;
-        Vector3 step = new Vector3(moveAmount, 0, 0) * Time.deltaTime / cowMovePeriod; //speed up
-        while (Vector3.Distance(transform.position, target) >= step.x * 1.5f)
+        controlenable = false;
+        float timeElapsed = 0.0f;
+        Vector3 initialPos = GetComponent<RectTransform>().localPosition;
+        Vector3 target = new Vector3((positionIndex % itemsNumber) * moveAmount, 0, 0) + cowInitialPos.localPosition;
+        while (timeElapsed <= cowMovePeriod)
         {
-            step = new Vector3(moveAmount, 0, 0) * Time.deltaTime / cowMovePeriod; //speed up
-            if (target.x < transform.position.x) step *= -1;
-            transform.position += step;
+            timeElapsed += Time.deltaTime;
+            GetComponent<RectTransform>().localPosition = initialPos +  (target - initialPos) / cowMovePeriod * timeElapsed;
             yield return null;
         }
-        transform.position = target;
-        alpha[positionIndex % itemsNumber] = 1;
+        GetComponent<RectTransform>().localPosition = target;
         controlenable = true;
+        alpha[positionIndex % itemsNumber] = 1;
     }
+
     Vector3 bgLayerDistance = new Vector3(800.0f,0,0);
     IEnumerator IEbgLayerMove(bool isleft)
     {
         controlenable = false;
         float timeElapsed = 0.0f;
         Vector3 bgLayerInitialPos = bgLayer.GetComponent<RectTransform>().localPosition;
-        Vector3 cowInitialPos = transform.position;
+        Vector3 _cowInitialPos = GetComponent<RectTransform>().localPosition;
         Vector3 cowDistance = new Vector3(2 * moveAmount, 0, 0);
         while(timeElapsed <= bgMovePeriod)
         {
@@ -160,23 +160,23 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
             if(isleft == false)
             {
                 bgLayer.GetComponent<RectTransform>().localPosition = bgLayerInitialPos - bgLayerDistance / bgMovePeriod * timeElapsed;
-                transform.position = cowInitialPos - cowDistance / bgMovePeriod * timeElapsed;
+                GetComponent<RectTransform>().localPosition = _cowInitialPos - cowDistance / bgMovePeriod * timeElapsed;
             }
             else
             {
                 bgLayer.GetComponent<RectTransform>().localPosition = bgLayerInitialPos + bgLayerDistance / bgMovePeriod * timeElapsed;
-                transform.position = cowInitialPos + cowDistance / bgMovePeriod * timeElapsed;
+                GetComponent<RectTransform>().localPosition = _cowInitialPos + cowDistance / bgMovePeriod * timeElapsed;
             }
             yield return null;
         }
         bgLayer.GetComponent<RectTransform>().localPosition = bgLayerInitialPos;
         if(isleft == false)
         {
-            transform.position = startposition;
+            GetComponent<RectTransform>().localPosition = cowInitialPos.localPosition;
         }
         else
         {
-            transform.position = startposition + new Vector3(2*moveAmount,0,0);
+            GetComponent<RectTransform>().localPosition = cowInitialPos.localPosition + new Vector3(2 * moveAmount,0,0);
         }
         controlenable = true;
         alpha[positionIndex % itemsNumber] = 1;
@@ -207,7 +207,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     }
     public void Reset()
     {
-        if (!initializaed) return;
+        if (!initialized) return;
 
         positionIndex = 0;
         page = 0;
@@ -218,7 +218,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
         }
         alpha[0] = 1;
         bubbles[0].GetComponent<Image>().color = new Vector4(1, 1, 1, alpha[0]);
-        this.gameObject.transform.position = startposition;
+        GetComponent<RectTransform>().localPosition = cowInitialPos.localPosition;
         controlenable = true;
         updateBubbleImg();
     }

@@ -82,10 +82,10 @@ public class buttonMaskManager : MonoBehaviour
         enable = false;
         while (Mathf.Abs(distance) > 3.0f)
         {
-            float step = Mathf.Lerp(0, distance, 8 * Time.deltaTime);
+            float step = Mathf.Lerp(0, distance, 12 * Time.deltaTime);
             for (int i = 0; i < buttons.Length; ++i)
             {
-                buttons[i].transform.localPosition += new Vector3(step, 0, 0);
+                buttons[i].GetComponent<RectTransform>().localPosition += new Vector3(step, 0, 0);
             }
             distance -= step;
             yield return null;
@@ -93,7 +93,7 @@ public class buttonMaskManager : MonoBehaviour
 
         for (int i = 0; i < buttons.Length; ++i)
         {
-            buttons[i].transform.localPosition += new Vector3(distance, 0, 0);
+            buttons[i].GetComponent<RectTransform>().localPosition += new Vector3(distance, 0, 0);
         }
 
         moveEndEvenet();
@@ -109,7 +109,7 @@ public class buttonMaskManager : MonoBehaviour
         PlayerData.Load();
         for (int i = 0; i < buttons.Length; ++i)
         {
-            buttons[i].transform.localPosition += new Vector3(currentLevel * 200, 0, 0);
+            buttons[i].GetComponent<RectTransform>().localPosition += new Vector3(currentLevel * 200, 0, 0);
         }
         currentLevel = 0;
         if (currentLevel >= PlayerData.mapInfo.levelLocked[currentWorld]) mapPreview.GetComponent<MapLoader>().UpdateMap("Locked");

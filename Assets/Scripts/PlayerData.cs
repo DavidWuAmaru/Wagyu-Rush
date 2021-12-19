@@ -18,7 +18,7 @@ public class MapInfo
     public MapInfo()
     {
         isTrainingLevelFinished = false;
-        levelLocked = new int[6] { 3, 0, 0, 0, 0, 0 };
+        levelLocked = new int[6] { 1, 0, 0, 0, 0, 0 };
         historyBest = new int[6, 6] { { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },
@@ -101,7 +101,7 @@ public class PlayerData
         }
         else
         {
-            Debug.LogError("player data File not found in " + filename);
+            //Debug.LogError("player data File not found in " + filename);
         }
     }
 }

@@ -16,6 +16,9 @@ public class AudioManager : MonoBehaviour {
         else
         {
             Destroy(gameObject);
+            SettingData.Load();
+            updateMusicVolume(SettingData.settingInfo.musicVol);
+            updateSEVolume(SettingData.settingInfo.soundVol);
             return;
         }
 
@@ -42,6 +45,9 @@ public class AudioManager : MonoBehaviour {
         }
 
         PlayMusic("BGM");
+        SettingData.Load();
+        updateMusicVolume(SettingData.settingInfo.musicVol);
+        updateSEVolume(SettingData.settingInfo.soundVol);
     }
     
     public float getSEAmplifier() { return SEAmplifier; }

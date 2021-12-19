@@ -51,10 +51,16 @@ public class settingMenu : MonoBehaviour
     public void updateSEAmplifier(float val)
     {
         FindObjectOfType<AudioManager>().updateSEVolume(val);
+        SettingData.Load();
+        SettingData.settingInfo.soundVol = val;
+        SettingData.Save();
     }
     public void updateMusicAmplifier(float val)
     {
         FindObjectOfType<AudioManager>().updateMusicVolume(val);
+        SettingData.Load();
+        SettingData.settingInfo.musicVol = val;
+        SettingData.Save();
     }
 
     public void SetResolution(int resolutionIndex)

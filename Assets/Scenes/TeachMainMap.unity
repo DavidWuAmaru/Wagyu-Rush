@@ -3319,7 +3319,7 @@ MonoBehaviour:
   stepAllowed: 40
   targetBoardImage: {fileID: 1218219329}
   targetBoardText: {fileID: 2026671043}
-  resultCowImage: {fileID: 3212346114010509090}
+  resultCowImage: {fileID: 1757304051}
   resultCowPics:
   - {fileID: 21300000, guid: ed46fa98d8c435944b99e69175020e59, type: 3}
   - {fileID: 21300000, guid: aeed1b1a719c5f74abb4085c8fc3c1f7, type: 3}

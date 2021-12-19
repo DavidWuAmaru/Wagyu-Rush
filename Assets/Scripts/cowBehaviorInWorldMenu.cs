@@ -19,6 +19,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     [SerializeField] private Sprite[] themes;
     [SerializeField] private RectTransform cowInitialPos;
     [SerializeField] private TMP_Text[] medalNumTexts;
+    [SerializeField] private Button editButton;
 
     [SerializeField] private GameObject scalingTeam;
 
@@ -113,6 +114,14 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
                 WorldTitle.text = string.Format("{0}.{1}", positionIndex + 1, DataManager.worldNames[positionIndex]);
                 MenuButtonFunction.ChapterNumber = positionIndex;
                 buttonMaskManager.currentWorld = positionIndex;
+                if(positionIndex == DataManager.customWorldInex)
+                {
+                    editButton.gameObject.SetActive(true);
+                }
+                else
+                {
+                    editButton.gameObject.SetActive(false);
+                }
                 //update levelMenu
                 themeImg.GetComponent<Image>().sprite = themes[positionIndex];
             }
@@ -136,7 +145,7 @@ public class cowBehaviorInWorldMenu : MonoBehaviour
     {
         PlayerData.Load();
         int[] medalCount = new int[3] { 0, 0, 0 };
-        for (int w = 0; w < DataManager.worldSize; ++w)
+        for (int w = 0; w < DataManager.customWorldInex; ++w)
         {
             for (int l = 0; l < DataManager.levelsOfWorld[w]; ++l)
             {

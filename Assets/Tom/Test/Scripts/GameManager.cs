@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button ResultUI_NextLevel;
     [SerializeField] private GameObject UnlockNewWorldObj;
     [SerializeField] private TMP_Text UnlockNewWorldText;
+    [SerializeField] private GameObject background;
     //Cow status
     [SerializeField] private Image resultImage;
     [SerializeField] private Sprite[] resultPics;
@@ -206,6 +207,10 @@ public class GameManager : MonoBehaviour
         stepMax = DataManager.levelGradings[difficulty, DataManager.levelGradingCount];
         mapSize.x = mapData.width; mapSize.y = mapData.height;
         assistMap = new int[mapSize.x, mapSize.y];
+
+        //resize background
+        background.transform.localScale = new Vector3(Mathf.Min((float)mapSize.x / (float)mapSize.y, 1), Mathf.Min((float)mapSize.y / (float)mapSize.x, 1), 1);
+
         //update edge length
         blockEdgeLength = mainMapLength / Mathf.Max(mapSize.x, mapSize.y);
         mapOffsetX = blockEdgeLength * 0.5f + 0.5f;

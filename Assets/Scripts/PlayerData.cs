@@ -18,7 +18,7 @@ public class MapInfo
     public MapInfo()
     {
         isTrainingLevelFinished = false;
-        levelLocked = new int[6] { 1, 0, 0, 0, 0, 0 };
+        levelLocked = new int[6] { 1, 0, 0, 0, 0, 6 };
         historyBest = new int[6, 6] { { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },
                                       { -1, -1, -1, -1, -1, -1 },

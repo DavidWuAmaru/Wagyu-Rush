@@ -5,10 +5,10 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static int levelGradingCount = 4;
-    public static string[] wagyuGradings = { "Gold", "Silver", "Copper", "Trash" };
+    public static string[] wagyuGradings = { "Gold", "Silver", "Bronze", "Failure" };
     public static int worldSize = 6;
     public static int customWorldInex = 5;
-    public static string[] worldNames = { "Beginner", "Rotation Block", "Dancing Wagyu", "Portal", "Doom", "Custom" };
+    public static string[] worldNames = { "Rookie", "Vertigo", "Rhythm", "Portal", "Finale", "Custom" };
     public static int[] levelsOfWorld = new int[] { 6, 6, 6, 6, 6, 6 };
     public static string[,] mapAddress = {
        {"Assets/Resources/MapLevel/Level1-1.map",

@@ -1,6 +1,8 @@
-# WagyuGame
+# Wagyu Rush
+## Creative Concept
+我們經常在閒暇之餘玩些腦力激盪的小遊戲，激發腦袋的運作、顛覆思維及想像。我們想為同類型的客群打造沒玩過的益智遊戲。
+![image](picture or gif url)
 
-今晚我想來點A5和牛會是一款真正的3A大作
 
 ## Getting started
 
